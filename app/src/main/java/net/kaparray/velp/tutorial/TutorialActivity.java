@@ -3,10 +3,8 @@ package net.kaparray.velp.tutorial;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,15 +12,14 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
+
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.widget.TextView;
 
 import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
+
 
 public class TutorialActivity extends AppCompatActivity {
 
@@ -41,11 +38,16 @@ public class TutorialActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
 
+    public void startMainActivity(View view) {
+        Intent intent = new Intent(TutorialActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ac_tutorial);
-
 
 
         Bundle extras = getIntent().getExtras();
@@ -70,7 +72,6 @@ public class TutorialActivity extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
     }
-
 
 
     /**
@@ -121,6 +122,8 @@ public class TutorialActivity extends AppCompatActivity {
             switch (position){
                 case 0: return TutorialFragment1.newInstance();
                 case 1: return TutorialFragment2.newInstance();
+                case 2: return TutorialFragment3.newInstance();
+                case 3: return TutorialFragment4.newInstance();
                 default: return PlaceholderFragment.newInstance(position + 1);
             }
 
@@ -129,7 +132,10 @@ public class TutorialActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 2;
+            return 4;
         }
+
+
+
     }
 }
