@@ -33,7 +33,9 @@
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:background="@drawable/round"
-            android:text="fnjksdabflkbdskljfbd;sakljbf;kdalsbfl;kadsbfglkhadsbglkadsbng;aksdbglkdasn glkasd glads gfladks glkdasb glasdk bgdaslkjgbas;dkbnglkdasbnglkahdsb"
+            android:text="@string/permiss"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@+id/constraintLayout"
             tools:layout_constraintLeft_creator="1"
@@ -44,13 +46,13 @@
             android:layout_height="match_parent">
 
             <Button
-                android:background="@drawable/round"
-                android:layout_gravity="bottom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@drawable/round"
+                android:onClick="startMainActivity"
                 android:text="@string/start"
-                android:textColor="#0f00ca"
-                android:onClick="startMainActivity"/>
+                android:textColor="@android:color/background_light" />
 
         </LinearLayout>
 
