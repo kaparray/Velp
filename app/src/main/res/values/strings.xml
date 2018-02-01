@@ -1,11 +1,12 @@
 <resources>
     <string name="app_name">Velp</string>
-    <string name="title_activity_main">MainActivity</string>
+
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+<<<<<<< HEAD
     <string name="title_activity_tutorial">TutorialActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="swiping">Свайпните для продолжения →</string>
@@ -14,4 +15,24 @@
     <string name="challenges">Добавляй задания и челленджи. Выполняй просьбы и зарабатывай баллы.</string>
     <string name="intro">Velp Проси. Помогай. Приложение для волонтеров.</string>
     <string name="permiss">Предоставь, пожалуйста, разрешение на отслеживание местоположения, сведения о контактах и доступ к SMS для того, чтобы наше приложение функционировало правильно и приносило пользу. Спасибо, что поддерживаете нас!</string>
+=======
+
+
+
+
+    <!-- Button tutorial text -->
+    <string name="swiping">Свайпните для продолжения →</string>
+    <string name="start">Начало</string>
+
+
+    <!-- Tutorial text -->
+    <string name="Tutorial1">Velp Проси. Помогай. Приложение для волонтеров.</string>
+    <string name="Tutorial2">Добавляй задания и челленджи. Выполняй просьбы и зарабатывай баллы. Это просто!</string>
+    <string name="Tutorial3">Обменивай баллы на бонусы или дополнительные функции. </string>
+    <string name="Tutorial4">Помогая друг другу мы делаем мир чуть-чуть лучше. Не важно как, и чем - главное помогать!</string>
+
+
+
+
+>>>>>>> Finish Tutorial, add icon for NavBar
 </resources>

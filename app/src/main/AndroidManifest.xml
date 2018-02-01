@@ -20,11 +20,9 @@
         </activity>
         <activity
         android:name=".tutorial.TutorialActivity"
-        android:label="@string/title_activity_tutorial"
         android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
 
     </application>

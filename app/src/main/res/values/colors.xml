@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#79d4d4</color>
-    <color name="colorPrimaryDark">#45a2a3</color>
-    <color name="colorAccent">#acffff</color>
+
+
+    <!-- White color -->
+    <color name="iron">#D7D7D7</color>
+    <color name="darkGrey">#A6A6A6</color>
+    <color name="white">#ffffff</color>
+    <color name="WildSand">#F4F4F4</color>
+
+
+    <!-- Blue color -->
+    <color name="Danude">#5C91C2</color>
+    <color name="BlueDeFrance">#3D8FDD</color>
+    <color name="PictonBlue">#60A3DD</color>
+
+
+    <!-- Black color -->
+    <color name="black">#000000</color>
+
 </resources>
