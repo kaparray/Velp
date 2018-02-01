@@ -29,23 +29,13 @@
             android:id="@+id/section_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-<<<<<<< HEAD
-            android:background="@drawable/round"
-            android:text="@string/permiss"
-            android:textColor="@android:color/background_light"
-            android:textSize="18sp"
-=======
+            android:layout_margin="8dp"
             android:textColor="@color/white"
             android:text="@string/Tutorial4"
             android:textStyle="bold"
             android:textSize="24sp"
             android:gravity="center"
             android:background="@drawable/card_round"
->>>>>>> Finish Tutorial, add icon for NavBar
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@+id/constraintLayout"
             tools:layout_constraintLeft_creator="1"
@@ -56,25 +46,15 @@
             android:layout_height="match_parent">
 
             <Button
-<<<<<<< HEAD
-=======
-                android:background="@drawable/card_round"
-                android:layout_gravity="bottom"
->>>>>>> Finish Tutorial, add icon for NavBar
+                android:background="@drawable/text_round"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:background="@drawable/round"
-                android:onClick="startMainActivity"
                 android:text="@string/start"
-<<<<<<< HEAD
-                android:textColor="@android:color/background_light" />
-=======
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:textColor="@color/white"
                 android:onClick="startMainActivity"/>
->>>>>>> Finish Tutorial, add icon for NavBar
 
         </LinearLayout>
 

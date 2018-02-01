@@ -27,11 +27,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-<<<<<<< HEAD
-        app:srcCompat="@drawable/hand_shake" />
-=======
         app:srcCompat="@drawable/ic_add_button"
         tools:ignore="VectorDrawableCompat" />
->>>>>>> Finish Tutorial, add icon for NavBar
+
 
 </android.support.design.widget.CoordinatorLayout>

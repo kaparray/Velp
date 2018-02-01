@@ -5,7 +5,7 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_task"
             android:icon="@drawable/ic_task"
             android:title="Task" />
         <item

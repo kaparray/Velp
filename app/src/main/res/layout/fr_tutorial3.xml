@@ -11,10 +11,7 @@
         android:layout_height="match_parent"
         android:layout_margin="35dp"
         android:background="@drawable/card_round"
-        android:orientation="vertical"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="54dp"
-        tools:layout_editor_absoluteY="0dp">
+        android:orientation="vertical">
 
 
         <ImageView
@@ -29,55 +26,30 @@
             android:id="@+id/section_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-<<<<<<< HEAD
-            android:background="@drawable/round"
-            android:text="@string/Grades"
-            android:textColor="@android:color/background_light"
-            android:textSize="24sp"
-=======
+            android:layout_margin="8dp"
             android:textColor="@color/white"
             android:background="@drawable/text_round"
             android:text="@string/Tutorial3"
             android:textStyle="bold"
             android:textSize="24sp"
-            android:gravity="center"
->>>>>>> Finish Tutorial, add icon for NavBar
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/constraintLayout"
-            tools:layout_constraintLeft_creator="1"
-            tools:layout_constraintTop_creator="1" />
+            android:gravity="center" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
-<<<<<<< HEAD
-=======
                 android:layout_margin="8dp"
                 android:background="@drawable/card_round"
                 android:gravity="center"
->>>>>>> Finish Tutorial, add icon for NavBar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:layout_margin="8dp"
-                android:background="@drawable/round"
-                android:gravity="center"
                 android:text="@string/swiping"
-<<<<<<< HEAD
-                android:textColor="@android:color/background_light"
+                android:textColor="@android:color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />
-=======
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:textSize="16sp" />
->>>>>>> Finish Tutorial, add icon for NavBar
+
 
         </LinearLayout>
 
