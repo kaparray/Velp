@@ -13,9 +13,12 @@
     <color name="Danude">#5C91C2</color>
     <color name="BlueDeFrance">#3D8FDD</color>
     <color name="PictonBlue">#60A3DD</color>
+    <color name="Malibu">#58ABE3</color>
+    <color name="ColumbiaBlue">#93E4FD</color>
+    <color name="JordyBlue">#79B7E8</color>
 
 
     <!-- Black color -->
-    <color name="black">#000000</color>
+    <color name="black">#000</color>
 
 </resources>

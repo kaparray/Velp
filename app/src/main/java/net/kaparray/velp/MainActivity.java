@@ -14,9 +14,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import net.kaparray.velp.R;
+import net.kaparray.velp.fragments.AboutFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    AboutFragment aboutFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        aboutFragment = new AboutFragment();
     }
 
     @Override
@@ -80,11 +85,16 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+
+
         int id = item.getItemId();
 
         if (id == R.id.nav_task) {
-            // Handle the camera action
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.container, aboutFragment)
+                    .addToBackStack(null)
+                    .commit();
         } else if (id == R.id.nav_bonus) {
 
         } else if (id == R.id.nav_chat) {

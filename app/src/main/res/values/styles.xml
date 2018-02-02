@@ -3,7 +3,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/WildSand</item>
+        <item name="colorPrimary">@color/JordyBlue</item>
         <item name="colorPrimaryDark">@color/darkGrey</item>
         <item name="colorAccent">@color/white</item>
         <item name="actionBarTheme">@style/ActionBar</item>
@@ -29,5 +29,8 @@
 
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    
+    
+
 
 </resources>
