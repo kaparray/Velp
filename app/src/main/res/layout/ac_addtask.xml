@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <EditText
+        android:id="@+id/et_NameTask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name task"
+        android:textColor="@color/BlueDeFrance"/>
+
+    <EditText
+        android:id="@+id/et_valueTask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:minLines="3"
+        android:maxLines="7"
+        android:lines="5"
+        android:hint="Task value"
+        android:textColor="@color/BlueDeFrance"/>
+
+
+    <Button
+        android:id="@+id/btn_addTask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add task"/>
+
+</LinearLayout>

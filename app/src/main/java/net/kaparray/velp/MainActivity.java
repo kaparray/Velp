@@ -2,7 +2,6 @@ package net.kaparray.velp;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,13 +12,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import net.kaparray.velp.R;
 import net.kaparray.velp.fragments.AboutFragment;
+import net.kaparray.velp.fragments.AddTaskFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     AboutFragment aboutFragment;
+    AddTaskFragment addTaskFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +33,13 @@ public class MainActivity extends AppCompatActivity
                 new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.container, addTaskFragment)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 
@@ -48,6 +53,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         aboutFragment = new AboutFragment();
+        addTaskFragment = new AddTaskFragment();
     }
 
     @Override

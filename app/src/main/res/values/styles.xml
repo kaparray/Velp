@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/JordyBlue</item>
         <item name="colorPrimaryDark">@color/darkGrey</item>
         <item name="colorAccent">@color/white</item>
+
         <item name="actionBarTheme">@style/ActionBar</item>
     </style>
 

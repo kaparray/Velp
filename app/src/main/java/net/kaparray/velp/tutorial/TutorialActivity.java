@@ -17,32 +17,25 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import net.kaparray.velp.AuthActivity;
 import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
 
 
 public class TutorialActivity extends AppCompatActivity {
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
+
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
     private ViewPager mViewPager;
 
-    public void startMainActivity(View view) {
-        Intent intent = new Intent(TutorialActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();
-    }
+   public void startAuthActivity(View view){
+       Intent intent = new Intent(TutorialActivity.this, AuthActivity.class);
+       startActivity(intent);
+       finish();
+   }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +47,7 @@ public class TutorialActivity extends AppCompatActivity {
         if (extras == null) {
             SharedPreferences preferences = getSharedPreferences("TUTORIAL", Context.MODE_PRIVATE);
             if (preferences.getBoolean("activity_executed", false)) {
-                Intent intent = new Intent(this, MainActivity.class);
+                Intent intent = new Intent(TutorialActivity.this, AuthActivity.class);
                 startActivity(intent);
                 finish();
             } else {
@@ -74,23 +67,14 @@ public class TutorialActivity extends AppCompatActivity {
     }
 
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
+
     public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
+
         private static final String ARG_SECTION_NUMBER = "section_number";
 
         public PlaceholderFragment() {
         }
 
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
         public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
@@ -106,10 +90,7 @@ public class TutorialActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
+
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {

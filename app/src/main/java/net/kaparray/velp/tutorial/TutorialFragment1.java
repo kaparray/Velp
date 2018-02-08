@@ -10,14 +10,19 @@ import net.kaparray.velp.R;
 
 
 public class TutorialFragment1 extends Fragment {
-    public static TutorialFragment1 newInstance() {
-        return new TutorialFragment1();
-    }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fr_tutorial1, container, false);
     }
+
+
+    public static TutorialFragment1 newInstance() {
+        return new TutorialFragment1();
+    }
+
 }
 
