@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <color name="colorAccent">#DE478C</color>
+
+
 
     <!-- White color -->
     <color name="iron">#D7D7D7</color>

@@ -1,16 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/iron"
-    android:id="@+id/aboutFr">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="ngljkdabnglkjbfsdkjg"
-        android:textSize="100sp"/>
+    android:layout_height="match_parent">
 
 
-</LinearLayout>
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:clickable="true"
+        card_view:cardBackgroundColor="@color/Malibu"
+        card_view:cardCornerRadius="15dp"
+        card_view:cardElevation="5dp"
+        card_view:contentPadding="0dp">
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/MotivationText"
+            android:textSize="24sp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:layout_margin="15dp"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="bottom"
+            android:layout_margin="15dp">
+
+            <Button
+                android:id="@+id/btn_work"
+                android:textColor="@color/white"
+                android:background="@drawable/button_round"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/work"
+                android:layout_marginBottom="10dp"/>
+
+            <Button
+                android:id="@+id/btn_tutorial"
+                android:textColor="@color/white"
+                android:background="@drawable/button_round"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/tutorial_again"/>
+
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+
+</RelativeLayout>

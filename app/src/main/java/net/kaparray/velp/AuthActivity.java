@@ -1,16 +1,14 @@
 package net.kaparray.velp;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,6 +25,7 @@ public class AuthActivity extends AppCompatActivity{
     EditText mEmail;
     Button mLogIn;
     Button mRegistration;
+    TextView mForgetPas;
     public static final String TAG = "Email_Login_Incorrect";
 
 
@@ -58,8 +57,9 @@ public class AuthActivity extends AppCompatActivity{
         mEmail =  findViewById(R.id.et_emailSignIn);
 
         mLogIn = findViewById(R.id.btn_loginSignIn);
-
         mRegistration = findViewById(R.id.btn_registrationSignIn);
+
+        mForgetPas = findViewById(R.id.tv_forgetPass);
 
 
         mLogIn.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +94,16 @@ public class AuthActivity extends AppCompatActivity{
                 startActivity(intent);
             }
         });
+
+
+        mForgetPas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
+
 
 
     public void MainPage(){

@@ -25,9 +25,6 @@ import net.kaparray.velp.R;
 public class TutorialActivity extends AppCompatActivity {
 
 
-    private SectionsPagerAdapter mSectionsPagerAdapter;
-
-    private ViewPager mViewPager;
 
    public void startAuthActivity(View view){
        Intent intent = new Intent(TutorialActivity.this, AuthActivity.class);
@@ -47,7 +44,7 @@ public class TutorialActivity extends AppCompatActivity {
         if (extras == null) {
             SharedPreferences preferences = getSharedPreferences("TUTORIAL", Context.MODE_PRIVATE);
             if (preferences.getBoolean("activity_executed", false)) {
-                Intent intent = new Intent(TutorialActivity.this, AuthActivity.class);
+                Intent intent = new Intent(TutorialActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             } else {

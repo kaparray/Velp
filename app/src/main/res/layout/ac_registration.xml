@@ -11,14 +11,17 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autoSizeTextType="uniform"
         android:hint="Email"
-        android:gravity="center"
+        android:background="@drawable/text_round"
         android:layout_gravity="center"
         android:inputType="textEmailAddress"
-        android:textColor="#000" />
+        android:textColor="#000"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"/>
 
 
 
@@ -28,15 +31,18 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autoSizeTextType="uniform"
         android:ems="10"
+        android:background="@drawable/text_round"
         android:hint="Password"
         android:inputType="textPassword"
         android:textColor="#000"
-        android:gravity="center"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"/>
 
 
 
@@ -46,15 +52,18 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autoSizeTextType="uniform"
         android:ems="10"
+        android:background="@drawable/text_round"
         android:hint="Password agein"
-        android:gravity="center"
         android:layout_gravity="center"
         android:inputType="textPassword"
-        android:textColor="#000" />
+        android:textColor="#000"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"/>
 
     <EditText
         android:id="@+id/et_name"
@@ -63,9 +72,11 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/text_round"
         android:hint="Name"
-        android:gravity="center"
-        />
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp" />
 
     <EditText
         android:id="@+id/et_phone"
@@ -74,23 +85,35 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:hint="Phone"/>
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/text_round"
+        android:hint="Phone"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"/>
 
 
 
-    <Button
-        android:id="@+id/btn_registration"
+
+
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="7dp"
-        android:background="#30b4c2"
-        android:text="Register"
-        android:textColor="#3f51b5"
-        android:textSize="18sp"
-        android:textStyle="italic" />
+        android:layout_height="match_parent">
+        <Button
+            android:layout_gravity="bottom"
+            android:id="@+id/btn_registration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/button_round"
+            android:text="Register"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="italic" />
+
+    </LinearLayout>
 
 
 </LinearLayout>

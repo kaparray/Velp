@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,7 +32,7 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.ac_addtask, container, false);
+        final View rootView = inflater.inflate(R.layout.ac_addtask, container, false);
 
 
        mAddTask = rootView.findViewById(R.id.btn_addTask);
@@ -45,6 +46,7 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
                mUserAccount.child("userUID").setValue(user.getUid());
                mUserAccount.child("taskUser").setValue(mTask.getText().toString());
                mUserAccount.child("nameTask").setValue(mValueTask.getText().toString());
+               Toast.makeText(getContext(),"Task add in database", Toast.LENGTH_LONG).show();
            }
        });
 

@@ -3,5 +3,6 @@
 
     <style name="ActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:titleTextColor">@color/black</item>
+        <item name="android:colorBackgroundFloating">@color/white</item>
     </style>
 </resources>

@@ -20,7 +20,17 @@
     <string name="Tutorial4">Помогая друг другу мы делаем мир чуть-чуть лучше. Не важно как, и чем - главное помогать!</string>
 
 
+    <!-- About Fragment -->
+    <string name="MotivationText">Мы глубоко убеждены в том, что достичь целей мирового масштаба невозможно в одиночку, именно поэтому мы разработали проект Velp — место, где люди могут объединиться во имя общего великого дела. Станьте частью нашей команды по помощи людям.</string>
+    <string name="work">Стать частью команды</string>
+    <string name="tutorial_again">Филосоыия проекта</string>
 
+
+
+    <!-- Bonus Fragment -->
+    <string name="Title_AlretDialogBonus">Бонус</string>
+    <string name="Text_AlretDialogBonus">Вданный момент мы ведём работу над данной фунуцией!</string>
+    <string name="coming_soon">В ближайшее время</string>
 
 
 </resources>

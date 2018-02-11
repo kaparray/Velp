@@ -11,37 +11,42 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import net.kaparray.velp.fragments.AboutFragment;
 import net.kaparray.velp.fragments.AddTaskFragment;
+import net.kaparray.velp.fragments.BonusFragment;
+import net.kaparray.velp.fragments.TaskFragment;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference("Users");
+
 
     AboutFragment aboutFragment;
-    AddTaskFragment addTaskFragment;
+    BonusFragment bonusFragment;
+    TaskFragment taskFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ac_main);
+
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(
-                new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.container, addTaskFragment)
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -53,7 +58,14 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         aboutFragment = new AboutFragment();
-        addTaskFragment = new AddTaskFragment();
+        bonusFragment = new BonusFragment();
+        taskFragment = new TaskFragment();
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container, taskFragment)
+                .addToBackStack(null)
+                .commit();
     }
 
     @Override
@@ -96,25 +108,51 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_task) {
+            // RecyclerView Task
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.container, taskFragment)
+                    .addToBackStack(null)
+                    .commit();
+        } else if (id == R.id.nav_map){
+            // Map
+        } else if (id == R.id.nav_rating) {
+            // Rating
+        } else if (id == R.id.nav_chat) {
+            // Chat
+//            getSupportFragmentManager()
+//                    .beginTransaction()
+//                    .replace(R.id.container, chatFragment)
+//                    .addToBackStack(null)
+//                    .commit();
+        } else if (id == R.id.nav_bonus) {
+            // Bonus
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.container, bonusFragment)
+                    .addToBackStack(null)
+                    .commit();
+        } else if (id == R.id.nav_share) {
+            // Settings
+        } else if (id == R.id.nav_info) {
+            // Info
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.container, aboutFragment)
                     .addToBackStack(null)
                     .commit();
-        } else if (id == R.id.nav_bonus) {
-
-        } else if (id == R.id.nav_chat) {
-
-        } else if (id == R.id.nav_info) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.nav_share){
+            // Share
+        } else if (id == R.id.nav_send){
+            // Send
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+
+
 }
