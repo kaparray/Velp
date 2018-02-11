@@ -1,6 +1,5 @@
 package net.kaparray.velp.fragments;
 
-import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;

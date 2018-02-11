@@ -16,24 +16,27 @@
         android:textColor="#000"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
-        android:layout_margin="15dp"/>
+        android:layout_margin="15dp"
+        android:inputType="text"
+        android:imeOptions="actionNext"/>
 
     <EditText
         android:id="@+id/et_valueTask"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:minLines="3"
-        android:maxLines="7"
-        android:lines="5"
-        android:hint="Task value"
+        android:layout_gravity="center"
+        android:layout_margin="15dp"
         android:autoSizeTextType="uniform"
         android:background="@drawable/text_round"
-        android:layout_gravity="center"
-        android:textColor="#000"
+        android:hint="Task value"
+        android:imeOptions="actionSend"
+        android:inputType="textMultiLine"
+        android:lines="5"
+        android:maxLines="7"
+        android:minLines="3"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
-        android:layout_margin="15dp"/>
+        android:textColor="#000" />
 
 
     <Button
@@ -47,6 +50,7 @@
         android:text="Add task"
         android:textColor="@color/white"
         android:textSize="18sp"
-        android:textStyle="italic" />
+        android:textStyle="italic"
+        android:focusable="false" />
 
 </LinearLayout>

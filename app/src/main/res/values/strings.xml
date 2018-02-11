@@ -5,7 +5,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Настройки</string>
 
 
     <!-- Button tutorial text -->
@@ -31,6 +31,19 @@
     <string name="Title_AlretDialogBonus">Бонус</string>
     <string name="Text_AlretDialogBonus">Вданный момент мы ведём работу над данной фунуцией!</string>
     <string name="coming_soon">В ближайшее время</string>
+
+
+    <!-- Menu drawer -->
+    <string name="Task">Задачи</string>
+    <string name="Map">Карта</string>
+    <string name="Rating">Рейтинг</string>
+    <string name="Chat">Чат</string>
+    <string name="Bonus">Бонусы</string>
+    <string name="Settings">Настройки</string>
+    <string name="About">О приложении</string>
+    <string name="Feedback">Обратная связь</string>
+    <string name="Share">Поделится</string>
+    <string name="Send">Отправить отзыв</string>
 
 
 </resources>

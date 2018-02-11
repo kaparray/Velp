@@ -7,44 +7,44 @@
         <item
             android:id="@+id/nav_task"
             android:icon="@drawable/ic_task"
-            android:title="Task" />
+            android:title="@string/Task" />
         <item
             android:id="@+id/nav_map"
             android:icon="@drawable/ic_map"
-            android:title="Map" />
+            android:title="@string/Map" />
 
         <item
             android:id="@+id/nav_rating"
             android:icon="@drawable/ic_rating"
-            android:title="Rating" />
+            android:title="@string/Rating" />
         <item
             android:id="@+id/nav_chat"
             android:icon="@drawable/ic_chat"
-            android:title="Chat" />
+            android:title="@string/Chat" />
         <item
             android:id="@+id/nav_bonus"
             android:icon="@drawable/ic_bonus"
-            android:title="Bonus" />
+            android:title="@string/Bonus" />
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_settings"
-            android:title="Settings" />
+            android:title="@string/Settings" />
         <item
             android:id="@+id/nav_info"
             android:icon="@drawable/ic_info"
-            android:title="Info" />
+            android:title="@string/About" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="@string/Feedback">
         <menu>
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:title="@string/Share" />
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:title="@string/Send" />
         </menu>
     </item>
 

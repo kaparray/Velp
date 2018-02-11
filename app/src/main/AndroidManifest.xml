@@ -25,11 +25,12 @@
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".AuthActivity"
+            android:name=".Auth.AuthActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".RegistrationActivity"
+            android:name=".Auth.RegistrationActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
 
     </application>
 

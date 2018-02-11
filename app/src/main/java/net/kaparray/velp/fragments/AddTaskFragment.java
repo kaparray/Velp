@@ -1,10 +1,12 @@
 package net.kaparray.velp.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -14,7 +16,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
 
 public class AddTaskFragment extends android.support.v4.app.Fragment{
@@ -32,7 +33,7 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
-        final View rootView = inflater.inflate(R.layout.ac_addtask, container, false);
+        final View rootView = inflater.inflate(R.layout.fr_addtask, container, false);
 
 
        mAddTask = rootView.findViewById(R.id.btn_addTask);
@@ -42,6 +43,10 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
        mAddTask.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
+               InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+               imm.hideSoftInputFromWindow(mAddTask.getWindowToken(),
+                       InputMethodManager.HIDE_NOT_ALWAYS);
+
                DatabaseReference mUserAccount = myRef.push();
                mUserAccount.child("userUID").setValue(user.getUid());
                mUserAccount.child("taskUser").setValue(mTask.getText().toString());

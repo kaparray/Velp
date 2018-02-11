@@ -17,8 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-import net.kaparray.velp.AuthActivity;
-import net.kaparray.velp.MainActivity;
+import net.kaparray.velp.Auth.AuthActivity;
 import net.kaparray.velp.R;
 
 
@@ -44,7 +43,7 @@ public class TutorialActivity extends AppCompatActivity {
         if (extras == null) {
             SharedPreferences preferences = getSharedPreferences("TUTORIAL", Context.MODE_PRIVATE);
             if (preferences.getBoolean("activity_executed", false)) {
-                Intent intent = new Intent(TutorialActivity.this, MainActivity.class);
+                Intent intent = new Intent(TutorialActivity.this, AuthActivity.class);
                 startActivity(intent);
                 finish();
             } else {

@@ -1,11 +1,13 @@
-package net.kaparray.velp;
+package net.kaparray.velp.Auth;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,6 +19,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import net.kaparray.velp.MainActivity;
+import net.kaparray.velp.R;
+
 
 public class AuthActivity extends AppCompatActivity{
 
@@ -27,10 +32,6 @@ public class AuthActivity extends AppCompatActivity{
     Button mRegistration;
     TextView mForgetPas;
     public static final String TAG = "Email_Login_Incorrect";
-
-
-
-
 
     @Override
     public void onStart() {
@@ -73,6 +74,9 @@ public class AuthActivity extends AppCompatActivity{
                                     // Sign in success, update UI with the signed-in user's information
                                     Log.d(TAG, "signInWithEmail:success");
                                     FirebaseUser user = mAuth.getCurrentUser();
+                                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                                    imm.hideSoftInputFromWindow(mLogIn.getWindowToken(),
+                                            InputMethodManager.HIDE_NOT_ALWAYS);
                                     // Go to MainActivity!!
                                     MainPage();
                                 } else {
@@ -102,7 +106,11 @@ public class AuthActivity extends AppCompatActivity{
 
             }
         });
+
+
     }
+
+
 
 
 
