@@ -1,5 +1,6 @@
 package net.kaparray.velp.Auth;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -53,10 +54,12 @@ public class AuthActivity extends AppCompatActivity{
     }
 
 
+    @SuppressLint("CutPasteId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ac_signin);
+
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -122,6 +125,14 @@ public class AuthActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
 
+            }
+        });
+
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageView.startAnimation(anim);
             }
         });
 

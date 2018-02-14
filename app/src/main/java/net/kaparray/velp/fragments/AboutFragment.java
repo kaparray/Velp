@@ -11,7 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toolbar;
 
+import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
 import net.kaparray.velp.tutorial.TutorialActivity;
 
@@ -19,6 +21,7 @@ public class AboutFragment extends android.support.v4.app.Fragment{
 
     Button mTutorial;
     Button mWork;
+    Toolbar mToolBar;
 
     @Nullable
     @Override

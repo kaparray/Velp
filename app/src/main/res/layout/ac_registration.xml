@@ -58,7 +58,7 @@
         android:autoSizeTextType="uniform"
         android:ems="10"
         android:background="@drawable/text_round"
-        android:hint="Password agein"
+        android:hint="Password again"
         android:layout_gravity="center"
         android:inputType="textPassword"
         android:textColor="#000"

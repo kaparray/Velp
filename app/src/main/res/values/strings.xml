@@ -27,9 +27,10 @@
 
 
     <!-- About Fragment -->
+    <string name="AboutTitle">О приложении</string>
     <string name="MotivationText">Мы глубоко убеждены в том, что достичь целей мирового масштаба невозможно в одиночку, именно поэтому мы разработали проект Velp — место, где люди могут объединиться во имя общего великого дела. Станьте частью нашей команды по помощи людям.</string>
     <string name="work">Стать частью команды</string>
-    <string name="tutorial_again">Филосоыия проекта</string>
+    <string name="tutorial_again">Философия проекта</string>
 
 
 
@@ -50,6 +51,7 @@
     <string name="Feedback">Обратная связь</string>
     <string name="Share">Поделится</string>
     <string name="Send">Отправить отзыв</string>
+
 
 
 </resources>

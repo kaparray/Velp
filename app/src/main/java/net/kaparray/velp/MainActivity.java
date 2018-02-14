@@ -1,5 +1,6 @@
 package net.kaparray.velp;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -31,7 +32,9 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
     TaskFragment taskFragment;
     SettingsFragment settingsFragment;
 
+    android.widget.Toolbar mToolBar;
 
+    @SuppressLint("CutPasteId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +44,6 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -157,8 +159,6 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-
 
 
 }
