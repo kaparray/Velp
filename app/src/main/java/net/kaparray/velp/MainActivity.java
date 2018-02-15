@@ -1,12 +1,16 @@
 package net.kaparray.velp;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -15,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import net.kaparray.velp.fragments.AboutFragment;
 import net.kaparray.velp.fragments.BonusFragment;
+//import net.kaparray.velp.fragments.SettingsFragment;
 import net.kaparray.velp.fragments.SettingsFragment;
 import net.kaparray.velp.fragments.TaskFragment;
 import net.kaparray.velp.utils.FirebaseIntegration;
@@ -32,14 +37,19 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
     TaskFragment taskFragment;
     SettingsFragment settingsFragment;
 
-    android.widget.Toolbar mToolBar;
+
+
 
     @SuppressLint("CutPasteId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ac_main);
 
+
+
+            // Set Dark Theme
+//            setTheme(R.style.Theme_Design_NoActionBar);
+        setContentView(R.layout.ac_main);
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -95,6 +105,7 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
         if (id == R.id.action_settings) {
             getSupportFragmentManager()
                     .beginTransaction()
+                    .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .replace(R.id.container, settingsFragment)
                     .addToBackStack(null)
                     .commit();
@@ -114,6 +125,7 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
             // RecyclerView Task
             getSupportFragmentManager()
                     .beginTransaction()
+                    .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .replace(R.id.container, taskFragment)
                     .addToBackStack(null)
                     .commit();
@@ -125,6 +137,7 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
             // Chat
 //            getSupportFragmentManager()
 //                    .beginTransaction()
+//                    .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
 //                    .replace(R.id.container, chatFragment)
 //                    .addToBackStack(null)
 //                    .commit();
@@ -132,6 +145,7 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
             // Bonus
             getSupportFragmentManager()
                     .beginTransaction()
+                    .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .replace(R.id.container, bonusFragment)
                     .addToBackStack(null)
                     .commit();
@@ -139,6 +153,7 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
             // Settings
             getSupportFragmentManager()
                     .beginTransaction()
+                    .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
                     .replace(R.id.container, settingsFragment)
                     .addToBackStack(null)
                     .commit();
@@ -146,12 +161,13 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
             // Info
             getSupportFragmentManager()
                     .beginTransaction()
+                    .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
                     .replace(R.id.container, aboutFragment)
                     .addToBackStack(null)
                     .commit();
         } else if (id == R.id.nav_share){
             // Share
-        } else if (id == R.id.nav_send){
+        } else if (id == R.id.nav_send) {
             // Send
         }
 

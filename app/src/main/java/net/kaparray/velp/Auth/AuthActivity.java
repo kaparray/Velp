@@ -1,11 +1,15 @@
 package net.kaparray.velp.Auth;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -26,9 +30,9 @@ import com.google.firebase.auth.FirebaseUser;
 
 import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
+import net.kaparray.velp.utils.ProgressDialogActivity;
 
-
-public class AuthActivity extends AppCompatActivity{
+public class AuthActivity extends ProgressDialogActivity{
 
     private FirebaseAuth mAuth;
     EditText mPassword;
@@ -77,12 +81,13 @@ public class AuthActivity extends AppCompatActivity{
         mLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Animation
-                imageView.startAnimation(anim);
                 // Hide keyboard
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(mLogIn.getWindowToken(),
                         InputMethodManager.HIDE_NOT_ALWAYS);
+
+                // Animation
+                showProgressDialog();
 
                 try{
                     mAuth.signInWithEmailAndPassword(mEmail.getText().toString(), mPassword.getText().toString())
@@ -149,5 +154,7 @@ public class AuthActivity extends AppCompatActivity{
     private void showMessage(@StringRes int string) {
         Toast.makeText(AuthActivity.this, string, Toast.LENGTH_LONG).show();
     }
+
+
 
 }
