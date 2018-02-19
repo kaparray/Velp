@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -62,6 +63,18 @@ public class AuthActivity extends ProgressDialogActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
+        SharedPreferences preferences = getSharedPreferences("theme",MODE_PRIVATE);
+        String side = preferences.getString("THEME"," ");
+
+        if (side.equals("dark")){
+            setTheme(R.style.Theme_Design_NoActionBar);
+        } else if (side.equals("light")){
+            setTheme(R.style.AppTheme_NoActionBar);
+        }
+
         setContentView(R.layout.ac_signin);
 
 
@@ -98,11 +111,13 @@ public class AuthActivity extends ProgressDialogActivity{
                                         // Sign in success, update UI with the signed-in user's information
                                         Log.d(TAG, "signInWithEmail:success");
                                         FirebaseUser user = mAuth.getCurrentUser();
+                                        hideProgressDialog();
                                         // Go to MainActivity!!
                                         MainPage();
                                     } else {
                                         // If sign in fails, display a message to the user.
                                         Log.w(TAG, "signInWithEmail:failure", task.getException());
+                                        hideProgressDialog();
                                         Toast.makeText(AuthActivity.this, "Authentication failed. Please try again!",
                                                 Toast.LENGTH_SHORT).show();
                                     }
@@ -110,6 +125,7 @@ public class AuthActivity extends ProgressDialogActivity{
                             });
                 } catch (Exception e) {
                     Log.e("Error", "Error auth");
+                    hideProgressDialog();
                     showMessage(R.string.ToastInSingIn
                     );
                 }

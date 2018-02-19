@@ -15,7 +15,6 @@ public class ProgressDialogActivity extends AppCompatActivity {
     public void showProgressDialog() {
         if (mProgressDialog == null) {
             mProgressDialog = new ProgressDialog(this);
-            mProgressDialog.setTitle("Авторизация..");
             mProgressDialog.setMessage("Загрузка..");
             mProgressDialog.setIndeterminate(true);
         }
@@ -36,4 +35,3 @@ public class ProgressDialogActivity extends AppCompatActivity {
     }
 
 }
-

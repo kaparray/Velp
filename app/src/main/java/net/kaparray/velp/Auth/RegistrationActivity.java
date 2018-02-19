@@ -1,6 +1,7 @@
 package net.kaparray.velp.Auth;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -46,6 +47,16 @@ public class RegistrationActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences preferences = getSharedPreferences("theme",MODE_PRIVATE);
+        String side = preferences.getString("THEME"," ");
+
+        if (side.equals("dark")){
+            setTheme(R.style.Theme_Design_NoActionBar);
+        } else if (side.equals("light")){
+            setTheme(R.style.AppTheme_NoActionBar);
+        }
+
         setContentView(R.layout.ac_registration);
 
         mAuth = FirebaseAuth.getInstance();

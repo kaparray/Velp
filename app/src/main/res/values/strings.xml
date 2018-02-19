@@ -33,7 +33,6 @@
     <string name="tutorial_again">Философия проекта</string>
 
 
-
     <!-- Bonus Fragment -->
     <string name="Title_AlretDialogBonus">Бонус</string>
     <string name="Text_AlretDialogBonus">Вданный момент мы ведём работу над данной фунуцией!</string>
@@ -51,7 +50,6 @@
     <string name="Feedback">Обратная связь</string>
     <string name="Share">Поделится</string>
     <string name="Send">Отправить отзыв</string>
-
 
 
 </resources>

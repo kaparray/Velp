@@ -10,17 +10,17 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import net.kaparray.velp.activity.SettingsActivity;
 import net.kaparray.velp.fragments.AboutFragment;
 import net.kaparray.velp.fragments.BonusFragment;
-//import net.kaparray.velp.fragments.SettingsFragment;
-import net.kaparray.velp.fragments.SettingsFragment;
 import net.kaparray.velp.fragments.TaskFragment;
 import net.kaparray.velp.utils.FirebaseIntegration;
 
@@ -35,17 +35,35 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
     AboutFragment aboutFragment;
     BonusFragment bonusFragment;
     TaskFragment taskFragment;
-    SettingsFragment settingsFragment;
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences preferences = getSharedPreferences("theme",MODE_PRIVATE);
+        String side = preferences.getString("THEME"," ");
 
+        if (side.equals("dark")){
+            setTheme(R.style.Theme_Design_NoActionBar);
+        } else if (side.equals("light")){
+            setTheme(R.style.AppTheme_NoActionBar);
+        }
+
+    }
 
     @SuppressLint("CutPasteId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        SharedPreferences preferences = getSharedPreferences("theme",MODE_PRIVATE);
+        String side = preferences.getString("THEME"," ");
 
+        if (side.equals("dark")){
+            setTheme(R.style.Theme_Design_NoActionBar);
+        } else if (side.equals("light")){
+            setTheme(R.style.AppTheme_NoActionBar);
+        }
 
             // Set Dark Theme
 //            setTheme(R.style.Theme_Design_NoActionBar);
@@ -68,7 +86,7 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
         aboutFragment = new AboutFragment();
         bonusFragment = new BonusFragment();
         taskFragment = new TaskFragment();
-        settingsFragment = new SettingsFragment();
+
 
         getSupportFragmentManager()
                 .beginTransaction()
@@ -103,18 +121,21 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                    .replace(R.id.container, settingsFragment)
-                    .addToBackStack(null)
-                    .commit();
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+            finish();
+//            getSupportFragmentManager()
+//                    .beginTransaction()
+//                    .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+//                    .replace(R.id.container, settingsFragment)
+//                    .addToBackStack(null)
+//                    .commit();
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
+    @SuppressWarnings("Stat ementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 
@@ -147,14 +168,6 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
                     .beginTransaction()
                     .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .replace(R.id.container, bonusFragment)
-                    .addToBackStack(null)
-                    .commit();
-        } else if (id == R.id.nav_settings) {
-            // Settings
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
-                    .replace(R.id.container, settingsFragment)
                     .addToBackStack(null)
                     .commit();
         } else if (id == R.id.nav_info) {
