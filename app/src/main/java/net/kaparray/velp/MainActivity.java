@@ -38,7 +38,7 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Users");
 
-    AddTaskFragment addTaskFragment;
+
     ProfileFragment profileFragment;
     AboutFragment aboutFragment;
     BonusFragment bonusFragment;
@@ -90,7 +90,6 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
         mNavHeader = headerview.findViewById(R.id.LL_profile);
 
 
-        addTaskFragment = new AddTaskFragment();
         aboutFragment = new AboutFragment();
         bonusFragment = new BonusFragment();
         taskFragment = new TaskFragment();
@@ -124,7 +123,7 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
         }else{
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.container, addTaskFragment)
+                    .add(R.id.container, taskFragment)
                     .commit();
         }
     }
