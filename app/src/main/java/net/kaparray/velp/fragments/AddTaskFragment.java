@@ -50,9 +50,9 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
                        InputMethodManager.HIDE_NOT_ALWAYS);
 
                DatabaseReference mUserAccount = myRef.push();
-               mUserAccount.child("userUID").setValue(user.getUid());
-               mUserAccount.child("taskName").setValue(mTask.getText().toString());
-               mUserAccount.child("taskValue").setValue(mValueTask.getText().toString());
+               mUserAccount.child("userTask").setValue(user.getUid());
+               mUserAccount.child("nameTask").setValue(mTask.getText().toString());
+               mUserAccount.child("valueTask").setValue(mValueTask.getText().toString());
                Toast.makeText(getContext(),"Task add in database", Toast.LENGTH_LONG).show();
            }
        });
