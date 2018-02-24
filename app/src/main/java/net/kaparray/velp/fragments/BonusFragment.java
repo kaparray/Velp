@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
 
 
@@ -22,7 +23,8 @@ public class BonusFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
         final View rootView = inflater.inflate(R.layout.fr_bonus, container, false);
-
+// Add title
+        ((MainActivity) getActivity()).setTitle(getString(R.string.BonusTitle));
 
         AlertDialog.Builder bonusAlretDialog = new AlertDialog.Builder(getActivity());
         bonusAlretDialog.setTitle(getString(R.string.Title_AlretDialogBonus));

@@ -34,6 +34,7 @@
 
 
     <!-- Bonus Fragment -->
+    <string name="BonusTitle">Бонусы</string>
     <string name="Title_AlretDialogBonus">Бонус</string>
     <string name="Text_AlretDialogBonus">Вданный момент мы ведём работу над данной фунуцией!</string>
     <string name="coming_soon">В ближайшее время</string>
@@ -51,5 +52,18 @@
     <string name="Share">Поделится</string>
     <string name="Send">Отправить отзыв</string>
 
+    <!-- AddTask Fragment  -->
+    <string name="AddTaskTitle">Добавление задачи</string>
+
+    <!-- Profile Fragment -->
+    <string name="ProfileTitle">Прфиль</string>
+
+    <!-- Task Fragment -->
+    <string name="TaskTitle">Задачи</string>
+
+    <!-- Settings Fragment -->
+    <string name="SettingsTitle">Настройки</string>
+    <string name="dark">Тёмная тема</string>
+    <string name="light">Светлая тема</string>
 
 </resources>

@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
 
 public class AddTaskFragment extends android.support.v4.app.Fragment{
@@ -23,7 +24,7 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
     private FirebaseAuth mAuth;
     FirebaseUser user = mAuth.getInstance().getCurrentUser();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("Task");
+    DatabaseReference myRef = database.getReference("task");
 
     Button mAddTask;
     EditText mTask;
@@ -34,7 +35,8 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
         final View rootView = inflater.inflate(R.layout.fr_addtask, container, false);
-
+// Add title
+        ((MainActivity) getActivity()).setTitle(getString(R.string.AddTaskTitle));
 
        mAddTask = rootView.findViewById(R.id.btn_addTask);
        mTask = rootView.findViewById(R.id.et_NameTask);
@@ -49,8 +51,8 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
 
                DatabaseReference mUserAccount = myRef.push();
                mUserAccount.child("userUID").setValue(user.getUid());
-               mUserAccount.child("taskUser").setValue(mTask.getText().toString());
-               mUserAccount.child("nameTask").setValue(mValueTask.getText().toString());
+               mUserAccount.child("taskName").setValue(mTask.getText().toString());
+               mUserAccount.child("taskValue").setValue(mValueTask.getText().toString());
                Toast.makeText(getContext(),"Task add in database", Toast.LENGTH_LONG).show();
            }
        });

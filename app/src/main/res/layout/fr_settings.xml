@@ -1,25 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="net.kaparray.velp.activity.SettingsActivity"
     android:orientation="vertical">
 
 
-
-
-    <ToggleButton
-        android:id="@+id/toggleButton"
+    <Switch
+        android:layout_margin="10dp"
+        android:id="@+id/sw_theme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:checked="false"
-        android:text="ToggleButton"
-        android:textOff="dark"
-        android:textOn="light" />
-
-
+        android:text="Выбор тёмной темы"
+        android:textOn="@android:string/cancel" />
 
     <Button
         android:id="@+id/btn_signOut"

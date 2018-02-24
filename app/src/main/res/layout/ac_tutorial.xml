@@ -16,18 +16,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
-    <com.github.vivchar.viewpagerindicator.ViewPagerIndicator
-        android:id = "@+id/view_pager_indicator"
-        android:layout_width = "wrap_content"
-        android:layout_height = "wrap_content"
-        android:layout_gravity = "center_horizontal|bottom"
-        android:layout_marginBottom = "20dp"
-        app:delimiterSize = "8dp"
-        app:itemScale = "1.5"
-        app:itemSelectedTint = "@color/colorAccent"
-        app:itemSize = "16dp"
-        app:itemTint = "@color/iron"
-        />
+
 
 
 </android.support.design.widget.CoordinatorLayout>

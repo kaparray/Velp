@@ -1,26 +1,33 @@
 package net.kaparray.velp;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.transition.Fade;
+import android.support.transition.Slide;
+import android.support.transition.TransitionInflater;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.transition.Transition;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import net.kaparray.velp.activity.SettingsActivity;
 import net.kaparray.velp.fragments.AboutFragment;
+import net.kaparray.velp.fragments.AddTaskFragment;
 import net.kaparray.velp.fragments.BonusFragment;
+import net.kaparray.velp.fragments.ProfileFragment;
+import net.kaparray.velp.fragments.SettingsFragment;
 import net.kaparray.velp.fragments.TaskFragment;
 import net.kaparray.velp.utils.FirebaseIntegration;
 
@@ -31,24 +38,22 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Users");
 
-
+    AddTaskFragment addTaskFragment;
+    ProfileFragment profileFragment;
     AboutFragment aboutFragment;
     BonusFragment bonusFragment;
     TaskFragment taskFragment;
+    SettingsFragment settingsFragment;
+    View mNavHeader;
 
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        SharedPreferences preferences = getSharedPreferences("theme",MODE_PRIVATE);
-        String side = preferences.getString("THEME"," ");
-
-        if (side.equals("dark")){
-            setTheme(R.style.Theme_Design_NoActionBar);
-        } else if (side.equals("light")){
-            setTheme(R.style.AppTheme_NoActionBar);
-        }
-
+    protected void onDestroy() {
+        super.onDestroy();
+        SharedPreferences preferences = getSharedPreferences("view", MODE_PRIVATE);
+        SharedPreferences.Editor editorView = preferences.edit();
+        editorView.putString("VIEW", "null");
+        editorView.apply();
     }
 
     @SuppressLint("CutPasteId")
@@ -56,23 +61,21 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+// Set Theme
         SharedPreferences preferences = getSharedPreferences("theme",MODE_PRIVATE);
-        String side = preferences.getString("THEME"," ");
+        String theme = preferences.getString("THEME"," ");
 
-        if (side.equals("dark")){
+        if (theme.equals("dark")){
             setTheme(R.style.Theme_Design_NoActionBar);
-        } else if (side.equals("light")){
+        } else if (theme.equals("light")){
             setTheme(R.style.AppTheme_NoActionBar);
         }
 
-            // Set Dark Theme
-//            setTheme(R.style.Theme_Design_NoActionBar);
         setContentView(R.layout.ac_main);
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -83,16 +86,47 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        View headerview = navigationView.getHeaderView(0);
+        mNavHeader = headerview.findViewById(R.id.LL_profile);
+
+
+        addTaskFragment = new AddTaskFragment();
         aboutFragment = new AboutFragment();
         bonusFragment = new BonusFragment();
         taskFragment = new TaskFragment();
+        settingsFragment = new SettingsFragment();
+        profileFragment = new ProfileFragment();
 
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.container, taskFragment)
-                .addToBackStack(null)
-                .commit();
+        mNavHeader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.container, profileFragment)
+                        .addToBackStack(null)
+                        .commit();
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                drawer.closeDrawer(GravityCompat.START);
+            }
+        });
+
+        // Set Fragment
+        SharedPreferences preferencesView = getSharedPreferences("view",MODE_PRIVATE);
+        String view = preferencesView.getString("VIEW"," ");
+
+        if (view.equals("settings")){
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.container, settingsFragment)
+                    .addToBackStack(null)
+                    .commit();
+        }else{
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.container, addTaskFragment)
+                    .commit();
+        }
     }
 
     @Override
@@ -121,15 +155,12 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
-            finish();
-//            getSupportFragmentManager()
-//                    .beginTransaction()
-//                    .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-//                    .replace(R.id.container, settingsFragment)
-//                    .addToBackStack(null)
-//                    .commit();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
+                    .replace(R.id.container, settingsFragment)
+                    .addToBackStack(null)
+                    .commit();
         }
 
         return super.onOptionsItemSelected(item);
@@ -138,7 +169,6 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
     @SuppressWarnings("Stat ementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-
 
         int id = item.getItemId();
 
@@ -162,6 +192,14 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
 //                    .replace(R.id.container, chatFragment)
 //                    .addToBackStack(null)
 //                    .commit();
+        } else if (id == R.id.nav_settings){
+            // Settings
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
+                    .replace(R.id.container, settingsFragment)
+                    .addToBackStack(null)
+                    .commit();
         } else if (id == R.id.nav_bonus) {
             // Bonus
             getSupportFragmentManager()
@@ -188,6 +226,8 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 
 
 }

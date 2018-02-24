@@ -1,17 +1,12 @@
 package net.kaparray.velp.Auth;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -170,7 +165,4 @@ public class AuthActivity extends ProgressDialogActivity{
     private void showMessage(@StringRes int string) {
         Toast.makeText(AuthActivity.this, string, Toast.LENGTH_LONG).show();
     }
-
-
-
 }

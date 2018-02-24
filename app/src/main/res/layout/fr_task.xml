@@ -7,20 +7,20 @@
 
 
 
-    <LinearLayout
+    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
 
-        <TextView
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:textSize="25sp"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rating_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Тут будет Recycler View для скролинга задач"
-            android:textColor="@color/BlueDeFrance"/>
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    </LinearLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

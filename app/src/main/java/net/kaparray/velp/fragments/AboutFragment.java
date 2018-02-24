@@ -32,6 +32,9 @@ public class AboutFragment extends android.support.v4.app.Fragment{
         mTutorial = rootView.findViewById(R.id.btn_tutorial);
         mWork = rootView.findViewById(R.id.btn_work);
 
+    // Add title
+        ((MainActivity) getActivity()).setTitle(getString(R.string.AboutTitle));
+
         mTutorial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

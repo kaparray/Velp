@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
 
 public class ProfileFragment extends Fragment{
@@ -17,7 +18,8 @@ public class ProfileFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fr_profile, container, false);
-
+// Add title
+        ((MainActivity) getActivity()).setTitle(getString(R.string.ProfileTitle));
 
         return rootView;
     }

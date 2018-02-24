@@ -30,12 +30,14 @@ public class RegistrationActivity extends AppCompatActivity{
     private static final String TAG = "Email_Login_Incorrect";
     private FirebaseAuth mAuth;
 
-    Button mRegistr;
+    Button mRegister;
     EditText mEmail;
     EditText mPassword1;
     EditText mPassword2;
     EditText mName;
     EditText mPhone;
+    EditText mAge;
+    EditText mCity;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Users");
@@ -51,25 +53,28 @@ public class RegistrationActivity extends AppCompatActivity{
         SharedPreferences preferences = getSharedPreferences("theme",MODE_PRIVATE);
         String side = preferences.getString("THEME"," ");
 
+        // Set theme
         if (side.equals("dark")){
             setTheme(R.style.Theme_Design_NoActionBar);
         } else if (side.equals("light")){
             setTheme(R.style.AppTheme_NoActionBar);
         }
-
+        // Set layout
         setContentView(R.layout.ac_registration);
 
         mAuth = FirebaseAuth.getInstance();
-
-        mRegistr = findViewById(R.id.btn_registration);
+        // Find button
+        mRegister = findViewById(R.id.btn_registration);
         mEmail = findViewById(R.id.et_email);
         mPassword1 = findViewById(R.id.et_pass1);
         mPassword2 = findViewById(R.id.et_pass2);
         mName = findViewById(R.id.et_name);
         mPhone = findViewById(R.id.et_phone);
+        mAge = findViewById(R.id.et_age);
+        mCity = findViewById(R.id.et_city);
 
 
-        mRegistr.setOnClickListener(new View.OnClickListener() {
+        mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isEmailValid() && isPasswordsValid()) {
@@ -86,6 +91,8 @@ public class RegistrationActivity extends AppCompatActivity{
                                         mUserAccount.child("password").setValue(mPassword1.getText().toString());
                                         mUserAccount.child("name").setValue(mName.getText().toString());
                                         mUserAccount.child("phone").setValue(mPhone.getText().toString());
+                                        mUserAccount.child("age").setValue(mAge.getText().toString());
+                                        mUserAccount.child("city").setValue(mCity.getText().toString());
                                         toSignIn();
 
                                     } else {
