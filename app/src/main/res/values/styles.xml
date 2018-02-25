@@ -22,6 +22,11 @@
         <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
 
+    <!-- Splash Screen theme. -->
+    <style name="SplashThemeDark" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen_dark</item>
+    </style>
+
 
     <!-- Text color for Action bar -->
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">

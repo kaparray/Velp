@@ -3,6 +3,7 @@ package net.kaparray.velp.tutorial;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 
 
@@ -25,6 +26,57 @@ public class TutorialActivity extends AppCompatActivity {
 
 
 
+    public class MyAdapter extends FragmentPagerAdapter {
+        private Context context = null;
+
+        public MyAdapter(Context context, FragmentManager mgr) {
+            super(mgr);
+            this.context = context;
+        }
+
+        @Override
+        public int getCount() {
+            return (4);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 0:
+                    return (TutorialFragment1.newInstance(position));
+                case 1:
+                    return (TutorialFragment2.newInstance(position));
+                case 2:
+                    return (TutorialFragment3.newInstance(position));
+                case 3:
+                    return (TutorialFragment4.newInstance(position));
+                default:
+                    return PlaceholderFragment.newInstance(position); 
+            }
+
+
+
+        }
+
+        @Override
+        public String getPageTitle(int position) {
+            switch (position) {
+                case 0:
+                    return (TutorialFragment1.getTitle(context, position));
+                case 1:
+                    return (TutorialFragment2.getTitle(context, position));
+                case 2:
+                    return (TutorialFragment3.getTitle(context, position));
+                case 3:
+                    return (TutorialFragment4.getTitle(context, position));
+                default:
+                    return (PlaceholderFragment.getTitle(context, position + 1));
+            }
+        }
+    }
+
+
+
    public void startAuthActivity(View view){
        Intent intent = new Intent(TutorialActivity.this, AuthActivity.class);
        startActivity(intent);
@@ -36,6 +88,16 @@ public class TutorialActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Set theme
+        SharedPreferences preferencesTheme  = getSharedPreferences("theme",MODE_PRIVATE);
+        String theme = preferencesTheme.getString("THEME"," ");
+
+        if (theme.equals("dark")){
+            setTheme(R.style.Theme_Design_NoActionBar);
+        } else if (theme.equals("light")){
+            setTheme(R.style.AppTheme_NoActionBar);
+        }
+
         setContentView(R.layout.ac_tutorial);
 
 
@@ -53,13 +115,10 @@ public class TutorialActivity extends AppCompatActivity {
             }
         }
 
-        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-
-
-        ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-
+    // Adapter for
+        ViewPager pager=(ViewPager)findViewById(R.id.pager);
+        pager.setAdapter(new MyAdapter(this, getSupportFragmentManager()));
     }
 
 
@@ -67,6 +126,17 @@ public class TutorialActivity extends AppCompatActivity {
     public static class PlaceholderFragment extends Fragment {
 
         private static final String ARG_SECTION_NUMBER = "section_number";
+
+        private int pageNumber;
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            pageNumber = getArguments() != null ? getArguments().getInt("num") : 1;
+        }
+        static String getTitle(Context context, int position) {
+            return "Страница № " + String.valueOf(position+1);
+        }
+
 
         public PlaceholderFragment() {
         }
@@ -87,32 +157,5 @@ public class TutorialActivity extends AppCompatActivity {
     }
 
 
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-
-            switch (position){
-                case 0: return TutorialFragment1.newInstance();
-                case 1: return TutorialFragment2.newInstance();
-                case 2: return TutorialFragment3.newInstance();
-                case 3: return TutorialFragment4.newInstance();
-                default: return PlaceholderFragment.newInstance(position + 1);
-            }
-
-        }
-
-        @Override
-        public int getCount() {
-            // Show 3 total pages.
-            return 4;
-        }
-
-
-
-    }
 }
+

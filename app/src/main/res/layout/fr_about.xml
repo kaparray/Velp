@@ -55,7 +55,8 @@
                 android:background="@drawable/button_round"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/tutorial_again"/>
+                android:text="@string/tutorial_again"
+                android:layout_marginBottom="10dp"/>
 
         </LinearLayout>
 

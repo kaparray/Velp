@@ -93,6 +93,7 @@ public class RegistrationActivity extends AppCompatActivity{
                                         mUserAccount.child("phone").setValue(mPhone.getText().toString());
                                         mUserAccount.child("age").setValue(mAge.getText().toString());
                                         mUserAccount.child("city").setValue(mCity.getText().toString());
+                                        mUserAccount.child("points").setValue(0);
                                         toSignIn();
 
                                     } else {

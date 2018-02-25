@@ -23,5 +23,6 @@
 
     <!-- Black color -->
     <color name="black">#000</color>
+    <color name="Montana">#383A3C</color>
 
 </resources>

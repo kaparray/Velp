@@ -2,6 +2,7 @@ package net.kaparray.velp.utils;
 
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -17,7 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import net.kaparray.velp.R;
-
+import net.kaparray.velp.classes.TaskLoader;
 
 
 @SuppressLint("Registered")
@@ -29,6 +30,7 @@ public class FirebaseIntegration extends AppCompatActivity {
     public FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     public String emailUser;
     public  String nameUser;
+
 
 
 
@@ -53,6 +55,11 @@ public class FirebaseIntegration extends AppCompatActivity {
                 TextView navEmail = (TextView) headerView.findViewById(R.id.tv_emainuser);
                 navEmail.setText(emailUser);
                 Log.w("Connect to db", "Data user add to MainActivity: " + nameUser + " " + emailUser);
+
+                SharedPreferences preferences = getSharedPreferences("user", MODE_PRIVATE);
+                SharedPreferences.Editor editorView = preferences.edit();
+                editorView.putString("USER", nameUser);
+                editorView.apply();
             }
 
             @Override

@@ -1,24 +1,25 @@
 package net.kaparray.velp.classes;
 
 
-import com.google.firebase.database.IgnoreExtraProperties;
-//@IgnoreExtraProperties
 
 public class TaskLoader {
 
 
     private String nameTask;
     private String valueTask;
-    private String userTask;
+    private String userUID;
     private String key;
+    private String nameUser;
 
-    public TaskLoader(String taskName, String taskValue, String userUID, String key) {
+    public TaskLoader(String taskName, String taskValue, String userUID, String key, String nameUser) {
         this.nameTask = taskName;
         this.valueTask = taskValue;
-        this.userTask = userUID;
+        this.userUID = userUID;
         this.key = key;
+        this.nameUser = nameUser;
     }
 
+    // For firebase! Without an empty constructor does not work :)
     public TaskLoader() {
     }
 
@@ -38,12 +39,12 @@ public class TaskLoader {
         this.valueTask = value;
     }
 
-    public String getUserTask() {
-        return userTask;
+    public String getUserUID() {
+        return userUID;
     }
 
-    public void setUserTask(String value) {
-        this.userTask = value;
+    public void setUserUID(String userUID) {
+        this.userUID = userUID;
     }
 
     public String getKey() {
@@ -53,6 +54,14 @@ public class TaskLoader {
     public void setKey(String value) {
         this.key = value;
     }
+    public String getNameUser() {
+        return nameUser;
+    }
+
+    public void setNameUser(String nameUser) {
+        this.nameUser = nameUser;
+    }
+
 }
 
 

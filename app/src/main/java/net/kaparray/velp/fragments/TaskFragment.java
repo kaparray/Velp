@@ -2,9 +2,10 @@ package net.kaparray.velp.fragments;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,37 +13,35 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
 import net.kaparray.velp.classes.TaskLoader;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import static net.kaparray.velp.R.layout.fr_task;
 
 
 public class TaskFragment extends Fragment{
 
+    private static final String TAG = "All right";
     private DatabaseReference mFirebaseRef;
+
 
     FloatingActionButton fab;
     AddTaskFragment addTaskFragment;
     private RecyclerView mRecyclerView;
-    private RecyclerView mAdapter;
+    private ProgressBar progressBar;
+
+
 
 
     @SuppressLint("WrongViewCast")
@@ -54,13 +53,14 @@ public class TaskFragment extends Fragment{
 
         // Find branch in firebase
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        mFirebaseRef = database.getReference("task");
+        mFirebaseRef = database.getReference("Task");
+
 
         // Add fragment for add task
         addTaskFragment = new AddTaskFragment();
 
         mRecyclerView = rootView.findViewById(R.id.rvTask);
-
+        progressBar = rootView.findViewById(R.id.progressBarTaskFragment);
         fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         fab.setOnClickListener(
                 new View.OnClickListener() {
@@ -77,13 +77,13 @@ public class TaskFragment extends Fragment{
         // Create llm
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mRecyclerView.getContext()));
 
-
         return rootView;
     }
 
     @Override
     public void onStart() {
         super.onStart();
+
         // Create FirebaseRecyclerAdapter for automatic work with FDB
         FirebaseRecyclerAdapter<TaskLoader, TaskViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<TaskLoader, TaskViewHolder>(
 
@@ -93,16 +93,22 @@ public class TaskFragment extends Fragment{
                 mFirebaseRef
         ) {
             @Override
-            protected void populateViewHolder(TaskViewHolder viewHolder, TaskLoader model, int position) {
+            protected void populateViewHolder(TaskViewHolder viewHolder, final TaskLoader model, int position) {
             // This is real magic      ___
             //                     ⎺\_(◦-◦)_/⎺
             //                          ▲
             //                          ▼
             //                        _| |_
 
+
+
+
+
                 viewHolder.setTitleName(model.getNameTask());
                 viewHolder.setValue(model.getValueTask());
-                viewHolder.setUser(model.getUserTask());
+                viewHolder.setUser(model.getNameUser());
+                // Hide progressBar
+                progressBar.setVisibility(View.GONE);
 
             }
         };
@@ -111,7 +117,6 @@ public class TaskFragment extends Fragment{
 
     // ViewHolder for FirebaseRecyclerAdapter
     public static class TaskViewHolder extends RecyclerView.ViewHolder{
-
         View mView;
 
         public TaskViewHolder(View itemView) {
@@ -129,9 +134,12 @@ public class TaskFragment extends Fragment{
             val.setText(value);
         }
         // This method return text for name user
-        public void setUser(String user){
+        public void setUser(final String user){
             TextView us = mView.findViewById(R.id.tv_userTask);
             us.setText(user);
         }
+
     }
+
+
 }

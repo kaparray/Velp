@@ -16,6 +16,7 @@ import android.transition.Transition;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 
@@ -50,10 +51,16 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        // For settings
         SharedPreferences preferences = getSharedPreferences("view", MODE_PRIVATE);
         SharedPreferences.Editor editorView = preferences.edit();
         editorView.putString("VIEW", "null");
         editorView.apply();
+        // For user
+        SharedPreferences preferencesUser = getSharedPreferences("user", MODE_PRIVATE);
+        SharedPreferences.Editor editorViewUser = preferencesUser.edit();
+        editorViewUser.putString("USER", "null");
+        editorViewUser.apply();
     }
 
     @SuppressLint("CutPasteId")
@@ -89,6 +96,11 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
         View headerview = navigationView.getHeaderView(0);
         mNavHeader = headerview.findViewById(R.id.LL_profile);
 
+        if (theme.equals("dark")){
+            mNavHeader.setBackground(getResources().getDrawable(R.drawable.gradient_dark));
+        } else if (theme.equals("light")){
+            mNavHeader.setBackground(getResources().getDrawable(R.drawable.gradient));
+        }
 
         aboutFragment = new AboutFragment();
         bonusFragment = new BonusFragment();
