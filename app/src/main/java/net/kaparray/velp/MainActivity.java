@@ -115,6 +115,7 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
             public void onClick(View v) {
                 getSupportFragmentManager()
                         .beginTransaction()
+                        .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
                         .replace(R.id.container, profileFragment)
                         .addToBackStack(null)
                         .commit();
@@ -130,13 +131,21 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
         if (view.equals("settings")){
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.container, settingsFragment)
+                    .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
+                    .replace(R.id.container, taskFragment)
+                    .commit();
+
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
+                    .replace(R.id.container, settingsFragment)
                     .addToBackStack(null)
                     .commit();
         }else{
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.container, taskFragment)
+                    .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
+                    .replace(R.id.container, taskFragment)
                     .commit();
         }
     }
