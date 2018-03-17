@@ -148,6 +148,9 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
                     .replace(R.id.container, taskFragment)
                     .commit();
         }
+
+        // Set item in navigation drawer
+        navigationView.setCheckedItem(R.id.nav_task);
     }
 
     @Override
@@ -160,32 +163,6 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
-                    .replace(R.id.container, settingsFragment)
-                    .addToBackStack(null)
-                    .commit();
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @SuppressWarnings("Stat ementWithEmptyBody")
     @Override

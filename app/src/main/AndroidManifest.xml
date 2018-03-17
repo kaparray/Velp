@@ -37,7 +37,10 @@
             android:name=".Auth.RegistrationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Auth.AuthTypeActivity"></activity>
+        <activity
+            android:name=".Auth.EmailAuthActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

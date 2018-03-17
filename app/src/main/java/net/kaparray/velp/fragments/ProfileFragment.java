@@ -46,9 +46,9 @@ public class ProfileFragment extends Fragment{
         ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                name = dataSnapshot.child("Users").child(user.getUid()).child("name").getValue().toString();
-                positions = dataSnapshot.child("Users").child(user.getUid()).child("positions").getValue().toString();
-                status = dataSnapshot.child("Users").child(user.getUid()).child("status").getValue().toString();
+                name = (String) dataSnapshot.child("Users").child(user.getUid()).child("name").getValue();
+                positions = (String) dataSnapshot.child("Users").child(user.getUid()).child("position").getValue() + "";
+                status = (String) dataSnapshot.child("Users").child(user.getUid()).child("status").getValue() + "";
 
 
                 mUserName = (TextView) rootView.findViewById(R.id.tv_profileName);

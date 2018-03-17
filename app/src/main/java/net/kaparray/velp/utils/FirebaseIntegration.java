@@ -44,8 +44,19 @@ public class FirebaseIntegration extends AppCompatActivity {
         ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                nameUser = dataSnapshot.child("Users").child(user.getUid()).child("name").getValue().toString();
-                emailUser = dataSnapshot.child("Users").child(user.getUid()).child("email").getValue().toString();
+
+                SharedPreferences userType = getSharedPreferences("userType",MODE_PRIVATE);
+                String UserType = userType.getString("userType"," ");
+
+                if (UserType.equals("google")){
+                    nameUser = user.getDisplayName();
+                    emailUser = user.getEmail();
+                } else if (UserType.equals("email")){
+                    nameUser = dataSnapshot.child("Users").child(user.getUid()).child("name").getValue().toString();
+                    emailUser = dataSnapshot.child("Users").child(user.getUid()).child("email").getValue().toString();
+                }
+
+
 
                 NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
                 View headerView = navigationView.getHeaderView(0);
