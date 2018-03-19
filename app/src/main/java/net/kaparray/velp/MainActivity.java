@@ -3,6 +3,7 @@ package net.kaparray.velp;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.transition.Fade;
@@ -21,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -82,6 +84,7 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
         setContentView(R.layout.ac_main);
 
 
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -91,10 +94,10 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        View headerview = navigationView.getHeaderView(0);
+        final View headerview = navigationView.getHeaderView(0);
         mNavHeader = headerview.findViewById(R.id.LL_profile);
 
         if (theme.equals("dark")){
@@ -121,6 +124,8 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
                         .commit();
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 drawer.closeDrawer(GravityCompat.START);
+                // Set item in navigation drawer
+//                navigationView.setCheckedItem();
             }
         });
 

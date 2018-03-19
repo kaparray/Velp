@@ -3,11 +3,13 @@ package net.kaparray.velp.utils;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -16,6 +18,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import net.kaparray.velp.R;
 import net.kaparray.velp.classes.TaskLoader;
@@ -65,6 +69,11 @@ public class FirebaseIntegration extends AppCompatActivity {
                 navName.setText(nameUser);
                 TextView navEmail = (TextView) headerView.findViewById(R.id.tv_emainuser);
                 navEmail.setText(emailUser);
+                //ImageView navPhoto =  headerView.findViewById(R.id.imageViewProfile);
+
+
+
+
                 Log.w("Connect to db", "Data user add to MainActivity: " + nameUser + " " + emailUser);
 
                 SharedPreferences preferences = getSharedPreferences("user", MODE_PRIVATE);

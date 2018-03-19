@@ -1,5 +1,6 @@
 package net.kaparray.velp.fragments;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import net.kaparray.velp.Auth.AuthActivity;
 import net.kaparray.velp.MainActivity;
@@ -23,8 +25,13 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class SettingsFragment extends Fragment{
 
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+
+    public ProgressDialog mProgressDialog;
     Switch mChangeTheme;
     Button mLogOut;
+    Button mDell;
 
 
     @Nullable
@@ -38,6 +45,7 @@ public class SettingsFragment extends Fragment{
 
         mChangeTheme = rootView.findViewById(R.id.sw_theme);
         mLogOut = rootView.findViewById(R.id.btn_signOut);
+        mDell = rootView.findViewById(R.id.btn_dellUser);
 
         mLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +83,7 @@ public class SettingsFragment extends Fragment{
                     getActivity().setTheme(R.style.AppTheme_NoActionBar);
                 }
                 editor.apply();
-                // Add in preferens
+                // Add in preferences
                 SharedPreferences preferencesView = getActivity().getSharedPreferences("view", MODE_PRIVATE);
                 SharedPreferences.Editor editorView = preferencesView.edit();
                 editorView.putString("VIEW", "settings");
@@ -87,7 +95,34 @@ public class SettingsFragment extends Fragment{
             }
         });
 
+        mDell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showProgressDialog();
+                user.delete();
+                Intent intent = new Intent(getActivity(), AuthActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+                hideProgressDialog();
+            }
+        });
+
         return rootView;
     }
 
+    public void showProgressDialog() {
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(getContext());
+            mProgressDialog.setMessage("Загрузка..");
+            mProgressDialog.setIndeterminate(true);
+        }
+
+        mProgressDialog.show();
+    }
+
+    public void hideProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
+    }
 }
