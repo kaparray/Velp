@@ -77,12 +77,14 @@ public class ProfileFragment extends Fragment{
         ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get user data in Firebase
                 name = (String) dataSnapshot.child("Users").child(user.getUid()).child("name").getValue();
                 level = (String) dataSnapshot.child("Users").child(user.getUid()).child("level").getValue() + "";
                 helped = (String) dataSnapshot.child("Users").child(user.getUid()).child("helped").getValue() + "";
                 points = (String) dataSnapshot.child("Users").child(user.getUid()).child("points").getValue() + "";
 
 
+                // Find all view in fragment
                 mLL = rootView.findViewById(R.id.LL_profileBackground);
                 mUserName = (TextView) rootView.findViewById(R.id.tv_profileName);
                 mUserHelped = (TextView) rootView.findViewById(R.id.tv_profileHelped);
@@ -91,6 +93,7 @@ public class ProfileFragment extends Fragment{
                 mPhotoUser = rootView.findViewById(R.id.iv_profilePhoto);
 
 
+                // Get theme
                 SharedPreferences preferences = getActivity().getSharedPreferences("theme",MODE_PRIVATE);
                 String theme = preferences.getString("THEME"," ");
 
@@ -114,10 +117,18 @@ public class ProfileFragment extends Fragment{
                 mUserPoints.setText(points);
 
 
-                String imgUrl =  user.getPhotoUrl()+"";
-                Glide.with(getContext()).load(imgUrl).into(mPhotoUser);
+                // Get theme
+                SharedPreferences preferencesGoogle = getActivity().getSharedPreferences("userType",MODE_PRIVATE);
+                String userType = preferencesGoogle.getString("userType"," ");
+                // get photo in Google account and set in profile
+                if (userType.equals("google")) {
+                    String imgUrl = user.getPhotoUrl() + "";
+                    Glide.with(getContext()).load(imgUrl).into(mPhotoUser);
+                } else {
+                    // Get user photo in firebase
+                }
                 
-
+                // Write in Log connection in Firebase
                 Log.w("Connect to db", "Data user aad in Profile Fragment: " + name);
 
             }

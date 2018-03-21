@@ -18,6 +18,10 @@
             android:icon="@drawable/ic_rating"
             android:title="@string/Rating" />
         <item
+            android:id="@+id/nav_event"
+            android:icon="@drawable/ic_events"
+            android:title="@string/Events" />
+        <item
             android:id="@+id/nav_chat"
             android:icon="@drawable/ic_chat"
             android:title="@string/Chat" />

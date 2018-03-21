@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -49,16 +51,11 @@ public class FirebaseIntegration extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                SharedPreferences userType = getSharedPreferences("userType",MODE_PRIVATE);
-                String UserType = userType.getString("userType"," ");
 
-                if (UserType.equals("google")){
-                    nameUser = user.getDisplayName();
-                    emailUser = user.getEmail();
-                } else if (UserType.equals("email")){
-                    nameUser = dataSnapshot.child("Users").child(user.getUid()).child("name").getValue().toString();
-                    emailUser = dataSnapshot.child("Users").child(user.getUid()).child("email").getValue().toString();
-                }
+
+                nameUser = user.getDisplayName();
+                emailUser = user.getEmail();
+
 
 
 
@@ -69,8 +66,9 @@ public class FirebaseIntegration extends AppCompatActivity {
                 navName.setText(nameUser);
                 TextView navEmail = (TextView) headerView.findViewById(R.id.tv_emainuser);
                 navEmail.setText(emailUser);
-                //ImageView navPhoto =  headerView.findViewById(R.id.imageViewProfile);
-
+                ImageView navPhoto =  headerView.findViewById(R.id.imageViewProfile);
+                String imgUrl =  user.getPhotoUrl()+"";
+                Glide.with(getApplicationContext()).load(imgUrl).into(navPhoto);
 
 
 

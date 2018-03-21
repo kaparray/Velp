@@ -3,12 +3,14 @@ package net.kaparray.velp;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.transition.Fade;
 import android.support.transition.Slide;
 import android.support.transition.TransitionInflater;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -30,6 +32,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import net.kaparray.velp.fragments.AboutFragment;
 import net.kaparray.velp.fragments.AddTaskFragment;
 import net.kaparray.velp.fragments.BonusFragment;
+import net.kaparray.velp.fragments.EventsFragments;
 import net.kaparray.velp.fragments.ProfileFragment;
 import net.kaparray.velp.fragments.SettingsFragment;
 import net.kaparray.velp.fragments.TaskFragment;
@@ -48,6 +51,7 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
     BonusFragment bonusFragment;
     TaskFragment taskFragment;
     SettingsFragment settingsFragment;
+    EventsFragments eventsFragment;
     View mNavHeader;
 
 
@@ -84,7 +88,6 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
         setContentView(R.layout.ac_main);
 
 
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -111,6 +114,7 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
         taskFragment = new TaskFragment();
         settingsFragment = new SettingsFragment();
         profileFragment = new ProfileFragment();
+        eventsFragment = new EventsFragments();
 
 
         mNavHeader.setOnClickListener(new View.OnClickListener() {
@@ -146,6 +150,8 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
                     .replace(R.id.container, settingsFragment)
                     .addToBackStack(null)
                     .commit();
+            // Set item in navigation drawer
+            navigationView.setCheckedItem(R.id.nav_settings);
         }else{
             getSupportFragmentManager()
                     .beginTransaction()
@@ -185,7 +191,15 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
                     .commit();
         } else if (id == R.id.nav_map){
             // Map
-        } else if (id == R.id.nav_rating) {
+        } else if (id == R.id.nav_event) {
+            // Events
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
+                    .replace(R.id.container, eventsFragment)
+                    .addToBackStack(null)
+                    .commit();
+        }else if (id == R.id.nav_rating) {
             // Rating
         } else if (id == R.id.nav_chat) {
             // Chat
@@ -229,7 +243,6 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
 
 
 

@@ -121,6 +121,7 @@ public class EmailAuthActivity extends AppCompatActivity{
             public void onClick(View v) {
                 Intent intent = new Intent(EmailAuthActivity.this, RegistrationActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 

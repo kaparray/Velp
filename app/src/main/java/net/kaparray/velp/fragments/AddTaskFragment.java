@@ -15,8 +15,11 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
@@ -25,7 +28,9 @@ import net.kaparray.velp.R;
 public class AddTaskFragment extends android.support.v4.app.Fragment{
 
     private FirebaseAuth mAuth;
-    FirebaseUser user = mAuth.getInstance().getCurrentUser();
+
+    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    public FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("Task");
 
@@ -34,6 +39,9 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
     EditText mValueTask;
     TaskFragment taskFragment;
 
+    String name;
+    String photo;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -41,19 +49,16 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
         // Checked theme app
         SharedPreferences preferencesTheme = getActivity().getSharedPreferences("theme",Context.MODE_PRIVATE);
         final String theme = preferencesTheme.getString("THEME"," ");
-        // Checked login user right now
-        SharedPreferences preferencesUSER = getActivity().getSharedPreferences("user",Context.MODE_PRIVATE);
-        final String userName = preferencesUSER.getString("USER"," ");
-
+        // Set Fragment
         final View rootView = inflater.inflate(R.layout.fr_addtask, container, false);
-// Add title
+        // Add title
         ((MainActivity) getActivity()).setTitle(getString(R.string.AddTaskTitle));
 
-       mAddTask = rootView.findViewById(R.id.btn_addTask);
-       mTask = rootView.findViewById(R.id.et_NameTask);
-       mValueTask = rootView.findViewById(R.id.et_valueTask);
+        mAddTask = rootView.findViewById(R.id.btn_addTask);
+        mTask = rootView.findViewById(R.id.et_NameTask);
+        mValueTask = rootView.findViewById(R.id.et_valueTask);
 
-       // Set text color
+        // Set text color
         if (theme.equals("dark")){
             mTask.setTextColor(getResources().getColor(R.color.white));
             mValueTask.setTextColor(getResources().getColor(R.color.white));
@@ -62,7 +67,7 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
             mValueTask.setTextColor(getResources().getColor(R.color.black));
         }
 
-       mAddTask.setOnClickListener(new View.OnClickListener() {
+        mAddTask.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -73,16 +78,17 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
                DatabaseReference mUserAccount = myRef.push();
                mUserAccount.child("userUID").setValue(user.getUid());
                mUserAccount.child("nameTask").setValue(mTask.getText().toString());
+               mUserAccount.child("nameUser").setValue(user.getDisplayName());
                mUserAccount.child("valueTask").setValue(mValueTask.getText().toString());
-               mUserAccount.child("nameUser").setValue(userName);
+               mUserAccount.child("photoUser").setValue(user.getPhotoUrl());
                Toast.makeText(getContext(),"Task add in database", Toast.LENGTH_LONG).show();
                getActivity().getSupportFragmentManager()
                        .beginTransaction()
                        .replace(R.id.container, taskFragment)
                        .addToBackStack(null)
                        .commit();
-           }
-       });
+            }
+        });
 
         return rootView;
     }

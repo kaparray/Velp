@@ -2,10 +2,8 @@ package net.kaparray.velp.fragments;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,10 +11,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
 import net.kaparray.velp.classes.TaskLoader;
+import net.kaparray.velp.classes.UserLoader;
 
 
 import static net.kaparray.velp.R.layout.fr_task;
@@ -41,9 +44,13 @@ public class TaskFragment extends Fragment{
     AddTaskFragment addTaskFragment;
     private RecyclerView mRecyclerView;
     private ProgressBar progressBar;
+    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    public FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference("Users");
 
-
-
+    String photo;
+    String name;
 
     @SuppressLint("WrongViewCast")
     @Nullable
@@ -53,9 +60,14 @@ public class TaskFragment extends Fragment{
         final View rootView = inflater.inflate(fr_task, container, false);
         // Add title
         ((MainActivity) getActivity()).setTitle(getString(R.string.TaskTitle));
+
+
+
         // Find branch in firebase
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         mFirebaseRef = database.getReference("Task");
+
+
 
 
         // Add fragment for add task
@@ -90,7 +102,7 @@ public class TaskFragment extends Fragment{
         FirebaseRecyclerAdapter<TaskLoader, TaskViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<TaskLoader, TaskViewHolder>(
 
                 TaskLoader.class,
-                R.layout.task_for_list,
+                R.layout.card_for_task,
                 TaskViewHolder.class,
                 mFirebaseRef
         ) {
@@ -106,10 +118,14 @@ public class TaskFragment extends Fragment{
 
 
 
+
                 viewHolder.setTitleName(model.getNameTask());
                 viewHolder.setValue(model.getValueTask());
                 viewHolder.setUser(model.getNameUser());
-                // Hide progressBar
+//              viewHolder.setPhoto(photo);
+
+
+                    // Hide progressBar
                 progressBar.setVisibility(View.GONE);
 
             }
@@ -119,6 +135,7 @@ public class TaskFragment extends Fragment{
 
     // ViewHolder for FirebaseRecyclerAdapter
     public static class TaskViewHolder extends RecyclerView.ViewHolder{
+
         View mView;
 
         public TaskViewHolder(View itemView) {
@@ -136,10 +153,14 @@ public class TaskFragment extends Fragment{
             val.setText(value);
         }
         // This method return text for name user
-        public void setUser(final String user){
+        public void setUser(final String userr){
             TextView us = mView.findViewById(R.id.tv_userTask);
-            us.setText(user);
+            us.setText(userr);
         }
+//        public void setPhoto(String photo){
+//            ImageView ph = mView.findViewById(R.id.iv_photoTask);
+//            Glide.with(mView.getContext()).load(photo).into(ph);
+//        }
 
     }
 

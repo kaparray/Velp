@@ -117,8 +117,8 @@ public class AuthActivity extends ProgressDialogActivity implements
         mEmailAuth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               Intent emailIntent  = new Intent(AuthActivity.this, EmailAuthActivity.class);
-               startActivity(emailIntent);
+                Intent emailIntent  = new Intent(AuthActivity.this, EmailAuthActivity.class);
+                startActivity(emailIntent);
             }
         });
 
@@ -223,11 +223,13 @@ public class AuthActivity extends ProgressDialogActivity implements
             mUserAccount.child("age").setValue("null");
             mUserAccount.child("city").setValue("null");
             mUserAccount.child("points").setValue("0");
-            mUserAccount.child("helpedPeople").setValue("0");     // Сколько людям помог
+            mUserAccount.child("helped").setValue("0");     // Сколько людям помог
             mUserAccount.child("failedTheAssignment").setValue("0");      // Сколько проволил заданий
             mUserAccount.child("rating").setValue("0");   //Рейтинг
-            mUserAccount.child("position").setValue("Low");
-            mUserAccount.child("status").setValue("Beginning user");
+            mUserAccount.child("level").setValue("0");  // Уорвень
+            mUserAccount.child("status").setValue("user");
+            mUserAccount.child("photo").setValue(user.getPhotoUrl() + "");
+
 
             SharedPreferences preferencesView = getSharedPreferences("userType", MODE_PRIVATE);
             SharedPreferences.Editor editorView = preferencesView.edit();
@@ -237,7 +239,7 @@ public class AuthActivity extends ProgressDialogActivity implements
             Intent intent = new Intent(AuthActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
-            }
+        }
 
 
     }

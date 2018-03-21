@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -94,11 +95,16 @@ public class RegistrationActivity extends AppCompatActivity{
                                         mUserAccount.child("age").setValue(mAge.getText().toString());
                                         mUserAccount.child("city").setValue(mCity.getText().toString());
                                         mUserAccount.child("points").setValue("0");
-                                        mUserAccount.child("helpedPeople").setValue("0");     // Сколько людям помог
+                                        mUserAccount.child("helped").setValue("0");     // Сколько людям помог
                                         mUserAccount.child("failedTheAssignment").setValue("0");      // Сколько проволил заданий
                                         mUserAccount.child("rating").setValue("0");   //Рейтинг
-                                        mUserAccount.child("position").setValue("Low");
-                                        mUserAccount.child("status").setValue("Beginning user");
+                                        mUserAccount.child("level").setValue("0");  // Уорвень
+                                        mUserAccount.child("status").setValue("user");
+                                        //mUserAccount.child("status").setValue("photo");
+
+                                        UserProfileChangeRequest profileUpdatesName = new UserProfileChangeRequest.Builder()
+                                                .setDisplayName(mName.getText().toString()).build();
+                                        user.updateProfile(profileUpdatesName);
                                         toSignIn();
 
                                     } else {
