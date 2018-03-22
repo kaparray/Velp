@@ -230,11 +230,7 @@ public class AuthActivity extends ProgressDialogActivity implements
             mUserAccount.child("status").setValue("user");
             mUserAccount.child("photo").setValue(user.getPhotoUrl() + "");
 
-
-            SharedPreferences preferencesView = getSharedPreferences("userType", MODE_PRIVATE);
-            SharedPreferences.Editor editorView = preferencesView.edit();
-            editorView.putString("userType", "google");
-            editorView.apply();
+            showMessage(R.string.allRight);
 
             Intent intent = new Intent(AuthActivity.this, MainActivity.class);
             startActivity(intent);

@@ -10,30 +10,31 @@ public class TaskLoader {
     private String userUID;
     private String key;
     private String nameUser;
-    private String photoUser;
+    private String uniqueIdentificator;
 
 
 
-    public TaskLoader(String taskName, String taskValue, String userUID, String key, String nameUser, String photoUser) {
+    public TaskLoader(String taskName, String taskValue, String userUID, String key, String nameUser, String uniqueIdentificator) {
         this.nameTask = taskName;
         this.valueTask = taskValue;
         this.userUID = userUID;
         this.key = key;
         this.nameUser = nameUser;
-        this.photoUser = photoUser;
+        this.uniqueIdentificator = uniqueIdentificator;
     }
 
     // For firebase! Without an empty constructor does not work :)
     public TaskLoader() {
     }
 
-    public String getPhotoUser() {
-        return photoUser;
+    public String getUniqueIdentificator() {
+        return uniqueIdentificator;
     }
 
-    public void setPhotoUser(String photoUser) {
-        this.photoUser = photoUser;
+    public void setUniqueIdentificator(String uniqueIdentificator) {
+        this.uniqueIdentificator = uniqueIdentificator;
     }
+
 
     public String getNameTask() {
         return nameTask;

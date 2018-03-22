@@ -156,6 +156,7 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="Events">События</string>
+    <string name="allRight">Всё отлично</string>
 
 
 </resources>
