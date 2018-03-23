@@ -63,8 +63,7 @@ public class RegistrationActivity extends AppCompatActivity{
         // Set layout
         setContentView(R.layout.ac_registration);
 
-        mAuth = FirebaseAuth.getInstance();
-        // Find button
+        // Find view element
         mRegister = findViewById(R.id.btn_registration);
         mEmail = findViewById(R.id.et_email);
         mPassword1 = findViewById(R.id.et_pass1);
@@ -73,6 +72,24 @@ public class RegistrationActivity extends AppCompatActivity{
         mPhone = findViewById(R.id.et_phone);
         mAge = findViewById(R.id.et_age);
         mCity = findViewById(R.id.et_city);
+
+        mAuth = FirebaseAuth.getInstance();
+
+
+        // Set theme
+        if (side.equals("dark")){
+            mRegister.setTextColor(getResources().getColor(R.color.white));
+            mEmail.setTextColor(getResources().getColor(R.color.white));
+            mPassword1.setTextColor(getResources().getColor(R.color.white));
+            mPassword2.setTextColor(getResources().getColor(R.color.white));
+            mName.setTextColor(getResources().getColor(R.color.white));
+            mPhone.setTextColor(getResources().getColor(R.color.white));
+            mAge.setTextColor(getResources().getColor(R.color.white));
+            mCity.setTextColor(getResources().getColor(R.color.white));
+        } else if (side.equals("light")){
+           //
+        }
+
 
 
         mRegister.setOnClickListener(new View.OnClickListener() {

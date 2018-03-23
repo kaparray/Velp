@@ -52,7 +52,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Helped"
+                        android:text="@string/Helped"
                         android:textSize="20sp"
                         />
                     <TextView
@@ -75,7 +75,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Level"
+                        android:text="@string/leavel"
                         android:textSize="20sp"
                         />
                     <TextView
@@ -98,7 +98,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Points"
+                        android:text="@string/Points"
                         android:textSize="20sp"
                         />
                     <TextView

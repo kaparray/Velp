@@ -158,10 +158,11 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
                     .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
                     .replace(R.id.container, taskFragment)
                     .commit();
+            // Set item in navigation drawer
+            navigationView.setCheckedItem(R.id.nav_task);
         }
 
-        // Set item in navigation drawer
-        navigationView.setCheckedItem(R.id.nav_task);
+        
     }
 
     @Override

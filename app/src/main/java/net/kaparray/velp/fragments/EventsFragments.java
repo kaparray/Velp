@@ -15,6 +15,7 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
 import net.kaparray.velp.classes.EventLoader;
 import net.kaparray.velp.classes.TaskLoader;
@@ -30,6 +31,7 @@ public class EventsFragments extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fr_event, container, false);
+        ((MainActivity) getActivity()).setTitle(getString(R.string.EventTitle));
 
         mRecyclerView = rootView.findViewById(R.id.rvEvent);
         // Find branch in firebase

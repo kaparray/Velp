@@ -31,6 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
 import net.kaparray.velp.classes.TaskLoader;
+import net.kaparray.velp.classes.secretKey;
 
 
 import java.util.ArrayList;
@@ -57,6 +58,7 @@ public class TaskFragment extends Fragment{
 
     ArrayList<String> taskarray;
     ArrayList<String> userarray;
+    ArrayList<String> keyarray;
 
 
     String name;
@@ -72,6 +74,7 @@ public class TaskFragment extends Fragment{
 
         taskarray = new ArrayList<String>();
         userarray = new ArrayList<String>();
+        keyarray = new ArrayList<String>();
 
         // Find branch in firebase
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -130,7 +133,6 @@ public class TaskFragment extends Fragment{
 
 
 
-
                 viewHolder.setTitleName(model.getNameTask());
                 viewHolder.setValue(model.getValueTask());
                 viewHolder.setUser(model.getNameUser());
@@ -151,27 +153,34 @@ public class TaskFragment extends Fragment{
                 viewHolder.setOnClickListener(new TaskViewHolder.ClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
+                        secretKey sk = new secretKey();
                         getActivity().getSupportFragmentManager()
                                 .beginTransaction()
                                 .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
                                 .replace(R.id.container, openTaskFragment)
                                 .addToBackStack(null)
                                 .commit();
+                        //sk.setUniqueIdentificator();
                     }
 
                     @Override
                     public void onItemLongClick(View view, final int position) {
-                        Toast.makeText(getActivity(), "Item long clicked at " + position, Toast.LENGTH_SHORT).show();
                         if (user != null && userarray.get(position).equals(user.getUid())){
                             AlertDialog.Builder AlretDialog = new AlertDialog.Builder(getActivity());
-                            AlretDialog.setTitle(getString(R.string.Title_AlretDialogBonus));
+                            AlretDialog.setTitle(getString(R.string.Title_AlretDialogDeleteTask));
                             AlretDialog.setCancelable(false);
-                            AlretDialog.setIcon(R.drawable.ic_bonus);
-                            AlretDialog.setMessage(getString(R.string.Text_AlretDialogBonus));
-                            AlretDialog.setPositiveButton("Понятно", new DialogInterface.OnClickListener() {
+                            AlretDialog.setIcon(R.drawable.ic_task); // add delete icon
+                            AlretDialog.setMessage(getString(R.string.Text_AlretDialogDeleteTask));
+                            AlretDialog.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    Query applesQuery = mFirebaseRef.orderByChild("uniqueIdentificator").equalTo(taskarray.get(position)) ;
+                                    dialogInterface.cancel();
+                                }
+                            });
+                            AlretDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    Query applesQuery = mFirebaseRef.orderByChild("uniqueIdentificator").equalTo(taskarray.get(position));
 
                                     applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
@@ -184,12 +193,16 @@ public class TaskFragment extends Fragment{
                                         @Override
                                         public void onCancelled(DatabaseError databaseError) {
                                             Log.e(TAG, "onCancelled", databaseError.toException());
+                                            Toast.makeText(getActivity(), "Ooops! Error database",
+                                                    Toast.LENGTH_SHORT).show();
                                         }
                                     });
                                     dialogInterface.cancel();
                                 }
                             });
                             AlretDialog.show();
+                        } else {
+                            Toast.makeText(getActivity(), R.string.noRootForChange, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -229,7 +242,6 @@ public class TaskFragment extends Fragment{
                 }
             });
         }
-
 
 
         // This method return text for name task

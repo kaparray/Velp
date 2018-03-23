@@ -83,7 +83,8 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
                //mUserAccount.child("photoUser").setValue(user.getPhotoUrl());
                mUserAccount.child("uniqueIdentificator").setValue(myRef.push().toString()
                        .replaceAll("https://velp-1544e.firebaseio.com/Task/", ""));
-               Toast.makeText(getContext(),"Task add in database", Toast.LENGTH_LONG).show();
+               //mUserAccount.child("key").;
+               Toast.makeText(getContext(),R.string.taskAddInDataBase, Toast.LENGTH_LONG).show();
                getActivity().getSupportFragmentManager()
                        .beginTransaction()
                        .replace(R.id.container, taskFragment)
