@@ -31,7 +31,6 @@ import com.google.firebase.database.ValueEventListener;
 import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
 import net.kaparray.velp.classes.TaskLoader;
-import net.kaparray.velp.classes.secretKey;
 
 
 import java.util.ArrayList;
@@ -59,8 +58,9 @@ public class TaskFragment extends Fragment{
     ArrayList<String> taskarray;
     ArrayList<String> userarray;
     ArrayList<String> keyarray;
+    ArrayList<TaskLoader> loderer; // so funny name for variable
 
-
+    Bundle bundlee;
     String name;
 
     @SuppressLint("WrongViewCast")
@@ -75,6 +75,8 @@ public class TaskFragment extends Fragment{
         taskarray = new ArrayList<String>();
         userarray = new ArrayList<String>();
         keyarray = new ArrayList<String>();
+
+        loderer = new ArrayList<TaskLoader>();
 
         // Find branch in firebase
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -138,7 +140,7 @@ public class TaskFragment extends Fragment{
                 viewHolder.setUser(model.getNameUser());
 
 
-                taskarray.add(model.getUniqueIdentificator());
+                loderer.add(model);
                 userarray.add(model.getUserUID());
 
 
@@ -153,19 +155,26 @@ public class TaskFragment extends Fragment{
                 viewHolder.setOnClickListener(new TaskViewHolder.ClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        secretKey sk = new secretKey();
+
                         getActivity().getSupportFragmentManager()
                                 .beginTransaction()
                                 .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
                                 .replace(R.id.container, openTaskFragment)
                                 .addToBackStack(null)
                                 .commit();
-                        //sk.setUniqueIdentificator();
+
+
+                        // This is magic bundle. I transit data in DB to OpenTaskFragment
+                        Bundle bundle = new Bundle();
+                        bundle.putString("NameTask", loderer.get(position).getNameTask());
+                        bundle.putString("ValueTask", loderer.get(position).getValueTask());
+                        bundle.putString("NameUser", loderer.get(position).getNameUser());
+                        openTaskFragment.setArguments(bundle);
                     }
 
                     @Override
                     public void onItemLongClick(View view, final int position) {
-                        if (user != null && userarray.get(position).equals(user.getUid())){
+                        if (user != null && loderer.get(position).getUserUID().equals(user.getUid())){
                             AlertDialog.Builder AlretDialog = new AlertDialog.Builder(getActivity());
                             AlretDialog.setTitle(getString(R.string.Title_AlretDialogDeleteTask));
                             AlretDialog.setCancelable(false);
@@ -180,7 +189,7 @@ public class TaskFragment extends Fragment{
                             AlretDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    Query applesQuery = mFirebaseRef.orderByChild("uniqueIdentificator").equalTo(taskarray.get(position));
+                                    Query applesQuery = mFirebaseRef.orderByChild("uniqueIdentificator").equalTo(loderer.get(position).getUniqueIdentificator());
 
                                     applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override

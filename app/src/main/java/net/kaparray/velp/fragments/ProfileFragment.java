@@ -20,7 +20,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInApi;
@@ -123,7 +122,7 @@ public class ProfileFragment extends Fragment{
                 // get photo in Google account and set in profile
                 if (userType.equals("google")) {
                     String imgUrl = user.getPhotoUrl() + "";
-                    Glide.with(getContext()).load(imgUrl).into(mPhotoUser);
+                   // Glide.with(getContext()).load(imgUrl).into(mPhotoUser);
                 } else {
                     // Get user photo in firebase
                 }

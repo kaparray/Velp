@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -68,7 +67,7 @@ public class FirebaseIntegration extends AppCompatActivity {
                 navEmail.setText(emailUser);
                 ImageView navPhoto =  headerView.findViewById(R.id.imageViewProfile);
                 String imgUrl =  user.getPhotoUrl()+"";
-                Glide.with(getApplicationContext()).load(imgUrl).into(navPhoto);
+                //Glide.with(getApplicationContext()).load(imgUrl).into(navPhoto);
 
 
 

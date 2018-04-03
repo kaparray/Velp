@@ -57,6 +57,9 @@
 
     <!-- Profile Fragment -->
     <string name="ProfileTitle">Прфиль</string>
+    <string name="Helped">Помог</string>
+    <string name="leavel">Уровень</string>
+    <string name="Points">Очки</string>
 
     <!-- Task Fragment -->
     <string name="TaskTitle">Задачи</string>
@@ -67,6 +70,8 @@
     <string name="light">Светлая тема</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
 
+
+    <!-- Event Fragment -->
     <string name="Events">События</string>
     <string name="allRight">Всё отлично</string>
     <string name="yes">Да</string>
@@ -75,11 +80,15 @@
     <string name="Text_AlretDialogDeleteTask">Вы действительно хотите удалить задачу?</string>
     <string name="noRootForChange">Вы не можите удалять чужие задачи</string>
     <string name="LoadingData">Загрузка..</string>
-    <string name="Helped">Помог</string>
-    <string name="leavel">Уровень</string>
-    <string name="Points">Очки</string>
+
     <string name="EventTitle">События</string>
     <string name="no">Нет</string>
+
+    <!-- Work Fragment -->
+    <string name="WorkTitle">Работа</string>
+    <string name="informationAboutYouForWork">Заполните информацию о себе</string>
+    <string name="enterEmail">Введите e-mail</string>
+
 
 
 </resources>

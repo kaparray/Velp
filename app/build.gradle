@@ -23,14 +23,7 @@ android {
     }
 }
 
-// This is lib for check tutorial insance (my english is very perfect)
-allprojects {
-    repositories {
-        maven { url 'https://jitpack.io' }
-    }
-}
 
-dependencies {compile 'com.github.bumptech.glide:glide:3.8.0'}
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -55,3 +48,6 @@ dependencies {
 
 
 apply plugin: 'com.google.gms.google-services'
+repositories {
+    mavenCentral()
+}
