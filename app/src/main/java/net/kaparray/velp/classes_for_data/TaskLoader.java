@@ -1,4 +1,4 @@
-package net.kaparray.velp.classes;
+package net.kaparray.velp.classes_for_data;
 
 
 

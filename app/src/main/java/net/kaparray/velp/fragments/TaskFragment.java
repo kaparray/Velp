@@ -30,7 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
-import net.kaparray.velp.classes.TaskLoader;
+import net.kaparray.velp.classes_for_data.TaskLoader;
 
 
 import java.util.ArrayList;

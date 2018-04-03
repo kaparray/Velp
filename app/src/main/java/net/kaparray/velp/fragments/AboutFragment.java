@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,10 +22,11 @@ public class AboutFragment extends android.support.v4.app.Fragment{
     Button mTutorial;
     Button mWork;
     Toolbar mToolBar;
+    WorkFragment workFragment;
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, Bundle savedInstanceState) {
 
         final View rootView = inflater.inflate(R.layout.fr_about, container, false);
 
@@ -49,7 +51,13 @@ public class AboutFragment extends android.support.v4.app.Fragment{
         mWork.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                workFragment = new WorkFragment();
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .replace(R.id.container, workFragment)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 

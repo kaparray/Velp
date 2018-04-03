@@ -3,7 +3,6 @@ package net.kaparray.velp.utils;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -19,11 +18,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import net.kaparray.velp.R;
-import net.kaparray.velp.classes.TaskLoader;
 
 
 @SuppressLint("Registered")

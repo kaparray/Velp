@@ -17,8 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
-import net.kaparray.velp.classes.EventLoader;
-import net.kaparray.velp.classes.TaskLoader;
+import net.kaparray.velp.classes_for_data.EventLoader;
 
 
 public class EventsFragments extends Fragment{

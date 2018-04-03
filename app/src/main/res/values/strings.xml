@@ -88,7 +88,9 @@
     <string name="WorkTitle">Работа</string>
     <string name="informationAboutYouForWork">Заполните информацию о себе</string>
     <string name="enterEmail">Введите e-mail</string>
-
+    <string name="enterName">Введите имя</string>
+    <string name="enterWorkExp">Расскажите о своём опыте работы</string>
+    <string name="title_work">Работа</string>
 
 
 </resources>
