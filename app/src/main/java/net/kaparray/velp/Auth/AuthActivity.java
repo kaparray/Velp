@@ -92,7 +92,7 @@ public class AuthActivity extends ProgressDialogActivity implements
         user =  mAuth.getCurrentUser();
 
 
-        imageView = (ImageView) findViewById(R.id.iv_ic_app);
+        imageView =  findViewById(R.id.iv_ic_app);
         anim = AnimationUtils.loadAnimation(this, R.anim.rotate_animaton);
 
 
@@ -223,6 +223,7 @@ public class AuthActivity extends ProgressDialogActivity implements
             mUserAccount.child("status").setValue("user");
             mUserAccount.child("photo").setValue(user.getPhotoUrl() + "");
 
+
             DatabaseReference rating1 = mUserAccount.child("rating").push();
             rating1.child("nameRating").setValue("help_10_people");
             rating1.child("valueRating").setValue("0");
@@ -242,6 +243,7 @@ public class AuthActivity extends ProgressDialogActivity implements
             DatabaseReference rating5 = mUserAccount.child("rating").push();
             rating5.child("nameRating").setValue("Help_10_people_over_50");
             rating5.child("valueRating").setValue("0");
+
             showMessage(R.string.allRight);
 
             Intent intent = new Intent(AuthActivity.this, MainActivity.class);

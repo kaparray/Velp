@@ -156,9 +156,11 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
             navigationView.setCheckedItem(R.id.nav_task);
         }
 
+
         if(!hasConnection(getApplicationContext())){
             Toast.makeText(MainActivity.this, R.string.noInternet, Toast.LENGTH_LONG).show();
         }
+
         
     }
 

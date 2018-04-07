@@ -77,6 +77,7 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
                        InputMethodManager.HIDE_NOT_ALWAYS);
 
 
+
                if(hasConnection(getContext())) {
                    taskFragment = new TaskFragment();
 

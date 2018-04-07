@@ -63,13 +63,11 @@ public class OpenTaskFragment extends Fragment{
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get user data in Fire base
                 AcceptedTask =  dataSnapshot.child("Task").child(KEY_Task).child("accept").child("accepted").getValue()+"";
-
-
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+//
             }
         };
         mDatabase.addValueEventListener(postListener);

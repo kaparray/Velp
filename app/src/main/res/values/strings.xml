@@ -91,8 +91,10 @@
     <string name="enterName">Введите имя</string>
     <string name="enterWorkExp">Расскажите о своём опыте работы</string>
     <string name="title_work">Работа</string>
+
     <string name="noInternet">Нет иптернет соединения</string>
     <string name="RatingTitle">Рейтинг</string>
+
 
 
 </resources>

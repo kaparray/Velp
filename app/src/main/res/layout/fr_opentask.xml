@@ -85,6 +85,7 @@
     </android.support.v7.widget.CardView>
 
 
+
     <Button
         android:id="@+id/btn_takeTask"
         android:layout_width="match_parent"
@@ -96,5 +97,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 
 </android.support.constraint.ConstraintLayout>
