@@ -1,39 +1,30 @@
 package net.kaparray.velp;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
+import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.net.Uri;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.transition.Fade;
-import android.support.transition.Slide;
-import android.support.transition.TransitionInflater;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.transition.Transition;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
-
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import net.kaparray.velp.fragments.AboutFragment;
-import net.kaparray.velp.fragments.AddTaskFragment;
 import net.kaparray.velp.fragments.BonusFragment;
 import net.kaparray.velp.fragments.EventsFragments;
 import net.kaparray.velp.fragments.ProfileFragment;
+import net.kaparray.velp.fragments.RatingFragment;
 import net.kaparray.velp.fragments.SettingsFragment;
 import net.kaparray.velp.fragments.TaskFragment;
 import net.kaparray.velp.utils.FirebaseIntegration;
@@ -52,6 +43,7 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
     TaskFragment taskFragment;
     SettingsFragment settingsFragment;
     EventsFragments eventsFragment;
+    RatingFragment ratingFragment;
     View mNavHeader;
 
 
@@ -75,7 +67,7 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-// Set Theme
+        // Set Theme
         SharedPreferences preferences = getSharedPreferences("theme",MODE_PRIVATE);
         String theme = preferences.getString("THEME"," ");
 
@@ -115,6 +107,7 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
         settingsFragment = new SettingsFragment();
         profileFragment = new ProfileFragment();
         eventsFragment = new EventsFragments();
+        ratingFragment = new RatingFragment();
 
 
         mNavHeader.setOnClickListener(new View.OnClickListener() {
@@ -126,6 +119,7 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
                         .replace(R.id.container, profileFragment)
                         .addToBackStack(null)
                         .commit();
+                navigationView.setCheckedItem(R.id.nav_task);
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 drawer.closeDrawer(GravityCompat.START);
                 // Set item in navigation drawer
@@ -158,10 +152,14 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
                     .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
                     .replace(R.id.container, taskFragment)
                     .commit();
+            // Set item in navigation drawer
+            navigationView.setCheckedItem(R.id.nav_task);
         }
 
-        // Set item in navigation drawer
-        navigationView.setCheckedItem(R.id.nav_task);
+        if(!hasConnection(getApplicationContext())){
+            Toast.makeText(MainActivity.this, R.string.noInternet, Toast.LENGTH_LONG).show();
+        }
+        
     }
 
     @Override
@@ -201,6 +199,12 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
                     .commit();
         }else if (id == R.id.nav_rating) {
             // Rating
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
+                    .replace(R.id.container, ratingFragment)
+                    .addToBackStack(null)
+                    .commit();
         } else if (id == R.id.nav_chat) {
             // Chat
 //            getSupportFragmentManager()
@@ -244,6 +248,25 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
         return true;
     }
 
-
+    public static boolean hasConnection(final Context context)
+    {
+        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        if (wifiInfo != null && wifiInfo.isConnected())
+        {
+            return true;
+        }
+        wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        if (wifiInfo != null && wifiInfo.isConnected())
+        {
+            return true;
+        }
+        wifiInfo = cm.getActiveNetworkInfo();
+        if (wifiInfo != null && wifiInfo.isConnected())
+        {
+            return true;
+        }
+        return false;
+    }
 
 }

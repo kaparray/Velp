@@ -1,30 +1,23 @@
 package net.kaparray.velp.Auth;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -230,11 +223,26 @@ public class AuthActivity extends ProgressDialogActivity implements
             mUserAccount.child("status").setValue("user");
             mUserAccount.child("photo").setValue(user.getPhotoUrl() + "");
 
+            DatabaseReference rating1 = mUserAccount.child("rating").push();
+            rating1.child("nameRating").setValue("help_10_people");
+            rating1.child("valueRating").setValue("0");
 
-            SharedPreferences preferencesView = getSharedPreferences("userType", MODE_PRIVATE);
-            SharedPreferences.Editor editorView = preferencesView.edit();
-            editorView.putString("userType", "google");
-            editorView.apply();
+            DatabaseReference rating2 = mUserAccount.child("rating").push();
+            rating2.child("nameRating").setValue("help_10_people");
+            rating2.child("valueRating").setValue("0");
+
+            DatabaseReference rating3 = mUserAccount.child("rating").push();
+            rating3.child("nameRating").setValue("help_100_people");
+            rating3.child("valueRating").setValue("0");
+
+            DatabaseReference rating4 = mUserAccount.child("rating").push();
+            rating4.child("nameRating").setValue("help_1000_people");
+            rating4.child("valueRating").setValue("0");
+
+            DatabaseReference rating5 = mUserAccount.child("rating").push();
+            rating5.child("nameRating").setValue("Help_10_people_over_50");
+            rating5.child("valueRating").setValue("0");
+            showMessage(R.string.allRight);
 
             Intent intent = new Intent(AuthActivity.this, MainActivity.class);
             startActivity(intent);
@@ -247,7 +255,9 @@ public class AuthActivity extends ProgressDialogActivity implements
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Log.d(TAG, "onConnectionFailed:" + connectionResult);
-        Toast.makeText(this,"lll", Toast.LENGTH_SHORT).show();
+        if (!hasConnection(getApplicationContext())){
+         showMessage(R.string.noInternet);
+        }
     }
 
 
@@ -270,5 +280,26 @@ public class AuthActivity extends ProgressDialogActivity implements
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
         }
+    }
+
+    public static boolean hasConnection(final Context context)
+    {
+        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        if (wifiInfo != null && wifiInfo.isConnected())
+        {
+            return true;
+        }
+        wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        if (wifiInfo != null && wifiInfo.isConnected())
+        {
+            return true;
+        }
+        wifiInfo = cm.getActiveNetworkInfo();
+        if (wifiInfo != null && wifiInfo.isConnected())
+        {
+            return true;
+        }
+        return false;
     }
 }

@@ -63,8 +63,7 @@ public class RegistrationActivity extends AppCompatActivity{
         // Set layout
         setContentView(R.layout.ac_registration);
 
-        mAuth = FirebaseAuth.getInstance();
-        // Find button
+        // Find view element
         mRegister = findViewById(R.id.btn_registration);
         mEmail = findViewById(R.id.et_email);
         mPassword1 = findViewById(R.id.et_pass1);
@@ -73,6 +72,24 @@ public class RegistrationActivity extends AppCompatActivity{
         mPhone = findViewById(R.id.et_phone);
         mAge = findViewById(R.id.et_age);
         mCity = findViewById(R.id.et_city);
+
+        mAuth = FirebaseAuth.getInstance();
+
+
+        // Set theme
+        if (side.equals("dark")){
+            mRegister.setTextColor(getResources().getColor(R.color.white));
+            mEmail.setTextColor(getResources().getColor(R.color.white));
+            mPassword1.setTextColor(getResources().getColor(R.color.white));
+            mPassword2.setTextColor(getResources().getColor(R.color.white));
+            mName.setTextColor(getResources().getColor(R.color.white));
+            mPhone.setTextColor(getResources().getColor(R.color.white));
+            mAge.setTextColor(getResources().getColor(R.color.white));
+            mCity.setTextColor(getResources().getColor(R.color.white));
+        } else if (side.equals("light")){
+           //
+        }
+
 
 
         mRegister.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +118,39 @@ public class RegistrationActivity extends AppCompatActivity{
                                         mUserAccount.child("level").setValue("0");  // Уорвень
                                         mUserAccount.child("status").setValue("user");
                                         //mUserAccount.child("status").setValue("photo");
+
+                                        DatabaseReference rating1 = mUserAccount.child("rating").push();
+                                        rating1.child("nameRating").setValue("help_10_people");
+                                        rating1.child("valueRating").setValue("0");
+
+                                        DatabaseReference rating2 = mUserAccount.child("rating").push();
+                                        rating2.child("nameRating").setValue("help_10_people");
+                                        rating2.child("valueRating").setValue("0");
+
+                                        DatabaseReference rating3 = mUserAccount.child("rating").push();
+                                        rating3.child("nameRating").setValue("help_100_people");
+                                        rating3.child("valueRating").setValue("0");
+
+                                        DatabaseReference rating4 = mUserAccount.child("rating").push();
+                                        rating4.child("nameRating").setValue("help_1000_people");
+                                        rating4.child("valueRating").setValue("0");
+
+                                        DatabaseReference rating5 = mUserAccount.child("rating").push();
+                                        rating5.child("nameRating").setValue("Help_10_people_over_50");
+                                        rating5.child("valueRating").setValue("0");
+
+//                                        rating.child("Help_100_people_over_50").setValue("0");
+//                                        rating.child("Get_100_points").setValue("0");
+//                                        rating.child("Get_1000_points").setValue("0");
+//                                        rating.child("Get_the_10th_level").setValue("0");
+//                                        rating.child("Get the 50th level").setValue("0");
+//                                        rating.child("Get_the_100_level").setValue("0");
+//                                        rating.child("Help on 3 events").setValue("0");
+//                                        rating.child("Help_on_5_events").setValue("0");
+//                                        rating.child("Help_on_10_events").setValue("0");
+//                                        rating.child("Help_on_30_events").setValue("0");
+//                                        rating.child("Help_on_50_events").setValue("0");
+//                                        rating.child("Help_on_100_events").setValue("0");
 
                                         UserProfileChangeRequest profileUpdatesName = new UserProfileChangeRequest.Builder()
                                                 .setDisplayName(mName.getText().toString()).build();

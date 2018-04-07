@@ -3,6 +3,8 @@ package net.kaparray.velp.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -73,20 +75,38 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                imm.hideSoftInputFromWindow(mAddTask.getWindowToken(),
                        InputMethodManager.HIDE_NOT_ALWAYS);
-               taskFragment = new TaskFragment();
 
-               DatabaseReference mUserAccount = myRef.push();
-               mUserAccount.child("userUID").setValue(user.getUid());
-               mUserAccount.child("nameTask").setValue(mTask.getText().toString());
-               mUserAccount.child("nameUser").setValue(user.getDisplayName());
-               mUserAccount.child("valueTask").setValue(mValueTask.getText().toString());
-               mUserAccount.child("photoUser").setValue(user.getPhotoUrl());
-               Toast.makeText(getContext(),"Task add in database", Toast.LENGTH_LONG).show();
-               getActivity().getSupportFragmentManager()
-                       .beginTransaction()
-                       .replace(R.id.container, taskFragment)
-                       .addToBackStack(null)
-                       .commit();
+
+               if(hasConnection(getContext())) {
+                   taskFragment = new TaskFragment();
+
+                   DatabaseReference mUserAccount = myRef.push();
+                   mUserAccount.child("key").setValue(mUserAccount.toString()
+                           .replace("https://velp-1544e.firebaseio.com/Task/", ""));
+
+
+                   mUserAccount.child("userUID").setValue(user.getUid());
+                   mUserAccount.child("nameTask").setValue(mTask.getText().toString());
+                   mUserAccount.child("nameUser").setValue(user.getDisplayName());
+                   mUserAccount.child("valueTask").setValue(mValueTask.getText().toString());
+                   //mUserAccount.child("photoUser").setValue(user.getPhotoUrl());
+                   mUserAccount.child("uniqueIdentificator").setValue(myRef.push().toString()
+                           .replaceAll("https://velp-1544e.firebaseio.com/Task/", ""));
+
+                   // Add data about taken user
+                   DatabaseReference accepted =  mUserAccount.child("accept");
+                   accepted.child("accepted").setValue("false");
+                   accepted.child("userUID").setValue("null");
+
+                   Toast.makeText(getContext(), R.string.taskAddInDataBase, Toast.LENGTH_LONG).show();
+                   getActivity().getSupportFragmentManager()
+                           .beginTransaction()
+                           .replace(R.id.container, taskFragment)
+                           .addToBackStack(null)
+                           .commit();
+               }else{
+                   Toast.makeText(getActivity(), R.string.noInternet, Toast.LENGTH_LONG).show();
+               }
             }
         });
 
@@ -99,5 +119,27 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(mAddTask.getWindowToken(),
                 InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
+
+    public static boolean hasConnection(final Context context)
+    {
+        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        if (wifiInfo != null && wifiInfo.isConnected())
+        {
+            return true;
+        }
+        wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        if (wifiInfo != null && wifiInfo.isConnected())
+        {
+            return true;
+        }
+        wifiInfo = cm.getActiveNetworkInfo();
+        if (wifiInfo != null && wifiInfo.isConnected())
+        {
+            return true;
+        }
+        return false;
     }
 }
