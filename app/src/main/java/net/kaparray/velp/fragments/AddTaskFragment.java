@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,14 +40,19 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
     Button mAddTask;
     EditText mTask;
     EditText mValueTask;
+    EditText mPointsTask;
     TaskFragment taskFragment;
 
     String name;
     String photo;
+    String points;
+    boolean counter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+
+        counter = true;
 
         // Checked theme app
         SharedPreferences preferencesTheme = getActivity().getSharedPreferences("theme",Context.MODE_PRIVATE);
@@ -59,14 +65,17 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
         mAddTask = rootView.findViewById(R.id.btn_addTask);
         mTask = rootView.findViewById(R.id.et_NameTask);
         mValueTask = rootView.findViewById(R.id.et_valueTask);
+        mPointsTask = rootView.findViewById(R.id.et_pointsTask);
 
         // Set text color
         if (theme.equals("dark")){
             mTask.setTextColor(getResources().getColor(R.color.white));
             mValueTask.setTextColor(getResources().getColor(R.color.white));
+            mPointsTask.setTextColor(getResources().getColor(R.color.white));
         } else if (theme.equals("light")){
             mTask.setTextColor(getResources().getColor(R.color.black));
             mValueTask.setTextColor(getResources().getColor(R.color.black));
+            mPointsTask.setTextColor(getResources().getColor(R.color.black));
         }
 
         mAddTask.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +94,7 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
                    mUserAccount.child("key").setValue(mUserAccount.toString()
                            .replace("https://velp-1544e.firebaseio.com/Task/", ""));
 
-
+                   mUserAccount.child("points").setValue(mPointsTask.getText().toString()+"");
                    mUserAccount.child("userUID").setValue(user.getUid());
                    mUserAccount.child("nameTask").setValue(mTask.getText().toString());
                    mUserAccount.child("nameUser").setValue(user.getDisplayName());
@@ -93,11 +102,36 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
                    //mUserAccount.child("photoUser").setValue(user.getPhotoUrl());
                    mUserAccount.child("uniqueIdentificator").setValue(myRef.push().toString()
                            .replaceAll("https://velp-1544e.firebaseio.com/Task/", ""));
-
                    // Add data about taken user
-                   DatabaseReference accepted =  mUserAccount.child("accept");
-                   accepted.child("accepted").setValue("false");
-                   accepted.child("userUID").setValue("null");
+                   mUserAccount.child("accepted").setValue("false");
+                   mUserAccount.child("userTakeUID").setValue("none");
+
+
+                       ValueEventListener postListener = new ValueEventListener() {
+                           @Override
+                           public void onDataChange(DataSnapshot dataSnapshot) {
+                               if(counter) {
+                                   // Get user data in Firebase
+                                   points = (String) dataSnapshot.child("Users").child(user.getUid()).child("points").getValue();
+
+                                   int pointsInt = Integer.parseInt(points);
+                                   int pointsTask = Integer.parseInt(mPointsTask.getText().toString());
+
+                                   int ans = pointsInt - pointsTask;
+                                   mDatabase.child("Users").child(user.getUid()).child("points").setValue(ans + "");
+                                   
+                                   counter = false;
+                               }
+                           }
+
+                           @Override
+                           public void onCancelled(DatabaseError databaseError) {
+
+                           }
+                       };
+                       mDatabase.addValueEventListener(postListener);
+
+
 
                    Toast.makeText(getContext(), R.string.taskAddInDataBase, Toast.LENGTH_LONG).show();
                    getActivity().getSupportFragmentManager()

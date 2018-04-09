@@ -16,7 +16,7 @@
         android:textColor="#000"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
-        android:layout_margin="15dp"
+        android:layout_margin="12dp"
         android:inputType="text"
         android:imeOptions="actionNext"/>
 
@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="15dp"
+        android:layout_margin="12dp"
         android:autoSizeTextType="uniform"
         android:background="@drawable/text_round"
         android:hint="Task value"
@@ -39,13 +39,21 @@
         android:textColor="#000" />
 
 
+    <EditText
+        android:id="@+id/et_pointsTask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:ems="10"
+        android:background="@drawable/text_round"
+        android:inputType="numberSigned" />
+
     <Button
         android:id="@+id/btn_addTask"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="7dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
         android:background="@drawable/button_round"
         android:text="Add task"
         android:textColor="@color/white"

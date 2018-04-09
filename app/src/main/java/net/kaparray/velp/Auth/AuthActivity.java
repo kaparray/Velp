@@ -215,7 +215,7 @@ public class AuthActivity extends ProgressDialogActivity implements
             mUserAccount.child("phone").setValue(user.getPhoneNumber());
             mUserAccount.child("age").setValue("null");
             mUserAccount.child("city").setValue("null");
-            mUserAccount.child("points").setValue("0");
+            mUserAccount.child("points").setValue("100");
             mUserAccount.child("helped").setValue("0");     // Сколько людям помог
             mUserAccount.child("failedTheAssignment").setValue("0");      // Сколько проволил заданий
             mUserAccount.child("rating").setValue("0");   //Рейтинг

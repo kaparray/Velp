@@ -94,7 +94,7 @@
 
     <string name="noInternet">Нет иптернет соединения</string>
     <string name="RatingTitle">Рейтинг</string>
-
+    <string name="Finish">Закончить</string>
 
 
 </resources>

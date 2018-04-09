@@ -111,7 +111,7 @@ public class RegistrationActivity extends AppCompatActivity{
                                         mUserAccount.child("phone").setValue(mPhone.getText().toString());
                                         mUserAccount.child("age").setValue(mAge.getText().toString());
                                         mUserAccount.child("city").setValue(mCity.getText().toString());
-                                        mUserAccount.child("points").setValue("0");
+                                        mUserAccount.child("points").setValue("100");
                                         mUserAccount.child("helped").setValue("0");     // Сколько людям помог
                                         mUserAccount.child("failedTheAssignment").setValue("0");      // Сколько проволил заданий
                                         mUserAccount.child("rating").setValue("0");   //Рейтинг
