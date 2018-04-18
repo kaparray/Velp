@@ -119,7 +119,7 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
 
                                    int ans = pointsInt - pointsTask;
                                    mDatabase.child("Users").child(user.getUid()).child("points").setValue(ans + "");
-                                   
+
                                    counter = false;
                                }
                            }
