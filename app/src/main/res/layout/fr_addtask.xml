@@ -45,8 +45,20 @@
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
         android:ems="10"
+        android:hint="bull's"
         android:background="@drawable/text_round"
         android:inputType="numberSigned" />
+
+
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapForAddTask"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/map_round"
+        android:visibility="visible" />
 
     <Button
         android:id="@+id/btn_addTask"
@@ -54,6 +66,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/button_round"
         android:text="Add task"
         android:textColor="@color/white"

@@ -54,6 +54,8 @@
 
     <!-- AddTask Fragment  -->
     <string name="AddTaskTitle">Добавление задачи</string>
+    <string name="Title_AlretDialogAddTask">Геоданные</string>
+    <string name="Text_AlretDialogAddTask">Вы хотите отправть свои геоданные?\nПо ним будет легче выполнить задание!</string>
 
     <!-- Profile Fragment -->
     <string name="ProfileTitle">Прфиль</string>

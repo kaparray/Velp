@@ -1,17 +1,22 @@
 package net.kaparray.velp;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -23,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import net.kaparray.velp.fragments.AboutFragment;
 import net.kaparray.velp.fragments.BonusFragment;
 import net.kaparray.velp.fragments.EventsFragments;
+import net.kaparray.velp.fragments.MapFragment;
 import net.kaparray.velp.fragments.ProfileFragment;
 import net.kaparray.velp.fragments.RatingFragment;
 import net.kaparray.velp.fragments.SettingsFragment;
@@ -44,8 +50,11 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
     SettingsFragment settingsFragment;
     EventsFragments eventsFragment;
     RatingFragment ratingFragment;
+    MapFragment mapFragment;
     View mNavHeader;
 
+
+    private int PERMISSION_CODE = 23;
 
     @Override
     protected void onDestroy() {
@@ -80,6 +89,14 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
         setContentView(R.layout.ac_main);
 
 
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},PERMISSION_CODE);
+            Log.d("0000", "WTF");
+        }
+
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -108,6 +125,7 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
         profileFragment = new ProfileFragment();
         eventsFragment = new EventsFragments();
         ratingFragment = new RatingFragment();
+        mapFragment = new MapFragment();
 
 
         mNavHeader.setOnClickListener(new View.OnClickListener() {
@@ -191,6 +209,12 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
                     .commit();
         } else if (id == R.id.nav_map){
             // Map
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
+                    .replace(R.id.container, mapFragment)
+                    .addToBackStack(null)
+                    .commit();
         } else if (id == R.id.nav_event) {
             // Events
             getSupportFragmentManager()
