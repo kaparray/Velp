@@ -38,7 +38,7 @@ import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
 import net.kaparray.velp.utils.ProgressDialogActivity;
 
-public class AuthActivity extends ProgressDialogActivity implements
+public class  AuthActivity extends ProgressDialogActivity implements
         GoogleApiClient.OnConnectionFailedListener{
 
 
@@ -101,6 +101,7 @@ public class AuthActivity extends ProgressDialogActivity implements
             @Override
             public void onClick(View v) {
                 signIn();
+
             }
         });
 
@@ -245,6 +246,8 @@ public class AuthActivity extends ProgressDialogActivity implements
             rating5.child("valueRating").setValue("0");
 
             showMessage(R.string.allRight);
+
+            Log.d("Go to application","All rightt");
 
             Intent intent = new Intent(AuthActivity.this, MainActivity.class);
             startActivity(intent);

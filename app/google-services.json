@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "392057706992-7170hevuubaq6be297u86gf9f601b6cd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.kaparray.velp",
+            "certificate_hash": "64dfe5a4acf1cfb51195cffa4d0b504435b8f8d5"
+          }
+        },
+        {
           "client_id": "392057706992-1484gtutnaic27p7qhhl76gts4578dqb.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
