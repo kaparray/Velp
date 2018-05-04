@@ -183,14 +183,7 @@ public class TaskFragment extends Fragment{
 
                             // This is magic bundle. I transit data in DB to OpenTaskFragment
                             Bundle bundle = new Bundle();
-                            bundle.putString("NameTask", loderer.get(position).getNameTask());
-                            bundle.putString("ValueTask", loderer.get(position).getValueTask());
-                            bundle.putString("NameUser", loderer.get(position).getNameUser());
                             bundle.putString("TaskKey", loderer.get(position).getKey());
-                            bundle.putString("userUID", loderer.get(position).getUserUID());
-                            bundle.putString("userTakeUID", loderer.get(position).getUserTakeUID());
-                            bundle.putString("accepted", loderer.get(position).getAccepted());
-                            bundle.putString("points", loderer.get(position).getPoints());
                             openTaskFragment.setArguments(bundle);
                         }
 

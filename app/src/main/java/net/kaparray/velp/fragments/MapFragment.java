@@ -7,12 +7,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -35,6 +37,9 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import net.kaparray.velp.R;
+import net.kaparray.velp.classes_for_data.TaskLoader;
+
+import java.util.ArrayList;
 
 public class MapFragment extends Fragment {
 
@@ -45,6 +50,12 @@ public class MapFragment extends Fragment {
     // Database FireBase
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     public FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+
+    // List for all marker's in map
+    ArrayList<Marker> arrayListMarker = new ArrayList<>();
+    // New open task fragment
+    OpenTaskFragment openTaskFragment;
 
 
     @Nullable
@@ -63,9 +74,15 @@ public class MapFragment extends Fragment {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Log.d("0000", dataSnapshot.child("locationLatitude").getValue() + "");
                 if(dataSnapshot.child("locationLatitude").getValue() != null){
-                googleMap.addMarker(new MarkerOptions().position(
-                        new LatLng((double)dataSnapshot.child("locationLatitude").getValue(), (double)dataSnapshot.child("locationLongitude").getValue())).title("Marker in Sydney"));
 
+                    // Add new marker in map
+                    Marker marker = googleMap.addMarker(new MarkerOptions().position(
+                        new LatLng((double)dataSnapshot.child("locationLatitude").getValue(),
+                                (double)dataSnapshot.child("locationLongitude").getValue())).title(dataSnapshot.child("nameTask").getValue()+""));
+
+                // set teg for marker and add in array list it
+                marker.setTag(dataSnapshot.child("key").getValue());
+                arrayListMarker.add(marker);
                 }
             }
 
@@ -85,8 +102,6 @@ public class MapFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-            // TODO: implement the ChildEventListener methods as documented above
-            // ...
         });
 
 
@@ -102,27 +117,42 @@ public class MapFragment extends Fragment {
             public void onMapReady(GoogleMap mMap) {
                 googleMap = mMap;
 
+
                 // For showing a move to my location button
                 if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                         == PackageManager.PERMISSION_GRANTED) {
                     mMap.setMyLocationEnabled(true);
-                    Log.d("0000", "WTF");
                 }
 
                 googleMap.getUiSettings().setZoomControlsEnabled(true);
 
+                googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                    @Override
+                    public void onInfoWindowClick(Marker marker) {
+                        for (int i = 0; i < arrayListMarker.size(); i++){
+                            if(arrayListMarker.get(i).getTag() == marker.getTag()){
 
+                                openTaskFragment =  new OpenTaskFragment();
+                                
+                                Bundle bundle = new Bundle();
+                                bundle.putString("TaskKey", marker.getTag()+"");
+                                openTaskFragment.setArguments(bundle);
 
-
-//                // For dropping a marker at a point on the Map
-//                LatLng sydney = new LatLng(-34, 151);
-//                googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"));
-//
-//                // For zooming automatically to the location of the marker
-//                CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(12).build();
-//                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                                getActivity().getSupportFragmentManager()
+                                        .beginTransaction()
+                                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                                        .replace(R.id.container, openTaskFragment)
+                                        .addToBackStack(null)
+                                        .commit();
+                            }
+                        }
+                    }
+                });
             }
         });
+
+
+
 
         return rootView;
     }
