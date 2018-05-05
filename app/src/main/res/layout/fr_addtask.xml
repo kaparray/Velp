@@ -45,6 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
         android:ems="10"
+        android:textColor="#000"
         android:hint="bull's"
         android:background="@drawable/text_round"
         android:inputType="numberSigned" />

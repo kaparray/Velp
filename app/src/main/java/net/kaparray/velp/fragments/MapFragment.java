@@ -36,7 +36,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
+import net.kaparray.velp.classes_for_data.MarkerData;
 import net.kaparray.velp.classes_for_data.TaskLoader;
 
 import java.util.ArrayList;
@@ -57,6 +59,8 @@ public class MapFragment extends Fragment {
     // New open task fragment
     OpenTaskFragment openTaskFragment;
 
+    ArrayList<MarkerData> markerData = new ArrayList<>();
+
 
     @Nullable
     @Override
@@ -64,6 +68,7 @@ public class MapFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fr_map, container, false);
         mMapView = (MapView) rootView.findViewById(R.id.map);
+        ((MainActivity) getActivity()).setTitle(getString(R.string.MapTitle));
         mMapView.onCreate(savedInstanceState);
 
         mMapView.onResume(); // needed to get the map to display immediately
@@ -75,14 +80,22 @@ public class MapFragment extends Fragment {
                 Log.d("0000", dataSnapshot.child("locationLatitude").getValue() + "");
                 if(dataSnapshot.child("locationLatitude").getValue() != null){
 
-                    // Add new marker in map
-                    Marker marker = googleMap.addMarker(new MarkerOptions().position(
-                        new LatLng((double)dataSnapshot.child("locationLatitude").getValue(),
-                                (double)dataSnapshot.child("locationLongitude").getValue())).title(dataSnapshot.child("nameTask").getValue()+""));
 
-                // set teg for marker and add in array list it
-                marker.setTag(dataSnapshot.child("key").getValue());
-                arrayListMarker.add(marker);
+//                    LatLng latLng =  new LatLng((double)dataSnapshot.child("locationLatitude").getValue(),
+//                            (double)dataSnapshot.child("locationLongitude").getValue());
+//                    // Add new marker in map
+//                    Marker marker = googleMap.addMarker(new MarkerOptions().position(latLng).title(dataSnapshot.child("nameTask").getValue()+""));
+//
+//                    // set teg for marker and add in array list it
+//                    marker.setTag(dataSnapshot.child("key").getValue());
+//                    arrayListMarker.add(marker);
+//                    marker = null; this is old code
+
+
+
+                    markerData.add(new MarkerData((double)dataSnapshot.child("locationLongitude").getValue(),
+                            (double)dataSnapshot.child("locationLatitude").getValue(),
+                            dataSnapshot.child("key").getValue()+"", dataSnapshot.child("nameTask").getValue()+""));
                 }
             }
 
@@ -126,14 +139,23 @@ public class MapFragment extends Fragment {
 
                 googleMap.getUiSettings().setZoomControlsEnabled(true);
 
+
+                for (int i = 0; i < markerData.size(); i++){
+                    LatLng latLng =  new LatLng(markerData.get(i).getLocationLongitude(),markerData.get(i).getLocationLatitude());
+                    // Add new marker in map
+                    googleMap.addMarker(new MarkerOptions().position(latLng).title(markerData.get(i).getNameTask()));
+
+                }
+
+
                 googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                     @Override
                     public void onInfoWindowClick(Marker marker) {
-                        for (int i = 0; i < arrayListMarker.size(); i++){
-                            if(arrayListMarker.get(i).getTag() == marker.getTag()){
+                        for (int i = 0; i < markerData.size(); i++){
+                            if(markerData.get(i).getKey() == marker.getTag()){
 
                                 openTaskFragment =  new OpenTaskFragment();
-                                
+
                                 Bundle bundle = new Bundle();
                                 bundle.putString("TaskKey", marker.getTag()+"");
                                 openTaskFragment.setArguments(bundle);
