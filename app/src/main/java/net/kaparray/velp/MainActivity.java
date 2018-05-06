@@ -27,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import net.kaparray.velp.fragments.AboutFragment;
 import net.kaparray.velp.fragments.BonusFragment;
+import net.kaparray.velp.fragments.ChatFragment;
 import net.kaparray.velp.fragments.EventsFragments;
 import net.kaparray.velp.fragments.MapFragment;
 import net.kaparray.velp.fragments.ProfileFragment;
@@ -46,6 +47,7 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
     ProfileFragment profileFragment;
     AboutFragment aboutFragment;
     BonusFragment bonusFragment;
+    ChatFragment chatFragment;
     TaskFragment taskFragment;
     SettingsFragment settingsFragment;
     EventsFragments eventsFragment;
@@ -120,13 +122,13 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
 
         aboutFragment = new AboutFragment();
         bonusFragment = new BonusFragment();
+        chatFragment = new ChatFragment();
         taskFragment = new TaskFragment();
         settingsFragment = new SettingsFragment();
         profileFragment = new ProfileFragment();
         eventsFragment = new EventsFragments();
         ratingFragment = new RatingFragment();
         mapFragment = new MapFragment();
-
 
         mNavHeader.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -233,12 +235,12 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
                     .commit();
         } else if (id == R.id.nav_chat) {
             // Chat
-//            getSupportFragmentManager()
-//                    .beginTransaction()
-//                    .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
-//                    .replace(R.id.container, chatFragment)
-//                    .addToBackStack(null)
-//                    .commit();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .replace(R.id.container, chatFragment)
+                    .addToBackStack(null)
+                    .commit();
         } else if (id == R.id.nav_settings){
             // Settings
             getSupportFragmentManager()

@@ -20,7 +20,7 @@
 
 
     <!-- Tutorial text -->
-    <string name="Tutorial1">Velp Проси. Помогай. Приложение для волонтеров.</string>
+    <string name="Tutorial1">Velp: Проси. Помогай. Приложение для волонтеров.</string>
     <string name="Tutorial2">Добавляй задания и челленджи. Выполняй просьбы и зарабатывай баллы. Это просто!</string>
     <string name="Tutorial3">Обменивай баллы на бонусы или дополнительные функции. </string>
     <string name="Tutorial4">Помогая друг другу мы делаем мир чуть-чуть лучше. Не важно как, и чем - главное помогать!</string>
@@ -36,8 +36,13 @@
     <!-- Bonus Fragment -->
     <string name="BonusTitle">Бонусы</string>
     <string name="Title_AlretDialogBonus">Бонус</string>
-    <string name="Text_AlretDialogBonus">Вданный момент мы ведём работу над данной фунуцией!</string>
+    <string name="Text_AlretDialogBonus">В данный момент мы ведём работу над данной функцией!</string>
     <string name="coming_soon">В ближайшее время</string>
+
+    <!-- Chat Fragment -->
+    <string name="ChatTitle">Чат</string>
+    <string name="Title_AlretDialogChat">Чат</string>
+    <string name="Text_AlretDialogChat">В данный момент мы ведём работу над данной функцией!</string>
 
 
     <!-- Menu drawer -->
@@ -58,7 +63,7 @@
     <string name="Text_AlretDialogAddTask">Вы хотите отправть свои геоданные?\nПо ним будет легче выполнить задание!</string>
 
     <!-- Profile Fragment -->
-    <string name="ProfileTitle">Прфиль</string>
+    <string name="ProfileTitle">Профиль</string>
     <string name="Helped">Помог</string>
     <string name="leavel">Уровень</string>
     <string name="Points">Очки</string>
