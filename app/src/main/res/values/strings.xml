@@ -41,8 +41,8 @@
 
     <!-- Chat Fragment -->
     <string name="ChatTitle">Чат</string>
-    <string name="Title_AlretDialogChat">Чат</string>
-    <string name="Text_AlretDialogChat">В данный момент мы ведём работу над данной функцией!</string>
+    <string name="Title_AlertDialogChat">Чат</string>
+    <string name="Text_AlertDialogChat">В данный момент мы ведём работу над данной функцией!</string>
 
 
     <!-- Menu drawer -->

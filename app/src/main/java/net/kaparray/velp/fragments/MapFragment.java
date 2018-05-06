@@ -81,22 +81,23 @@ public class MapFragment extends Fragment {
                 if(dataSnapshot.child("locationLatitude").getValue() != null){
 
 
-//                    LatLng latLng =  new LatLng((double)dataSnapshot.child("locationLatitude").getValue(),
-//                            (double)dataSnapshot.child("locationLongitude").getValue());
-//                    // Add new marker in map
-//                    Marker marker = googleMap.addMarker(new MarkerOptions().position(latLng).title(dataSnapshot.child("nameTask").getValue()+""));
-//
-//                    // set teg for marker and add in array list it
-//                    marker.setTag(dataSnapshot.child("key").getValue());
-//                    arrayListMarker.add(marker);
-//                    marker = null; this is old code
-
 
 
                     markerData.add(new MarkerData((double)dataSnapshot.child("locationLongitude").getValue(),
                             (double)dataSnapshot.child("locationLatitude").getValue(),
                             dataSnapshot.child("key").getValue()+"", dataSnapshot.child("nameTask").getValue()+""));
+
+
                 }
+
+
+                for (int i = 0; i < markerData.size(); i++){
+                    LatLng latLng =  new LatLng(markerData.get(i).getLocationLongitude(),markerData.get(i).getLocationLatitude());
+                    // Add new marker in map
+                    googleMap.addMarker(new MarkerOptions().position(latLng).title(markerData.get(i).getNameTask()));
+
+                }
+
             }
 
             @Override
@@ -138,14 +139,6 @@ public class MapFragment extends Fragment {
                 }
 
                 googleMap.getUiSettings().setZoomControlsEnabled(true);
-
-
-                for (int i = 0; i < markerData.size(); i++){
-                    LatLng latLng =  new LatLng(markerData.get(i).getLocationLongitude(),markerData.get(i).getLocationLatitude());
-                    // Add new marker in map
-                    googleMap.addMarker(new MarkerOptions().position(latLng).title(markerData.get(i).getNameTask()));
-
-                }
 
 
                 googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
