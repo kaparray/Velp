@@ -15,7 +15,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -50,12 +52,14 @@ public class  AuthActivity extends ProgressDialogActivity implements
     private FirebaseAuth mAuth;
     private FirebaseUser user;
     private static final int RC_SIGN_IN = 9001;
-    private CardView mEmailAuth;
+
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference mDatabase;
-    private CardView mGoogleAuth;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    // Button's
+    private Button mEmailAuth;
+    private Button mGoogleAuth;
 
 
 
@@ -87,6 +91,8 @@ public class  AuthActivity extends ProgressDialogActivity implements
         }
 
         setContentView(R.layout.ac_signin);
+
+
 
         mAuth = FirebaseAuth.getInstance();
         user =  mAuth.getCurrentUser();

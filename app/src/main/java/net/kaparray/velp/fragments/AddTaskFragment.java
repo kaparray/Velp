@@ -88,15 +88,12 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
         mPointsTask = rootView.findViewById(R.id.et_pointsTask);
 
         // Set text color
-        if (theme.equals("dark")){
-            mTask.setTextColor(getResources().getColor(R.color.white));
-            mValueTask.setTextColor(getResources().getColor(R.color.white));
-            mPointsTask.setTextColor(getResources().getColor(R.color.white));
-        } else if (theme.equals("light")){
-            mTask.setTextColor(getResources().getColor(R.color.black));
-            mValueTask.setTextColor(getResources().getColor(R.color.black));
-            mPointsTask.setTextColor(getResources().getColor(R.color.black));
+        if (theme.equals("dark")) {
+            mTask.setHintTextColor(getResources().getColor(R.color.soSoBlack));
+            mValueTask.setHintTextColor(getResources().getColor(R.color.soSoBlack));
+            mPointsTask.setHintTextColor(getResources().getColor(R.color.soSoBlack));
         }
+
 
 
 

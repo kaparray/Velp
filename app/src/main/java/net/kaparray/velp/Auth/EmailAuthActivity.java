@@ -42,6 +42,8 @@ public class EmailAuthActivity extends AppCompatActivity{
     public ProgressDialog mProgressDialog;
     private Animation anim;
     private ImageView imageView;
+    // Text view
+    private TextView mForgetPass;
 
     @SuppressLint("CutPasteId")
     @Override
@@ -59,6 +61,8 @@ public class EmailAuthActivity extends AppCompatActivity{
 
         setContentView(R.layout.ac_authemail);
 
+
+
         mAuth = FirebaseAuth.getInstance();
 
         mPassword = findViewById(R.id.et_passSignIn);
@@ -71,6 +75,8 @@ public class EmailAuthActivity extends AppCompatActivity{
 
         imageView = (ImageView) findViewById(R.id.iv_ic_app);
         anim = AnimationUtils.loadAnimation(this, R.anim.rotate_animaton);
+
+
 
 
 
@@ -126,10 +132,27 @@ public class EmailAuthActivity extends AppCompatActivity{
         });
 
 
-        mForgetPas.setOnClickListener(new View.OnClickListener() {
+        mForgetPass = findViewById(R.id.tv_forgetPass);
+        mForgetPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!mEmail.getText().toString().equals("")) {
+                    FirebaseAuth.getInstance().sendPasswordResetEmail(mEmail.getText().toString())
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(EmailAuthActivity.this, "Message send to your email", Toast.LENGTH_LONG).show();
+                                        Log.d(TAG, "Email sent.");
+                                    }else{
+                                        Toast.makeText(EmailAuthActivity.this, "Error message send", Toast.LENGTH_LONG).show();
 
+                                    }
+                                }
+                            });
+                }else{
+                    Toast.makeText(EmailAuthActivity.this, "Enter email", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
