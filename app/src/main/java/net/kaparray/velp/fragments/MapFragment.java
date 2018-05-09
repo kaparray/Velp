@@ -91,12 +91,12 @@ public class MapFragment extends Fragment {
                 }
 
 
-                for (int i = 0; i < markerData.size(); i++){
-                    LatLng latLng =  new LatLng(markerData.get(i).getLocationLongitude(),markerData.get(i).getLocationLatitude());
-                    // Add new marker in map
-                    googleMap.addMarker(new MarkerOptions().position(latLng).title(markerData.get(i).getNameTask()));
-
-                }
+//                for (int i = 0; i < markerData.size(); i++){
+//                    LatLng latLng =  new LatLng(markerData.get(i).getLocationLongitude(),markerData.get(i).getLocationLatitude());
+//                    // Add new marker in map
+//                    googleMap.addMarker(new MarkerOptions().position(latLng).title(markerData.get(i).getNameTask()));
+//
+//                }
 
             }
 

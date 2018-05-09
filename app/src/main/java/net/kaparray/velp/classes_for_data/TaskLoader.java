@@ -12,7 +12,6 @@ public class TaskLoader {
     private String nameUser;
     private String uniqueIdentificator;
 
-
     private String accepted;
 
 
