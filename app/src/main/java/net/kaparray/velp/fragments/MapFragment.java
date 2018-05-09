@@ -76,11 +76,17 @@ public class MapFragment extends Fragment {
 
 
 
+
+
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
+
+
 
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -95,7 +101,6 @@ public class MapFragment extends Fragment {
                 }
 
                 googleMap.getUiSettings().setZoomControlsEnabled(true);
-
 
 
 
@@ -120,7 +125,7 @@ public class MapFragment extends Fragment {
                             LatLng latLng =  new LatLng(markerData.get(i).getLocationLongitude(),markerData.get(i).getLocationLatitude());
                             // Add new marker in map
                             Log.d("1111", latLng.latitude + " " + latLng.longitude);
-                            googleMap.addMarker(new MarkerOptions().position(latLng).title(markerData.get(i).getNameTask()));
+                            googleMap.addMarker(new MarkerOptions().position(latLng).title(markerData.get(i).getNameTask())).setTag(markerData.get(i).getKey());
                         }
 
                     }
@@ -147,6 +152,8 @@ public class MapFragment extends Fragment {
                 googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                     @Override
                     public void onInfoWindowClick(Marker marker) {
+
+                        Log.d("1111", marker.getTag()+"");
                         for (int i = 0; i < markerData.size(); i++){
                             if(markerData.get(i).getKey() == marker.getTag()){
 
