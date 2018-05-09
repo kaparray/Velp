@@ -73,50 +73,6 @@ public class MapFragment extends Fragment {
 
         mMapView.onResume(); // needed to get the map to display immediately
 
-        Query myMostViewedPostsQuery = mDatabase.child("Task");
-        myMostViewedPostsQuery.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Log.d("0000", dataSnapshot.child("locationLatitude").getValue() + "");
-                if(dataSnapshot.child("locationLatitude").getValue() != null){
-
-
-
-
-                    markerData.add(new MarkerData((double)dataSnapshot.child("locationLongitude").getValue(),
-                            (double)dataSnapshot.child("locationLatitude").getValue(),
-                            dataSnapshot.child("key").getValue()+"", dataSnapshot.child("nameTask").getValue()+""));
-
-
-                }
-
-
-//                for (int i = 0; i < markerData.size(); i++){
-//                    LatLng latLng =  new LatLng(markerData.get(i).getLocationLongitude(),markerData.get(i).getLocationLatitude());
-//                    // Add new marker in map
-//                    googleMap.addMarker(new MarkerOptions().position(latLng).title(markerData.get(i).getNameTask()));
-//
-//                }
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
 
 
 
@@ -139,6 +95,53 @@ public class MapFragment extends Fragment {
                 }
 
                 googleMap.getUiSettings().setZoomControlsEnabled(true);
+
+
+
+
+                Query myMostViewedPostsQuery = mDatabase.child("Task");
+                myMostViewedPostsQuery.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        Log.d("0000", dataSnapshot.child("locationLatitude").getValue() + "");
+                        if(dataSnapshot.child("locationLatitude").getValue() != null){
+
+
+                            markerData.add(new MarkerData((double)dataSnapshot.child("locationLongitude").getValue(),
+                                    (double)dataSnapshot.child("locationLatitude").getValue(),
+                                    dataSnapshot.child("key").getValue()+"", dataSnapshot.child("nameTask").getValue()+""));
+
+
+                        }
+
+
+
+                        for (int i = 0; i < markerData.size(); i++){
+                            LatLng latLng =  new LatLng(markerData.get(i).getLocationLongitude(),markerData.get(i).getLocationLatitude());
+                            // Add new marker in map
+                            Log.d("1111", latLng.latitude + " " + latLng.longitude);
+                            googleMap.addMarker(new MarkerOptions().position(latLng).title(markerData.get(i).getNameTask()));
+                        }
+
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
 
 
                 googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
