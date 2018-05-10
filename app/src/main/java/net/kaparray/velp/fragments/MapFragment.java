@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,6 +63,9 @@ public class MapFragment extends Fragment {
     ArrayList<MarkerData> markerData = new ArrayList<>();
 
 
+    private ProgressBar mProgressBar;
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -74,7 +78,8 @@ public class MapFragment extends Fragment {
         mMapView.onResume(); // needed to get the map to display immediately
 
 
-
+        mProgressBar = rootView.findViewById(R.id.progressBarInMap);
+        mProgressBar.setVisibility(View.VISIBLE);
 
 
 
@@ -111,23 +116,21 @@ public class MapFragment extends Fragment {
                         Log.d("0000", dataSnapshot.child("locationLatitude").getValue() + "");
                         if(dataSnapshot.child("locationLatitude").getValue() != null){
 
-
                             markerData.add(new MarkerData((double)dataSnapshot.child("locationLongitude").getValue(),
                                     (double)dataSnapshot.child("locationLatitude").getValue(),
                                     dataSnapshot.child("key").getValue()+"", dataSnapshot.child("nameTask").getValue()+""));
 
-
                         }
-
 
 
                         for (int i = 0; i < markerData.size(); i++){
                             LatLng latLng =  new LatLng(markerData.get(i).getLocationLongitude(),markerData.get(i).getLocationLatitude());
                             // Add new marker in map
-                            Log.d("1111", latLng.latitude + " " + latLng.longitude);
                             googleMap.addMarker(new MarkerOptions().position(latLng).title(markerData.get(i).getNameTask())).setTag(markerData.get(i).getKey());
                         }
 
+                        // Hide progress bar
+                        mProgressBar.setVisibility(View.GONE);
                     }
 
                     @Override
@@ -152,8 +155,6 @@ public class MapFragment extends Fragment {
                 googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                     @Override
                     public void onInfoWindowClick(Marker marker) {
-
-                        Log.d("1111", marker.getTag()+"");
                         for (int i = 0; i < markerData.size(); i++){
                             if(markerData.get(i).getKey() == marker.getTag()){
 

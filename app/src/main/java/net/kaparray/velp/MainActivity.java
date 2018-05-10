@@ -10,6 +10,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
@@ -55,8 +56,10 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
     MapFragment mapFragment;
     View mNavHeader;
 
-
+    private boolean fragmentCounter = true;
     private int PERMISSION_CODE = 23;
+
+    NavigationView navigationView;
 
     @Override
     protected void onDestroy() {
@@ -108,7 +111,7 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         final View headerview = navigationView.getHeaderView(0);
@@ -137,8 +140,8 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
                         .beginTransaction()
                         .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
                         .replace(R.id.container, profileFragment)
-                        .addToBackStack(null)
                         .commit();
+                fragmentCounter = false;
                 navigationView.setCheckedItem(R.id.nav_task);
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 drawer.closeDrawer(GravityCompat.START);
@@ -155,14 +158,7 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
             getSupportFragmentManager()
                     .beginTransaction()
                     .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
-                    .replace(R.id.container, taskFragment)
-                    .commit();
-
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
                     .replace(R.id.container, settingsFragment)
-                    .addToBackStack(null)
                     .commit();
             // Set item in navigation drawer
             navigationView.setCheckedItem(R.id.nav_settings);
@@ -170,7 +166,7 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
             getSupportFragmentManager()
                     .beginTransaction()
                     .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
-                    .replace(R.id.container, taskFragment)
+                    .add(R.id.container, taskFragment)
                     .commit();
             // Set item in navigation drawer
             navigationView.setCheckedItem(R.id.nav_task);
@@ -186,12 +182,27 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
 
     @Override
     public void onBackPressed() {
+
+
+
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        } else if(!fragmentCounter){
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                    .replace(R.id.container, taskFragment)
+                    .commit();
+            navigationView.setCheckedItem(R.id.nav_task);
+            fragmentCounter = true;
+        } else{
             super.onBackPressed();
+
         }
+
     }
 
 
@@ -207,7 +218,6 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
                     .beginTransaction()
                     .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .replace(R.id.container, taskFragment)
-                    .addToBackStack(null)
                     .commit();
         } else if (id == R.id.nav_map){
             // Map
@@ -215,56 +225,56 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
                     .beginTransaction()
                     .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
                     .replace(R.id.container, mapFragment)
-                    .addToBackStack(null)
                     .commit();
+            fragmentCounter = false;
         } else if (id == R.id.nav_event) {
             // Events
             getSupportFragmentManager()
                     .beginTransaction()
                     .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
                     .replace(R.id.container, eventsFragment)
-                    .addToBackStack(null)
                     .commit();
+            fragmentCounter = false;
         }else if (id == R.id.nav_rating) {
             // Rating
             getSupportFragmentManager()
                     .beginTransaction()
                     .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
                     .replace(R.id.container, ratingFragment)
-                    .addToBackStack(null)
                     .commit();
+            fragmentCounter = false;
         } else if (id == R.id.nav_chat) {
             // Chat
             getSupportFragmentManager()
                     .beginTransaction()
                     .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .replace(R.id.container, chatFragment)
-                    .addToBackStack(null)
                     .commit();
+            fragmentCounter = false;
         } else if (id == R.id.nav_settings){
             // Settings
             getSupportFragmentManager()
                     .beginTransaction()
                     .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
                     .replace(R.id.container, settingsFragment)
-                    .addToBackStack(null)
                     .commit();
+            fragmentCounter = false;
         } else if (id == R.id.nav_bonus) {
             // Bonus
             getSupportFragmentManager()
                     .beginTransaction()
                     .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .replace(R.id.container, bonusFragment)
-                    .addToBackStack(null)
                     .commit();
+            fragmentCounter = false;
         } else if (id == R.id.nav_info) {
             // Info
             getSupportFragmentManager()
                     .beginTransaction()
                     .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
                     .replace(R.id.container, aboutFragment)
-                    .addToBackStack(null)
                     .commit();
+            fragmentCounter = false;
         } else if (id == R.id.nav_share){
             // Share
         } else if (id == R.id.nav_send) {

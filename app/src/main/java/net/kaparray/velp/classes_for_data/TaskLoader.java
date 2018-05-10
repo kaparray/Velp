@@ -11,16 +11,14 @@ public class TaskLoader {
     private String key;
     private String nameUser;
     private String uniqueIdentificator;
-
     private String accepted;
-
-
     private String userTakeUID;
-
     private String points;
+    private double locationLatitude;
+    private double locationLongitude;
+    private String time;
 
-
-    public TaskLoader(String taskName, String taskValue, String userUID, String key, String nameUser, String uniqueIdentificator, String points, String userTakeUID, String accepted) {
+    public TaskLoader(String taskName, String taskValue, String userUID, String key, String nameUser, String uniqueIdentificator, String points, String userTakeUID, String accepted, double locationLatitude, double locationLongitude, String time) {
         this.nameTask = taskName;
         this.valueTask = taskValue;
         this.userUID = userUID;
@@ -30,6 +28,9 @@ public class TaskLoader {
         this.points = points;
         this.userTakeUID = userTakeUID;
         this.accepted= accepted;
+        this.locationLatitude = locationLatitude;
+        this.locationLongitude = locationLongitude;
+        this.time = time;
     }
 
     // For firebase! Without an empty constructor does not work :)
@@ -108,6 +109,31 @@ public class TaskLoader {
 
     public void setAccepted(String accepted) {
         this.accepted = accepted;
+    }
+
+
+    public double getLocationLatitude() {
+        return locationLatitude;
+    }
+
+    public void setLocationLatitude(double locationLatitude) {
+        this.locationLatitude = locationLatitude;
+    }
+
+    public double getLocationLongitude() {
+        return locationLongitude;
+    }
+
+    public void setLocationLongitude(double locationLongitude) {
+        this.locationLongitude = locationLongitude;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }
 

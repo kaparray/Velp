@@ -96,7 +96,6 @@ public class TaskFragment extends Fragment{
         ((MainActivity) getActivity()).setTitle(getString(R.string.TaskTitle));
 
 
-
         loderer = new ArrayList<TaskLoader>();
 
         // Find branch in firebase

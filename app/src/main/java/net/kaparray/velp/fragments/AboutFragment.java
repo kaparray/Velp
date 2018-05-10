@@ -56,7 +56,6 @@ public class AboutFragment extends android.support.v4.app.Fragment{
                         .beginTransaction()
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .replace(R.id.container, workFragment)
-                        .addToBackStack(null)
                         .commit();
             }
         });

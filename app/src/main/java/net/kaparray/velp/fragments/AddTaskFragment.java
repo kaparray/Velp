@@ -1,6 +1,7 @@
 package net.kaparray.velp.fragments;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,8 +10,10 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -41,6 +44,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class AddTaskFragment extends android.support.v4.app.Fragment{
@@ -159,6 +169,7 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
                locationAlertDialog.setMessage(getString(R.string.Text_AlretDialogAddTask));
                // if set location in the task
                locationAlertDialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                   @RequiresApi(api = Build.VERSION_CODES.O)
                    @Override
                    public void onClick(DialogInterface dialogInterface, int i) {
                        dialogInterface.cancel();
@@ -182,8 +193,14 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
                            mUserAccount.child("accepted").setValue("false");
                            mUserAccount.child("userTakeUID").setValue("none");
 
-                           // Location
 
+                           //Date and time
+                           @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd\n HH:mm");
+                           String currentDateandTime = sdf.format(new Date());
+
+                           mUserAccount.child("time").setValue(currentDateandTime + "");
+
+                           // Location
                            googleMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
 
                                @Override

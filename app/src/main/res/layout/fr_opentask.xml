@@ -13,19 +13,21 @@
         android:id="@+id/cv_Task"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginBottom="284dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:clickable="true"
-        card_view:cardBackgroundColor="@color/Malibu"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         card_view:cardCornerRadius="15dp"
         card_view:cardElevation="5dp"
-        card_view:contentPadding="0dp"
+        card_view:layout_constraintBottom_toTopOf="@+id/map"
         card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintHorizontal_bias="0.496"
         card_view:layout_constraintStart_toStartOf="parent"
-        card_view:layout_constraintTop_toTopOf="parent">
-
+        card_view:layout_constraintTop_toTopOf="parent"
+        card_view:layout_constraintVertical_bias="0.064">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -33,16 +35,17 @@
             android:orientation="vertical"
             android:padding="10dp">
 
+
             <ImageView
                 android:id="@+id/iv_photoTask"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:layout_marginEnd="16dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:src="@mipmap/ic_launcher"
-                card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent" />
 
 
@@ -51,20 +54,25 @@
                 android:layout_width="238dp"
                 android:layout_height="21dp"
                 android:layout_margin="10dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:gravity="center"
                 android:text="Name Tasl"
+                card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent" />
+                card_view:layout_constraintTop_toBottomOf="@+id/iv_photoTask" />
 
             <TextView
                 android:id="@+id/tv_valueTaskInOpenTask"
                 android:layout_width="240dp"
                 android:layout_height="22dp"
                 android:layout_margin="10dp"
+                android:layout_marginEnd="8dp"
+                android:gravity="center"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="value task"
                 card_view:layout_constraintBottom_toTopOf="@+id/tv_nameUserInOpenTask"
+                card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toBottomOf="@+id/tv_nameTaskInOpenTask"
                 tools:ignore="MissingConstraints" />
@@ -72,18 +80,65 @@
             <TextView
                 android:id="@+id/tv_nameUserInOpenTask"
                 android:layout_width="242dp"
+                android:gravity="center"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:text="value task"
                 card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_pointsInOpenFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="pints"
+                card_view:layout_constraintBottom_toTopOf="@+id/tv_nameTaskInOpenTask"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintStart_toEndOf="@+id/iv_photoTask"
+                card_view:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="time"
+                card_view:layout_constraintBottom_toTopOf="@+id/tv_nameTaskInOpenTask"
+                card_view:layout_constraintEnd_toStartOf="@+id/iv_photoTask"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
 
         </android.support.constraint.ConstraintLayout>
 
     </android.support.v7.widget.CardView>
 
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapForOpenTask"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/btn_universalButtonTask"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cv_Task" />
 
 
     <Button
@@ -92,6 +147,7 @@
         android:layout_height="wrap_content"
         android:text="Take"
         android:textColor="@color/white"
+        android:backgroundTint="#5F97DF"
         android:background="@drawable/button_round"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
