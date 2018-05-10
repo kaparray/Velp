@@ -123,11 +123,11 @@ public class OpenTaskFragment extends Fragment{
                 }
 
                 if(taskLoader.getAccepted().equals("end")){
-                    mTakeTask.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.GreenButton)));
+                    mTakeTask.setBackgroundResource(R.drawable.button_round_green);
                     mTakeTask.setText("Закончанно");
                 }else if(taskLoader.getUserUID().equals(user.getUid()) && taskLoader.getAccepted().equals("false")){
                     mTakeTask.setText("Вашу задачу никто не подтвердил");
-                    mTakeTask.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.soSoBlack)));
+                    mTakeTask.setBackgroundResource(R.drawable.button_round_grey);
                  }else{
                     mTakeTask.setText("Взять задачу");
                 }
@@ -203,7 +203,7 @@ public class OpenTaskFragment extends Fragment{
                     // End task
                     point += Integer.parseInt(taskLoader.getPoints());
                     mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("points").setValue(point+"");
-                    mTakeTask.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.GreenButton)));
+                    mTakeTask.setBackgroundResource(R.drawable.button_round_green);
                     mTakeTask.setText("Закончанно");
                     mDatabase.child("Task").child(KEY_Task).child("accepted").setValue("end");
                 } else if(!taskLoader.getUserUID().equals(user.getUid()) && taskLoader.getAccepted().equals("false")){ // пользователь взял задачу
