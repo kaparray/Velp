@@ -168,7 +168,6 @@ public class MapFragment extends Fragment {
                                         .beginTransaction()
                                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                                         .replace(R.id.container, openTaskFragment)
-                                        .addToBackStack(null)
                                         .commit();
                             }
                         }

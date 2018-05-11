@@ -81,9 +81,6 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-
-        counter = true;
-
         // Checked theme app
         SharedPreferences preferencesTheme = getActivity().getSharedPreferences("theme",Context.MODE_PRIVATE);
         final String theme = preferencesTheme.getString("THEME"," ");
@@ -104,7 +101,7 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
             mPointsTask.setHintTextColor(getResources().getColor(R.color.soSoBlack));
         }
 
-
+        counter = true;
 
 
         mMapView = (MapView) rootView.findViewById(R.id.mapForAddTask);
