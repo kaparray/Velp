@@ -109,12 +109,15 @@ public class OpenTaskFragment extends Fragment{
                 taskLoader = dataSnapshot.child("Task").child(KEY_Task).getValue(TaskLoader.class);
 
 
-
-                mNameTask.setText(taskLoader.getNameTask() + "");
-                mValueTask.setText(taskLoader.getValueTask() + "");
-                mNameUser.setText(taskLoader.getNameUser() + "");
-                mPoints.setText(taskLoader.getPoints() + " points");
-                mTime.setText(taskLoader.getTime() + "");
+                try {
+                    mNameTask.setText(taskLoader.getNameTask() + "");
+                    mValueTask.setText(taskLoader.getValueTask() + "");
+                    mNameUser.setText(taskLoader.getNameUser() + "");
+                    mPoints.setText(taskLoader.getPoints() + " points");
+                    mTime.setText(taskLoader.getTime() + "");
+                }catch (Exception e){
+                    Log.d("Error", e+"");
+                }
 
 
 

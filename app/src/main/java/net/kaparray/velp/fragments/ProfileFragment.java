@@ -92,23 +92,8 @@ public class ProfileFragment extends Fragment{
                 mPhotoUser = rootView.findViewById(R.id.iv_profilePhoto);
 
 
-                // Get theme
-                SharedPreferences preferences = getActivity().getSharedPreferences("theme",MODE_PRIVATE);
-                String theme = preferences.getString("THEME"," ");
 
-                if (theme.equals("dark")){
-                    mLL.setBackground(getResources().getDrawable(R.drawable.gradient_dark));
-                    mUserName.setTextColor(getResources().getColor(R.color.white));
-                    mUserHelped.setTextColor(getResources().getColor(R.color.white));
-                    mUserLevel.setTextColor(getResources().getColor(R.color.white));
-                    mUserPoints.setTextColor(getResources().getColor(R.color.white));
-                } else if (theme.equals("light")){
-                    mLL.setBackground(getResources().getDrawable(R.drawable.gradient));
-                    mUserName.setTextColor(getResources().getColor(R.color.white));
-                    mUserHelped.setTextColor(getResources().getColor(R.color.black));
-                    mUserLevel.setTextColor(getResources().getColor(R.color.black));
-                    mUserPoints.setTextColor(getResources().getColor(R.color.black));
-                }
+
 
                 mUserName.setText(name);
                 mUserHelped.setText(helped);
@@ -116,19 +101,6 @@ public class ProfileFragment extends Fragment{
                 mUserPoints.setText(points);
 
 
-                // Get theme
-                SharedPreferences preferencesGoogle = getActivity().getSharedPreferences("userType",MODE_PRIVATE);
-                String userType = preferencesGoogle.getString("userType"," ");
-                // get photo in Google account and set in profile
-                if (userType.equals("google")) {
-                    String imgUrl = user.getPhotoUrl() + "";
-                   // Glide.with(getContext()).load(imgUrl).into(mPhotoUser);
-                } else {
-                    // Get user photo in firebase
-                }
-                
-                // Write in Log connection in Firebase
-                Log.w("Connect to db", "Data user aad in Profile Fragment: " + name);
 
             }
 

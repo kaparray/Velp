@@ -56,6 +56,7 @@
     <string name="Feedback">Обратная связь</string>
     <string name="Share">Поделится</string>
     <string name="Send">Отправить отзыв</string>
+    <string name="Profile">Профиль</string>
 
     <!-- AddTask Fragment  -->
     <string name="AddTaskTitle">Добавление задачи</string>

@@ -133,22 +133,6 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
         ratingFragment = new RatingFragment();
         mapFragment = new MapFragment();
 
-        mNavHeader.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
-                        .replace(R.id.container, profileFragment)
-                        .commit();
-                fragmentCounter = false;
-                navigationView.setCheckedItem(R.id.nav_task);
-                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-                drawer.closeDrawer(GravityCompat.START);
-                // Set item in navigation drawer
-//                navigationView.setCheckedItem();
-            }
-        });
 
         // Set Fragment
         SharedPreferences preferencesView = getSharedPreferences("view",MODE_PRIVATE);
@@ -211,8 +195,17 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
     public boolean onNavigationItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-
-        if (id == R.id.nav_task) {
+        if(id == R.id.nav_profile){
+            // Profile
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
+                    .replace(R.id.container, profileFragment)
+                    .commit();
+            fragmentCounter = false;
+            // Set item in navigation drawer
+//                navigationView.setCheckedItem();
+        } else if (id == R.id.nav_task) {
             // RecyclerView Task
             getSupportFragmentManager()
                     .beginTransaction()

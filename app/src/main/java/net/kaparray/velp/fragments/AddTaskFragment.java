@@ -77,6 +77,7 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
     String photo;
     String points;
     boolean counter;
+    boolean counterMin;
 
     @Nullable
     @Override
@@ -102,6 +103,7 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
         }
 
         counter = true;
+        counterMin = true;
 
 
         mMapView = (MapView) rootView.findViewById(R.id.mapForAddTask);
@@ -202,12 +204,13 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
 
                                @Override
                                public void onMyLocationChange(Location location) {
-
-                                   Marker marker = googleMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).title("It's Me!"));
-                                   marker.isVisible();
-                                   mUserAccount.child("locationLatitude").setValue(location.getLatitude());
-                                   mUserAccount.child("locationLongitude").setValue(location.getLongitude());
-
+                                   if(counter) {
+                                       Marker marker = googleMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).title("It's Me!"));
+                                       marker.isVisible();
+                                       mUserAccount.child("locationLatitude").setValue(location.getLatitude());
+                                       mUserAccount.child("locationLongitude").setValue(location.getLongitude());
+                                       counter = false;
+                                   }
 
                                }
                            });
@@ -218,17 +221,14 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
                            ValueEventListener postListener = new ValueEventListener() {
                                @Override
                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                   if(counter) {
-                                       // Get user data in Firebase
-                                       points = (String) dataSnapshot.child("Users").child(user.getUid()).child("points").getValue();
-
-                                       int pointsInt = Integer.parseInt(points);
-                                       int pointsTask = Integer.parseInt(mPointsTask.getText().toString());
-
-                                       int ans = pointsInt - pointsTask;
-                                       mDatabase.child("Users").child(user.getUid()).child("points").setValue(ans + "");
-
-                                       counter = false;
+                                   if(counterMin) {
+                                   // Get user data in Firebase
+                                   points = (String) dataSnapshot.child("Users").child(user.getUid()).child("points").getValue();
+                                   int pointsInt = Integer.parseInt(points);
+                                   int pointsTask = Integer.parseInt(mPointsTask.getText().toString());
+                                   int ans = pointsInt - pointsTask;
+                                   mDatabase.child("Users").child(user.getUid()).child("points").setValue(ans + "");
+                                       counterMin = false;
                                    }
                                }
 

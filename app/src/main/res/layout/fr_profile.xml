@@ -55,15 +55,16 @@
                         android:text="@string/Helped"
                         android:textSize="20sp"
                         />
+
                     <TextView
                         android:id="@+id/tv_profileHelped"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="125"
-                        android:textStyle="bold"
-                        android:textSize="20sp"
                         android:paddingTop="10dp"
-                        android:textColor="@color/black"/>
+                        android:text="125"
+                        android:textColor="#5F97DF"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
                 <LinearLayout
@@ -78,15 +79,16 @@
                         android:text="@string/leavel"
                         android:textSize="20sp"
                         />
+
                     <TextView
                         android:id="@+id/tv_profileLevel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1205"
-                        android:textStyle="bold"
-                        android:textSize="20sp"
                         android:paddingTop="10dp"
-                        android:textColor="@color/black"/>
+                        android:text="1205"
+                        android:textColor="#5F97DF"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
                 <LinearLayout
@@ -101,15 +103,16 @@
                         android:text="@string/Points"
                         android:textSize="20sp"
                         />
+
                     <TextView
                         android:id="@+id/tv_profilePoints"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="360"
-                        android:textStyle="bold"
-                        android:textSize="20sp"
                         android:paddingTop="10dp"
-                        android:textColor="@color/black"/>
+                        android:text="360"
+                        android:textColor="#5F97DF"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
             </LinearLayout>
