@@ -127,7 +127,7 @@ public class OpenTaskFragment extends Fragment{
 
                 if(taskLoader.getAccepted().equals("end")){
                     mTakeTask.setBackgroundResource(R.drawable.button_round_green);
-                    mTakeTask.setText("Закончанно");
+                    mTakeTask.setText("Законченно");
                 }else if(taskLoader.getUserUID().equals(user.getUid()) && taskLoader.getAccepted().equals("false")){
                     mTakeTask.setText("Вашу задачу никто не подтвердил");
                     mTakeTask.setBackgroundResource(R.drawable.button_round_grey);
@@ -201,13 +201,13 @@ public class OpenTaskFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 if(taskLoader.getUserUID().equals(user.getUid()) && taskLoader.getAccepted().equals("false")){ // Нельзя юоать свои
-                    Toast.makeText(getActivity(), "Вы не можите брать свои задачи", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Вы не можете брать свои задачи", Toast.LENGTH_LONG).show();
                 } else if(taskLoader.getUserUID().equals(user.getUid()) && taskLoader.getAccepted().equals("true")){ // Закончить задачц
                     // End task
                     point += Integer.parseInt(taskLoader.getPoints());
                     mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("points").setValue(point+"");
                     mTakeTask.setBackgroundResource(R.drawable.button_round_green);
-                    mTakeTask.setText("Закончанно");
+                    mTakeTask.setText("Законченно");
                     mDatabase.child("Task").child(KEY_Task).child("accepted").setValue("end");
                 } else if(!taskLoader.getUserUID().equals(user.getUid()) && taskLoader.getAccepted().equals("false")){ // пользователь взял задачу
                     Toast.makeText(getActivity(), "Вы взяли эту задачу", Toast.LENGTH_LONG).show();
@@ -217,7 +217,7 @@ public class OpenTaskFragment extends Fragment{
                 } else if (clickCounter > 0 || taskLoader.getUserTakeUID().equals(user.getUid())){ // Не кликай много раз
                     Toast.makeText(getActivity(), "Вы взяли эту задачу", Toast.LENGTH_LONG).show();
                 }else if(taskLoader.getAccepted().equals("end")){  // Задача законченна
-                    Toast.makeText(getActivity(), "Эту задачу уже закончали", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Эту задачу уже закончили", Toast.LENGTH_LONG).show();
                 }else if(taskLoader.getAccepted().equals("true")){ // Эту задачу кто-то взял
                     Toast.makeText(getActivity(), "Эту задачу кто-то взял", Toast.LENGTH_LONG).show();
                 }

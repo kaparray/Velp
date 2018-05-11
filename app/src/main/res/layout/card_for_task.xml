@@ -38,7 +38,7 @@
             android:layout_height="21dp"
             android:layout_margin="10dp"
             android:layout_marginTop="8dp"
-            android:text="Name Tasl"
+            android:text="@string/task_name"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent" />
 
@@ -49,7 +49,7 @@
             android:layout_margin="10dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="value task"
+            android:text="@string/value_task"
             card_view:layout_constraintBottom_toTopOf="@+id/tv_userTask"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/tv_nameTask"
@@ -62,7 +62,7 @@
             android:layout_margin="10dp"
             android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
-            android:text="value task"
+            android:text="@string/value_task"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintStart_toStartOf="parent" />
 

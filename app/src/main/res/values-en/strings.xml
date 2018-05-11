@@ -1,0 +1,129 @@
+<resources>
+    <string name="app_name">Velp</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="RatingTitle">Rating</string>
+    <string name="Finish">Finish</string>
+    <string name="take">Take</string>
+    <string name="send">Send</string>
+
+
+    <!-- NavDrawer -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- Registration Activity -->
+    <string name="email">Email</string>
+    <string name="Password">Password</string>
+    <string name="PassAgain">Password again</string>
+    <string name="Name">Name</string>
+    <string name="Phone">Phone</string>
+    <string name="Age">Age</string>
+    <string name="City">City</string>
+    <string name="Register">Register</string>
+
+    <!-- SingIn Activity -->
+    <string name="ToastInSingIn">Oops, There is a mistake!</string>
+    <string name="registration">Sign up</string>
+    <string name="login">Sign in</string>
+    <string name="forgot_password">Forgot password?</string>
+
+    <!-- Button tutorial text -->
+    <string name="swiping">Swipe to continue</string>
+    <string name="start">Begin</string>
+
+    <!-- Tutorial text -->
+    <string name="Tutorial1">Velp: Проси. Помогай. Приложение для волонтеров.</string>
+    <string name="Tutorial2">Add tasks and challenges. Do requests and get points. It\'s a peace of cake!</string>
+    <string name="Tutorial3">"Exchange points on bonuses or extra functions "</string>
+    <string name="Tutorial4">Helping each other we make this world a bit better. Doesn\'t matter how  - help!</string>
+
+    <!-- About Fragment -->
+    <string name="AboutTitle">About app</string>
+    <string name="MotivationText">We are deeply convinced that it is impossible to achieve the goals of a global scale alone, which is why we developed the Velp project - a place where people can unite for the sake of the common great cause. Become a part of our team to help people.</string>
+    <string name="work">Become part of the team</string>
+    <string name="tutorial_again">Project\'s philosophy</string>
+
+    <!-- Bonus Fragment -->
+    <string name="BonusTitle">Bonuses</string>
+    <string name="Title_AlretDialogBonus">Bonus</string>
+    <string name="Text_AlretDialogBonus">We are working on it!</string>
+    <string name="coming_soon">Coming soon</string>
+
+    <!-- Chat Fragment -->
+    <string name="ChatTitle">Chat</string>
+    <string name="Title_AlertDialogChat">Chat</string>
+    <string name="Text_AlertDialogChat">We are working on it</string>
+
+    <!-- Menu drawer -->
+    <string name="Task">Tasks</string>
+    <string name="Map">Map</string>
+    <string name="Rating">Rating</string>
+    <string name="Chat">Chat</string>
+    <string name="Bonus">Bonuses</string>
+    <string name="Settings">Settings</string>
+    <string name="About">About app</string>
+    <string name="Feedback">Contact</string>
+    <string name="Share">Share</string>
+    <string name="Send">Post a review</string>
+    <string name="Profile">Profile</string>
+
+    <!-- AddTask Fragment  -->
+    <string name="AddTaskTitle">Adding task</string>
+    <string name="Title_AlretDialogAddTask">Geodata</string>
+    <string name="Text_AlretDialogAddTask">Do you want to send us your geodata? It would be easier to do your request with its help!</string>
+    <string name="TaskName">Task name</string>
+    <string name="Fr_Task">Task</string>
+    <string name="AddTask">Add task</string>
+
+    <!-- Profile Fragment -->
+    <string name="ProfileTitle">Profile</string>
+    <string name="Helped">Helped</string>
+    <string name="leavel">Level</string>
+    <string name="Points">Points</string>
+
+    <!-- Task Fragment -->
+    <string name="TaskTitle">Tasks</string>
+
+    <!-- Settings Fragment -->
+    <string name="SettingsTitle">Settings</string>
+    <string name="dark">Dark theme</string>
+    <string name="light">Light theme</string>
+    <string name="title_activity_scrolling">ScrollingActivity</string>
+    <string name="Dark">Chose dark theme</string>
+    <string name="Logout">Log out</string>
+    <string name="DellAcc">Delete account</string>
+
+    <!-- Event Fragment -->
+    <string name="Events">Events</string>
+    <string name="allRight">Everything is OK</string>
+    <string name="yes">Yes</string>
+    <string name="Title_AlretDialogDeleteTask">Delete the task?</string>
+    <string name="taskAddInDataBase">Task has been added</string>
+    <string name="Text_AlretDialogDeleteTask">Are you sure you want to delete this task?</string>
+    <string name="noRootForChange">You can\'t delete not your tasks</string>
+    <string name="LoadingData">Loading...</string>
+    <string name="EventTitle">Events</string>
+    <string name="no">No</string>
+
+    <!-- Work Fragment -->
+    <string name="WorkTitle">Job</string>
+    <string name="informationAboutYouForWork">Fill the information about yourself</string>
+    <string name="enterEmail">Enter e-mail</string>
+    <string name="enterName">Enter your name</string>
+    <string name="enterWorkExp">Tell us about your experience</string>
+    <string name="title_work">Job</string>
+
+    <!-- Map Activity -->
+    <string name="MapTitle">Map</string>
+
+    <!-- Views -->
+    <string name="TV">TextView</string>
+    <string name="value_task">value task</string>
+    <string name="task_name">Task Name</string>
+    <string name="time">time</string>
+    <string name="wiliam_snoe">Wiliam Snoe</string>
+    <string name="noInternet">No internet connection</string>
+
+
+</resources>

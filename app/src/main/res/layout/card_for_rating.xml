@@ -30,7 +30,7 @@
             android:layout_margin="10dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="value task"
+            android:text="@string/value_task"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/textView3"
             tools:ignore="MissingConstraints" />
@@ -42,7 +42,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="TextView"
+            android:text="@string/TV"
             card_view:layout_constraintBottom_toTopOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintHorizontal_bias="0.027"

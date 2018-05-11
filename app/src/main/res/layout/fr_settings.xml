@@ -11,7 +11,7 @@
         android:id="@+id/sw_theme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Выбор тёмной темы"
+        android:text="@string/Dark"
         android:textOn="@android:string/cancel" />
 
     <Button
@@ -23,7 +23,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="SignOut"
+        android:text="@string/Logout"
         android:layout_gravity="center" />
 
     <Button
@@ -31,7 +31,7 @@
         android:background="@drawable/button_round"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Dell account"
+        android:text="@string/DellAcc"
         android:layout_gravity="center"/>
 
 </LinearLayout>
