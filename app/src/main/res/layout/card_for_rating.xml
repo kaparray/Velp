@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:clickable="true"
-    card_view:cardBackgroundColor="@color/Malibu"
+    card_view:cardBackgroundColor="@color/white"
     card_view:cardCornerRadius="15dp"
     card_view:cardElevation="5dp"
     card_view:contentPadding="0dp">
@@ -49,6 +49,19 @@
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent"
             card_view:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/iv_photoRating"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toEndOf="@+id/tv_valueRating"
+            card_view:layout_constraintTop_toTopOf="parent" />
 
 
     </android.support.constraint.ConstraintLayout>

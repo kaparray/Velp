@@ -38,7 +38,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import net.kaparray.velp.R;
 import net.kaparray.velp.classes_for_data.OpenTaskLoader;
+import net.kaparray.velp.classes_for_data.RatingData;
 import net.kaparray.velp.classes_for_data.TaskLoader;
+
+import java.util.List;
 
 import static net.kaparray.velp.fragments.ProfileFragment.TAG;
 
@@ -61,6 +64,8 @@ public class OpenTaskFragment extends Fragment{
 
     String KEY_Task;
 
+
+    List<RatingData> ratingData;
 
     TaskLoader taskLoader;
 
@@ -147,6 +152,11 @@ public class OpenTaskFragment extends Fragment{
                 }
 
 
+
+
+                ratingData = (List<RatingData>) dataSnapshot.child("Users").child(taskLoader.getUserTakeUID()).child("rating").getValue();
+
+
             }
 
             @Override
@@ -208,12 +218,32 @@ public class OpenTaskFragment extends Fragment{
                     mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("points").setValue(point+"");
                     mTakeTask.setBackgroundResource(R.drawable.button_round_green);
                     mTakeTask.setText("Законченно");
+
+//                  // add to user ochivments
+
+                    int help_10_people = Integer.parseInt(ratingData.get(0).getValueRating());
+                    help_10_people++;
+                    int h10p = help_10_people/10 * 100;
+                    mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(0).getKey()).setValue(h10p+"");
+
+                    int help_100_people = Integer.parseInt(ratingData.get(1).getValueRating());
+                    help_100_people++;
+                    int h100p = help_100_people/100 * 100;
+                    mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(1).getKey()).setValue(h100p+"");
+
+                    int help_1000_people = Integer.parseInt(ratingData.get(2).getValueRating());
+                    help_1000_people++;
+                    int h1000p = help_1000_people/1000 * 100;
+                    mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(2).getKey()).setValue(h1000p+"");
+
                     mDatabase.child("Task").child(KEY_Task).child("accepted").setValue("end");
                 } else if(!taskLoader.getUserUID().equals(user.getUid()) && taskLoader.getAccepted().equals("false")){ // пользователь взял задачу
                     Toast.makeText(getActivity(), "Вы взяли эту задачу", Toast.LENGTH_LONG).show();
                     mDatabase.child("Task").child(KEY_Task).child("accepted").setValue("true");
                     mDatabase.child("Task").child(KEY_Task).child("userTakeUID").setValue(user.getUid());
                     clickCounter++;
+
+
                 } else if (clickCounter > 0 || taskLoader.getUserTakeUID().equals(user.getUid())){ // Не кликай много раз
                     Toast.makeText(getActivity(), "Вы взяли эту задачу", Toast.LENGTH_LONG).show();
                 }else if(taskLoader.getAccepted().equals("end")){  // Задача законченна

@@ -3,6 +3,8 @@ package net.kaparray.velp.fragments;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +48,8 @@ public class RatingFragment extends Fragment {
     public FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     DatabaseReference myRef;
 
+    public Resources drawable;
+
 
     public static boolean hasConnection(final Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -69,6 +74,7 @@ public class RatingFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fr_rating, container, false);
         ((MainActivity) getActivity()).setTitle(getString(R.string.RatingTitle));
 
+        drawable = getResources();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference("Users").child(user.getUid()).child("rating");
@@ -96,7 +102,7 @@ public class RatingFragment extends Fragment {
             @Override
             protected void populateViewHolder(TaskViewHolder viewHolder, RatingData model, int position) {
 
-                viewHolder.setTitleName(model.getNameRating());
+                viewHolder.setTitleName(model.getNameRating(), drawable);
                 viewHolder.setValue(model.getValueRating());
 
 
@@ -122,15 +128,38 @@ public class RatingFragment extends Fragment {
 
 
         // This method return text for name task
-        public void setTitleName(String title) {
+        public void setTitleName(String title, Resources resources) {
             TextView name = mView.findViewById(R.id.textView3);
-            name.setText(title);
+            ImageView photo = mView.findViewById(R.id.iv_photoRating);
+            if(title.equals("help_10_people")){
+                name.setText("Помочь 10 людям");
+                photo.setImageDrawable(resources.getDrawable(R.drawable.ic_10_users));
+            }else if(title.equals("help_100_people")){
+                name.setText("Помочь 100 людям");
+                photo.setImageDrawable(resources.getDrawable(R.drawable.ic_100_users));
+            }else if(title.equals("help_1000_people")){
+                name.setText("Помочь 1000 людям");
+                photo.setImageDrawable(resources.getDrawable(R.drawable.ic_1000_users));
+            }else if(title.equals("help_in_3_events")){
+                name.setText("Помочь на 3 эвенках");
+            }else if(title.equals("help_in_5_events")){
+                name.setText("Помочь на 5 эвенках");
+            }else if(title.equals("help_in_10_events")){
+                name.setText("Помочь на 10 эвенках");
+            }else if(title.equals("help_in_30_events")){
+                name.setText("Помочь на 30 эвенках");
+            }else if(title.equals("help_in_50_events")){
+
+            }else if(title.equals("help_in_100_events")){
+
+            }
+
         }
 
         // This method return text for value task
         public void setValue(String value) {
             TextView val = mView.findViewById(R.id.tv_valueRating);
-            val.setText(value);
+            val.setText(value + "%");
         }
     }
 

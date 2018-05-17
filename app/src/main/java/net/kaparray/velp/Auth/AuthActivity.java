@@ -234,22 +234,21 @@ public class  AuthActivity extends ProgressDialogActivity implements
             DatabaseReference rating1 = mUserAccount.child("rating").push();
             rating1.child("nameRating").setValue("help_10_people");
             rating1.child("valueRating").setValue("0");
+            rating1.child("key").setValue(rating1.getKey());
+
+
 
             DatabaseReference rating2 = mUserAccount.child("rating").push();
-            rating2.child("nameRating").setValue("help_10_people");
+            rating2.child("nameRating").setValue("help_100_people");
             rating2.child("valueRating").setValue("0");
+            rating2.child("key").setValue(rating2.getKey());
 
             DatabaseReference rating3 = mUserAccount.child("rating").push();
-            rating3.child("nameRating").setValue("help_100_people");
+            rating3.child("nameRating").setValue("help_1000_people");
             rating3.child("valueRating").setValue("0");
+            rating3.child("key").setValue(rating3.getKey());
 
-            DatabaseReference rating4 = mUserAccount.child("rating").push();
-            rating4.child("nameRating").setValue("help_1000_people");
-            rating4.child("valueRating").setValue("0");
 
-            DatabaseReference rating5 = mUserAccount.child("rating").push();
-            rating5.child("nameRating").setValue("Help_10_people_over_50");
-            rating5.child("valueRating").setValue("0");
 
             showMessage(R.string.allRight);
 
