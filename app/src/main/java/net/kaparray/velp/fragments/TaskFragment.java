@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -156,6 +158,7 @@ public class TaskFragment extends Fragment{
                     viewHolder.setTitleName(model.getNameTask());
                     viewHolder.setValue(model.getValueTask());
                     viewHolder.setUser(model.getNameUser());
+                    viewHolder.setPhoto(model.getPhoto(), getResources());
 
 
                     loderer.add(model);
@@ -303,10 +306,29 @@ public class TaskFragment extends Fragment{
             TextView us = mView.findViewById(R.id.tv_userTask);
             us.setText(userr);
         }
-//        public void setPhoto(String photo){
-//            ImageView ph = mView.findViewById(R.id.iv_photoTask);
-//            Glide.with(mView.getContext()).load(photo).into(ph);
-//        }
+
+
+        public void setPhoto(String photo, Resources resources){
+            ImageView ph = mView.findViewById(R.id.iv_photoTask);
+
+            if(photo.equals("ic_boy")){
+                ph.setImageDrawable(resources.getDrawable(R.drawable.ic_boy));
+            } else if(photo.equals("ic_boy1")){
+                ph.setImageDrawable(resources.getDrawable(R.drawable.ic_boy1));
+            }else if(photo.equals("ic_girl")){
+                ph.setImageDrawable(resources.getDrawable(R.drawable.ic_girl));
+            }else if(photo.equals("ic_girl1")){
+                ph.setImageDrawable(resources.getDrawable(R.drawable.ic_girl1));
+            }else if(photo.equals("ic_man1")){
+                ph.setImageDrawable(resources.getDrawable(R.drawable.ic_man1));
+            }else if(photo.equals("ic_man2")){
+                ph.setImageDrawable(resources.getDrawable(R.drawable.ic_man2));
+            }else if(photo.equals("ic_man3")){
+                ph.setImageDrawable(resources.getDrawable(R.drawable.ic_man3));
+            }else if(photo.equals("ic_man4")){
+                ph.setImageDrawable(resources.getDrawable(R.drawable.ic_man4));
+            }
+        }
 
 
         //Interface to send callbacks...

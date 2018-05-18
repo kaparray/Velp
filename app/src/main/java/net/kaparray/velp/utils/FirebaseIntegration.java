@@ -21,6 +21,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import net.kaparray.velp.R;
 
+import butterknife.BindView;
+
 
 @SuppressLint("Registered")
 public class FirebaseIntegration extends AppCompatActivity {
@@ -31,6 +33,10 @@ public class FirebaseIntegration extends AppCompatActivity {
     public FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     public String emailUser;
     public  String nameUser;
+
+
+
+    String photo;
 
 
 
@@ -51,7 +57,7 @@ public class FirebaseIntegration extends AppCompatActivity {
                 nameUser = user.getDisplayName();
                 emailUser = user.getEmail();
 
-
+                photo = dataSnapshot.child("Users").child(user.getUid()).child("photo").getValue() + "";
 
 
                 NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -62,8 +68,24 @@ public class FirebaseIntegration extends AppCompatActivity {
                 TextView navEmail = (TextView) headerView.findViewById(R.id.tv_emainuser);
                 navEmail.setText(emailUser);
                 ImageView navPhoto =  headerView.findViewById(R.id.imageViewProfile);
-                String imgUrl =  user.getPhotoUrl()+"";
-                //Glide.with(getApplicationContext()).load(imgUrl).into(navPhoto);
+
+                if(photo.equals("ic_boy")){
+                    navPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_boy));
+                } else if(photo.equals("ic_boy1")){
+                    navPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_boy1));
+                }else if(photo.equals("ic_girl")){
+                    navPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_girl));
+                }else if(photo.equals("ic_girl1")){
+                    navPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_girl1));
+                }else if(photo.equals("ic_man1")){
+                    navPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_man1));
+                }else if(photo.equals("ic_man2")){
+                    navPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_man2));
+                }else if(photo.equals("ic_man3")){
+                    navPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_man3));
+                }else if(photo.equals("ic_man4")){
+                    navPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_man4));
+                }
 
 
 

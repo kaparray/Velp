@@ -52,6 +52,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
+import static net.kaparray.velp.fragments.ProfileFragment.TAG;
+
 
 public class AddTaskFragment extends android.support.v4.app.Fragment{
 
@@ -104,6 +106,18 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
 
         counter = true;
         counterMin = true;
+
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                photo = dataSnapshot.child("Users").child(user.getUid()).child("photo").getValue() + "";
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+            }
+        };
+        mDatabase.addValueEventListener(postListener);
 
 
         mMapView = (MapView) rootView.findViewById(R.id.mapForAddTask);
@@ -191,6 +205,7 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
                            // Add data about taken user
                            mUserAccount.child("accepted").setValue("false");
                            mUserAccount.child("userTakeUID").setValue("none");
+                           mUserAccount.child("photo").setValue(photo);
 
 
                            //Date and time

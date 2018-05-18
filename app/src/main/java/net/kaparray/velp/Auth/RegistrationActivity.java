@@ -11,6 +11,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,6 +24,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import net.kaparray.velp.R;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class RegistrationActivity extends AppCompatActivity{
@@ -44,6 +49,23 @@ public class RegistrationActivity extends AppCompatActivity{
     DatabaseReference myRef = database.getReference("Users");
 
 
+    public FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+
+    @BindView(R.id.iv_photo1) ImageView mPhoto1;
+    @BindView(R.id.iv_photo2) ImageView mPhoto2;
+    @BindView(R.id.iv_photo3) ImageView mPhoto3;
+    @BindView(R.id.iv_photo4) ImageView mPhoto4;
+    @BindView(R.id.iv_photo5) ImageView mPhoto5;
+    @BindView(R.id.iv_photo6) ImageView mPhoto6;
+    @BindView(R.id.iv_photo7) ImageView mPhoto7;
+    @BindView(R.id.iv_photo8) ImageView mPhoto8;
+
+
+    String photo;
+
+
+
 
 
 
@@ -56,6 +78,7 @@ public class RegistrationActivity extends AppCompatActivity{
 
         // Set theme
         if (side.equals("dark")){
+            setTheme(R.style.Theme_Design_NoActionBar);
             setTheme(R.style.Theme_Design_NoActionBar);
         } else if (side.equals("light")){
             setTheme(R.style.AppTheme_NoActionBar);
@@ -90,6 +113,147 @@ public class RegistrationActivity extends AppCompatActivity{
            //
         }
 
+        ButterKnife.bind(this);
+
+        mPhoto1.setImageDrawable(getResources().getDrawable(R.drawable.ic_boy));
+        mPhoto2.setImageDrawable(getResources().getDrawable(R.drawable.ic_boy1));
+        mPhoto3.setImageDrawable(getResources().getDrawable(R.drawable.ic_girl));
+        mPhoto4.setImageDrawable(getResources().getDrawable(R.drawable.ic_girl1));
+        mPhoto5.setImageDrawable(getResources().getDrawable(R.drawable.ic_man4));
+        mPhoto6.setImageDrawable(getResources().getDrawable(R.drawable.ic_man1));
+        mPhoto7.setImageDrawable(getResources().getDrawable(R.drawable.ic_man2));
+        mPhoto8.setImageDrawable(getResources().getDrawable(R.drawable.ic_man3));
+
+
+        mPhoto1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                photo = "ic_boy";
+                mPhoto1.setBackground(getResources().getDrawable(R.drawable.button_round));
+                mPhoto2.setBackground(null);
+                mPhoto3.setBackground(null);
+                mPhoto4.setBackground(null);
+                mPhoto5.setBackground(null);
+                mPhoto6.setBackground(null);
+                mPhoto7.setBackground(null);
+                mPhoto8.setBackground(null);
+            }
+        });
+
+
+        mPhoto2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                photo = "ic_boy1";
+                mPhoto2.setBackground(getResources().getDrawable(R.drawable.button_round));
+                mPhoto1.setBackground(null);
+                mPhoto3.setBackground(null);
+                mPhoto4.setBackground(null);
+                mPhoto5.setBackground(null);
+                mPhoto6.setBackground(null);
+                mPhoto7.setBackground(null);
+                mPhoto8.setBackground(null);
+            }
+        });
+
+        mPhoto3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                photo = "ic_girl";
+                mPhoto3.setBackground(getResources().getDrawable(R.drawable.button_round));
+                mPhoto2.setBackground(null);
+                mPhoto1.setBackground(null);
+                mPhoto4.setBackground(null);
+                mPhoto5.setBackground(null);
+                mPhoto6.setBackground(null);
+                mPhoto7.setBackground(null);
+                mPhoto8.setBackground(null);
+            }
+        });
+
+
+        mPhoto4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                photo = "ic_girl1";
+                mPhoto4.setBackground(getResources().getDrawable(R.drawable.button_round));
+                mPhoto2.setBackground(null);
+                mPhoto3.setBackground(null);
+                mPhoto1.setBackground(null);
+                mPhoto5.setBackground(null);
+                mPhoto6.setBackground(null);
+                mPhoto7.setBackground(null);
+                mPhoto8.setBackground(null);
+            }
+        });
+
+
+        mPhoto5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                photo = "ic_man4";
+                mPhoto5.setBackground(getResources().getDrawable(R.drawable.button_round));
+                mPhoto2.setBackground(null);
+                mPhoto3.setBackground(null);
+                mPhoto4.setBackground(null);
+                mPhoto1.setBackground(null);
+                mPhoto6.setBackground(null);
+                mPhoto7.setBackground(null);
+                mPhoto8.setBackground(null);
+            }
+        });
+
+
+        mPhoto6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                photo = "ic_man1";
+                mPhoto6.setBackground(getResources().getDrawable(R.drawable.button_round));
+                mPhoto2.setBackground(null);
+                mPhoto3.setBackground(null);
+                mPhoto4.setBackground(null);
+                mPhoto5.setBackground(null);
+                mPhoto1.setBackground(null);
+                mPhoto7.setBackground(null);
+                mPhoto8.setBackground(null);
+            }
+        });
+
+        mPhoto7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                photo = "ic_man2";
+                mPhoto7.setBackground(getResources().getDrawable(R.drawable.button_round));
+                mPhoto2.setBackground(null);
+                mPhoto3.setBackground(null);
+                mPhoto4.setBackground(null);
+                mPhoto5.setBackground(null);
+                mPhoto6.setBackground(null);
+                mPhoto1.setBackground(null);
+                mPhoto8.setBackground(null);
+            }
+        });
+
+
+        mPhoto8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                photo = "ic_man3";
+                mPhoto8.setBackground(getResources().getDrawable(R.drawable.button_round));
+                mPhoto2.setBackground(null);
+                mPhoto3.setBackground(null);
+                mPhoto4.setBackground(null);
+                mPhoto5.setBackground(null);
+                mPhoto6.setBackground(null);
+                mPhoto7.setBackground(null);
+                mPhoto1.setBackground(null);
+            }
+        });
+
+
+
+
+
 
 
         mRegister.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +265,12 @@ public class RegistrationActivity extends AppCompatActivity{
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
+
+                                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                                .setDisplayName(mName.getText().toString()).build();
+                                        user.updateProfile(profileUpdates);
+
+
                                         // Sign in success, update UI with the signed-in user's information
                                         Log.d(TAG, "createUserWithEmail:success");
                                         FirebaseUser user = mAuth.getCurrentUser();
@@ -117,7 +287,7 @@ public class RegistrationActivity extends AppCompatActivity{
                                         mUserAccount.child("rating").setValue("0");   //Рейтинг
                                         mUserAccount.child("level").setValue("0");  // Уорвень
                                         mUserAccount.child("status").setValue("user");
-                                        //mUserAccount.child("status").setValue("photo");
+                                        mUserAccount.child("photo").setValue(photo);
 
 
 

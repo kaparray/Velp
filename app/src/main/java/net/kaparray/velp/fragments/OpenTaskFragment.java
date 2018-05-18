@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +44,9 @@ import net.kaparray.velp.classes_for_data.TaskLoader;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import static net.kaparray.velp.fragments.ProfileFragment.TAG;
 
 
@@ -64,6 +68,8 @@ public class OpenTaskFragment extends Fragment{
 
     String KEY_Task;
 
+    String photo;
+
 
     List<RatingData> ratingData;
 
@@ -71,6 +77,7 @@ public class OpenTaskFragment extends Fragment{
 
     private int clickCounter = 0;
 
+    ImageView mPhoto;
 
     // Map
     private GoogleMap googleMap;
@@ -92,6 +99,7 @@ public class OpenTaskFragment extends Fragment{
         mTakeTask = rootView.findViewById(R.id.btn_universalButtonTask);
         mPoints = rootView.findViewById(R.id.tv_pointsInOpenFragment);
         mTime = rootView.findViewById(R.id.tv_time);
+        mPhoto = rootView.findViewById(R.id.iv_photoTask);
 
 
         mTakeTask.isClickable();
@@ -123,6 +131,11 @@ public class OpenTaskFragment extends Fragment{
                 }catch (Exception e){
                     Log.d("Error", e+"");
                 }
+
+
+                photo = taskLoader.getPhoto();
+
+
 
 
 
@@ -157,6 +170,25 @@ public class OpenTaskFragment extends Fragment{
                 ratingData = (List<RatingData>) dataSnapshot.child("Users").child(taskLoader.getUserTakeUID()).child("rating").getValue();
 
 
+
+                if(photo.equals("ic_boy")){
+                    mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_boy));
+                } else if(photo.equals("ic_boy1")){
+                    mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_boy1));
+                }else if(photo.equals("ic_girl")){
+                    mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_girl));
+                }else if(photo.equals("ic_girl1")){
+                    mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_girl1));
+                }else if(photo.equals("ic_man1")){
+                    mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_man1));
+                }else if(photo.equals("ic_man2")){
+                    mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_man2));
+                }else if(photo.equals("ic_man3")){
+                    mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_man3));
+                }else if(photo.equals("ic_man4")){
+                    mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_man4));
+                }
+
             }
 
             @Override
@@ -165,6 +197,9 @@ public class OpenTaskFragment extends Fragment{
             }
         };
         mDatabase.addValueEventListener(postListener);
+
+
+
 
 
 

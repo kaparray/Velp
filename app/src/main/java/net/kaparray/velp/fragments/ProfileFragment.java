@@ -60,6 +60,7 @@ public class ProfileFragment extends Fragment{
     String level;
     String helped;
     String points;
+    String photo;
     LinearLayout mLL;
     ImageView mPhotoUser;
     public static final String TAG = "Points";
@@ -81,6 +82,7 @@ public class ProfileFragment extends Fragment{
                 level = (String) dataSnapshot.child("Users").child(user.getUid()).child("level").getValue() + "";
                 helped = (String) dataSnapshot.child("Users").child(user.getUid()).child("helped").getValue() + "";
                 points = (String) dataSnapshot.child("Users").child(user.getUid()).child("points").getValue() + "";
+                photo = (String) dataSnapshot.child("Users").child(user.getUid()).child("photo").getValue() + "";
 
 
                 // Find all view in fragment
@@ -92,6 +94,24 @@ public class ProfileFragment extends Fragment{
                 mPhotoUser = rootView.findViewById(R.id.iv_profilePhoto);
 
 
+
+                if(photo.equals("ic_boy")){
+                    mPhotoUser.setImageDrawable(getResources().getDrawable(R.drawable.ic_boy));
+                } else if(photo.equals("ic_boy1")){
+                    mPhotoUser.setImageDrawable(getResources().getDrawable(R.drawable.ic_boy1));
+                }else if(photo.equals("ic_girl")){
+                    mPhotoUser.setImageDrawable(getResources().getDrawable(R.drawable.ic_girl));
+                }else if(photo.equals("ic_girl1")){
+                    mPhotoUser.setImageDrawable(getResources().getDrawable(R.drawable.ic_girl1));
+                }else if(photo.equals("ic_man1")){
+                    mPhotoUser.setImageDrawable(getResources().getDrawable(R.drawable.ic_man1));
+                }else if(photo.equals("ic_man2")){
+                    mPhotoUser.setImageDrawable(getResources().getDrawable(R.drawable.ic_man2));
+                }else if(photo.equals("ic_man3")){
+                    mPhotoUser.setImageDrawable(getResources().getDrawable(R.drawable.ic_man3));
+                }else if(photo.equals("ic_man4")){
+                    mPhotoUser.setImageDrawable(getResources().getDrawable(R.drawable.ic_man4));
+                }
 
 
 

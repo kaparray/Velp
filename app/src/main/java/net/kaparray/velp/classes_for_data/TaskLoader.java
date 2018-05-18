@@ -17,8 +17,10 @@ public class TaskLoader {
     private double locationLatitude;
     private double locationLongitude;
     private String time;
+    private String photo;
 
-    public TaskLoader(String taskName, String taskValue, String userUID, String key, String nameUser, String uniqueIdentificator, String points, String userTakeUID, String accepted, double locationLatitude, double locationLongitude, String time) {
+
+    public TaskLoader(String taskName, String taskValue, String userUID, String key, String nameUser, String uniqueIdentificator, String points, String userTakeUID, String accepted, double locationLatitude, double locationLongitude, String time, String photo) {
         this.nameTask = taskName;
         this.valueTask = taskValue;
         this.userUID = userUID;
@@ -31,10 +33,20 @@ public class TaskLoader {
         this.locationLatitude = locationLatitude;
         this.locationLongitude = locationLongitude;
         this.time = time;
+        this.photo = photo;
     }
 
     // For firebase! Without an empty constructor does not work :)
     public TaskLoader() {
+    }
+
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public String getUniqueIdentificator() {

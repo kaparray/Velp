@@ -228,7 +228,7 @@ public class  AuthActivity extends ProgressDialogActivity implements
             mUserAccount.child("rating").setValue("0");   //Рейтинг
             mUserAccount.child("level").setValue("0");  // Уорвень
             mUserAccount.child("status").setValue("user");
-            mUserAccount.child("photo").setValue(user.getPhotoUrl() + "");
+            mUserAccount.child("photo").setValue("ic_man1");
 
 
             DatabaseReference rating1 = mUserAccount.child("rating").push();
