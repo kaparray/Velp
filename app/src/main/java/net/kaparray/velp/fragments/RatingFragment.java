@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -102,8 +103,8 @@ public class RatingFragment extends Fragment {
             @Override
             protected void populateViewHolder(TaskViewHolder viewHolder, RatingData model, int position) {
 
-                viewHolder.setTitleName(model.getNameRating(), drawable);
-                viewHolder.setValue(model.getValueRating());
+                viewHolder.setTitleName(model.getNameRating(), drawable, getContext());
+                viewHolder.setValue(model.getValueRating(), getContext());
 
 
             }
@@ -128,7 +129,7 @@ public class RatingFragment extends Fragment {
 
 
         // This method return text for name task
-        public void setTitleName(String title, Resources resources) {
+        public void setTitleName(String title, Resources resources, Context context) {
             TextView name = mView.findViewById(R.id.textView3);
             ImageView photo = mView.findViewById(R.id.iv_photoRating);
             if(title.equals("help_10_people")){
@@ -154,12 +155,34 @@ public class RatingFragment extends Fragment {
 
             }
 
+
+            // Set Theme
+            SharedPreferences preferences = context.getSharedPreferences("theme",MODE_PRIVATE);
+            String theme = preferences.getString("THEME"," ");
+
+
+            if (theme.equals("dark")){
+                name.setTextColor(Color.WHITE);
+            }else if(theme.equals("light")){
+                name.setTextColor(Color.BLACK);
+            }
+
         }
 
         // This method return text for value task
-        public void setValue(String value) {
+        public void setValue(String value,  Context context) {
             TextView val = mView.findViewById(R.id.tv_valueRating);
             val.setText(value + "%");
+
+            // Set Theme
+            SharedPreferences preferences = context.getSharedPreferences("theme",MODE_PRIVATE);
+            String theme = preferences.getString("THEME"," ");
+
+            if (theme.equals("dark")){
+                val.setTextColor(Color.WHITE);
+            }else if(theme.equals("light")){
+                val.setTextColor(Color.BLACK);
+            }
         }
     }
 

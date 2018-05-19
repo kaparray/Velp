@@ -7,11 +7,15 @@ public class EventLoader{
     private String nameEvent;
     private String valueEvent;
     private String organizerEvent;
+    private String photoLoad;
 
-    public EventLoader(String nameEvent, String valueEvent, String organizerEvent) {
+
+
+    public EventLoader(String nameEvent, String valueEvent, String organizerEvent, String photoLoad) {
         this.nameEvent = nameEvent;
         this.valueEvent = valueEvent;
         this.organizerEvent = organizerEvent;
+        this.photoLoad = photoLoad;
     }
 
     public EventLoader() {
@@ -39,5 +43,13 @@ public class EventLoader{
 
     public void setOrganizerEvent(String organizerEvent) {
         this.organizerEvent = organizerEvent;
+    }
+
+    public String getPhotoLoad() {
+        return photoLoad;
+    }
+
+    public void setPhotoLoad(String photoLoad) {
+        this.photoLoad = photoLoad;
     }
 }

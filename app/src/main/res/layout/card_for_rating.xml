@@ -7,7 +7,6 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:clickable="true"
-    card_view:cardBackgroundColor="@color/white"
     card_view:cardCornerRadius="15dp"
     card_view:cardElevation="5dp"
     card_view:contentPadding="0dp">

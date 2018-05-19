@@ -1,5 +1,6 @@
 package net.kaparray.velp.fragments;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,12 +9,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
@@ -69,6 +72,7 @@ public class EventsFragments extends Fragment{
                 viewHolder.setTitleName(model.getNameEvent());
                 viewHolder.setValue(model.getValueEvent());
                 viewHolder.setUser(model.getOrganizerEvent());
+                viewHolder.setPhoto(model.getPhotoLoad(), getResources());
 
 
 
@@ -99,6 +103,11 @@ public class EventsFragments extends Fragment{
         public void setUser(final String user){
             TextView us = mView.findViewById(R.id.tv_OrganizerEvent);
             us.setText(user);
+        }
+
+        public void setPhoto(String photo, Resources resources){
+            ImageView photo0 = mView.findViewById(R.id.iv_photoEvents);
+            Picasso.get().load(String.valueOf(resources.getDrawable(R.drawable.night_run))).into(photo0);
         }
 
     }
