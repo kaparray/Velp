@@ -62,7 +62,7 @@ public class RegistrationActivity extends AppCompatActivity{
     @BindView(R.id.iv_photo8) ImageView mPhoto8;
 
 
-    String photo;
+    String photo = "";
 
 
 
@@ -265,55 +265,53 @@ public class RegistrationActivity extends AppCompatActivity{
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
-
-                                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                                .setDisplayName(mName.getText().toString()).build();
-                                        user.updateProfile(profileUpdates);
-
-
-                                        // Sign in success, update UI with the signed-in user's information
-                                        Log.d(TAG, "createUserWithEmail:success");
-                                        FirebaseUser user = mAuth.getCurrentUser();
-                                        DatabaseReference mUserAccount = myRef.child(user.getUid());
-                                        mUserAccount.child("email").setValue(mEmail.getText().toString());
-                                        mUserAccount.child("password").setValue(mPassword1.getText().toString());
-                                        mUserAccount.child("name").setValue(mName.getText().toString());
-                                        mUserAccount.child("phone").setValue(mPhone.getText().toString());
-                                        mUserAccount.child("age").setValue(mAge.getText().toString());
-                                        mUserAccount.child("city").setValue(mCity.getText().toString());
-                                        mUserAccount.child("points").setValue("100");
-                                        mUserAccount.child("helped").setValue("0");     // Сколько людям помог
-                                        mUserAccount.child("failedTheAssignment").setValue("0");      // Сколько проволил заданий
-                                        mUserAccount.child("rating").setValue("0");   //Рейтинг
-                                        mUserAccount.child("level").setValue("0");  // Уорвень
-                                        mUserAccount.child("status").setValue("user");
-                                        mUserAccount.child("photo").setValue(photo);
+                                        if (!mEmail.getText().toString().equals("") && !mPassword1.getText().toString().equals("") &&
+                                                !mName.getText().toString().equals("") && !mAge.getText().toString().equals("") && !mAge.getText().toString().equals("")
+                                                && !mCity.getText().toString().equals("") && !photo.equals("")) {
+                                            // Sign in success, update UI with the signed-in user's information
+                                            Log.d(TAG, "createUserWithEmail:success");
+                                            FirebaseUser user = mAuth.getCurrentUser();
+                                            DatabaseReference mUserAccount = myRef.child(user.getUid());
+                                            mUserAccount.child("email").setValue(mEmail.getText().toString());
+                                            mUserAccount.child("password").setValue(mPassword1.getText().toString());
+                                            mUserAccount.child("name").setValue(mName.getText().toString());
+                                            mUserAccount.child("phone").setValue(mPhone.getText().toString());
+                                            mUserAccount.child("age").setValue(mAge.getText().toString());
+                                            mUserAccount.child("city").setValue(mCity.getText().toString());
+                                            mUserAccount.child("points").setValue("100");
+                                            mUserAccount.child("helped").setValue("0");     // Сколько людям помог
+                                            mUserAccount.child("failedTheAssignment").setValue("0");      // Сколько проволил заданий
+                                            mUserAccount.child("rating").setValue("0");   //Рейтинг
+                                            mUserAccount.child("level").setValue("0");  // Уорвень
+                                            mUserAccount.child("status").setValue("user");
+                                            mUserAccount.child("photo").setValue(photo);
 
 
-
-                                        DatabaseReference rating1 = mUserAccount.child("rating").push();
-                                        rating1.child("nameRating").setValue("help_10_people");
-                                        rating1.child("valueRating").setValue("0");
-                                        rating1.child("key").setValue(rating1.getKey());
-
-
-                                        DatabaseReference rating2 = mUserAccount.child("rating").push();
-                                        rating2.child("nameRating").setValue("help_100_people");
-                                        rating2.child("valueRating").setValue("0");
-                                        rating2.child("key").setValue(rating2.getKey());
-
-                                        DatabaseReference rating3 = mUserAccount.child("rating").push();
-                                        rating3.child("nameRating").setValue("help_1000_people");
-                                        rating3.child("valueRating").setValue("0");
-                                        rating3.child("key").setValue(rating3.getKey());
+                                            DatabaseReference rating1 = mUserAccount.child("rating").push();
+                                            rating1.child("nameRating").setValue("help_10_people");
+                                            rating1.child("valueRating").setValue("0");
+                                            rating1.child("key").setValue(rating1.getKey());
 
 
+                                            DatabaseReference rating2 = mUserAccount.child("rating").push();
+                                            rating2.child("nameRating").setValue("help_100_people");
+                                            rating2.child("valueRating").setValue("0");
+                                            rating2.child("key").setValue(rating2.getKey());
+
+                                            DatabaseReference rating3 = mUserAccount.child("rating").push();
+                                            rating3.child("nameRating").setValue("help_1000_people");
+                                            rating3.child("valueRating").setValue("0");
+                                            rating3.child("key").setValue(rating3.getKey());
 
 
-                                        UserProfileChangeRequest profileUpdatesName = new UserProfileChangeRequest.Builder()
-                                                .setDisplayName(mName.getText().toString()).build();
-                                        user.updateProfile(profileUpdatesName);
-                                        toSignIn();
+                                            UserProfileChangeRequest profileUpdatesName = new UserProfileChangeRequest.Builder()
+                                                    .setDisplayName(mName.getText().toString()).build();
+                                            user.updateProfile(profileUpdatesName);
+                                            toSignIn();
+                                        }else{
+                                            Toast.makeText(RegistrationActivity.this, "Вы не заполнили все поля!",
+                                                    Toast.LENGTH_SHORT).show();
+                                        }
 
                                     } else {
                                         // If sign in fails, display a message to the user.

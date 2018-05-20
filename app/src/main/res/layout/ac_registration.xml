@@ -33,11 +33,11 @@
                 android:autoSizeTextType="uniform"
                 android:background="@drawable/text_round"
                 android:hint="@string/email"
+                android:textColor="@color/Danude"
                 android:inputType="textEmailAddress"
                 android:paddingLeft="12dp"
                 android:textColorHint="@color/Danude"
-                android:paddingRight="12dp"
-                android:textColor="#000" />
+                android:paddingRight="12dp" />
 
 
             <EditText
@@ -81,7 +81,7 @@
                 android:inputType="textPassword"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
-                android:textColor="#000" />
+                android:textColor="@color/Danude"/>
 
             <EditText
                 android:id="@+id/et_name"
@@ -98,7 +98,8 @@
                 android:inputType="textPersonName"
                 android:paddingLeft="12dp"
                 android:textColorHint="@color/Danude"
-                android:paddingRight="12dp" />
+                android:paddingRight="12dp"
+                android:textColor="@color/Danude"/>
 
             <EditText
                 android:id="@+id/et_phone"
@@ -115,7 +116,8 @@
                 android:inputType="phone"
                 android:textColorHint="@color/Danude"
                 android:paddingLeft="12dp"
-                android:paddingRight="12dp" />
+                android:paddingRight="12dp"
+                android:textColor="@color/Danude"/>
 
             <EditText
                 android:id="@+id/et_age"
@@ -132,6 +134,7 @@
                 android:textColorHint="@color/Danude"
                 android:inputType="number"
                 android:paddingLeft="12dp"
+                android:textColor="@color/Danude"
                 android:paddingRight="12dp" />
 
             <EditText
@@ -153,7 +156,7 @@
                 android:textColorHint="@color/Danude"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
-                android:textColor="#000" />
+                android:textColor="@color/Danude" />
 
 
             <LinearLayout

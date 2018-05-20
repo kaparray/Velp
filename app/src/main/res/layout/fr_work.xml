@@ -30,12 +30,13 @@
         app:layout_constraintBottom_toTopOf="@+id/btnApplayWork"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         tools:layout_editor_absoluteX="0dp"
-        tools:ignore="MissingConstraints">
+        tools:ignore="MissingConstraints,UnknownId">
 
         <EditText
             android:id="@+id/et_emailWork"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/Danude"
             android:layout_marginBottom="7dp"
             android:background="@drawable/text_round"
             android:ems="10"
@@ -47,6 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="7dp"
+            android:textColor="@color/Danude"
             android:background="@drawable/text_round"
             android:ems="10"
             android:hint="@string/enterName"
@@ -57,6 +59,7 @@
             android:id="@+id/et_aboutWork"
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:textColor="@color/Danude"
             android:layout_marginBottom="7dp"
             android:background="@drawable/text_round"
             android:ems="10"

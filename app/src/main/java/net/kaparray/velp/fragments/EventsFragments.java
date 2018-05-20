@@ -107,7 +107,7 @@ public class EventsFragments extends Fragment{
 
         public void setPhoto(String photo, Resources resources){
             ImageView photo0 = mView.findViewById(R.id.iv_photoEvents);
-            Picasso.get().load(String.valueOf(resources.getDrawable(R.drawable.night_run))).into(photo0);
+            photo0.setImageDrawable(resources.getDrawable(R.drawable.night_run));
         }
 
     }

@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -54,11 +55,18 @@ public class FirebaseIntegration extends AppCompatActivity {
 
 
 
-                nameUser = user.getDisplayName();
-                emailUser = user.getEmail();
 
                 photo = dataSnapshot.child("Users").child(user.getUid()).child("photo").getValue() + "";
 
+                String name = dataSnapshot.child("Users").child(user.getUid()).child("name").getValue() + "";
+
+                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                        .setDisplayName(name).build();
+                user.updateProfile(profileUpdates);
+
+
+                nameUser = user.getDisplayName();
+                emailUser = user.getEmail();
 
                 NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
                 View headerView = navigationView.getHeaderView(0);

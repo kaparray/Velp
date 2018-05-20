@@ -30,6 +30,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -70,8 +71,7 @@ public class OpenTaskFragment extends Fragment{
 
     String photo;
 
-
-    List<RatingData> ratingData;
+//    List<RatingData> ratingData;
 
     TaskLoader taskLoader;
 
@@ -109,7 +109,6 @@ public class OpenTaskFragment extends Fragment{
         if (bundle != null) {
             KEY_Task = bundle.getString("TaskKey");
         }
-
 
 
 
@@ -167,7 +166,6 @@ public class OpenTaskFragment extends Fragment{
 
 
 
-                ratingData = (List<RatingData>) dataSnapshot.child("Users").child(taskLoader.getUserTakeUID()).child("rating").getValue();
 
 
 
@@ -188,6 +186,8 @@ public class OpenTaskFragment extends Fragment{
                 }else if(photo.equals("ic_man4")){
                     mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_man4));
                 }
+
+
 
             }
 
@@ -254,22 +254,28 @@ public class OpenTaskFragment extends Fragment{
                     mTakeTask.setBackgroundResource(R.drawable.button_round_green);
                     mTakeTask.setText("Законченно");
 
-//                  // add to user ochivments
+                    int halpsed =  Integer.parseInt(taskLoader.getHelped());
+                    halpsed++;
 
-                    int help_10_people = Integer.parseInt(ratingData.get(0).getValueRating());
-                    help_10_people++;
-                    int h10p = help_10_people/10 * 100;
-                    mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(0).getKey()).setValue(h10p+"");
+                    mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("helped").setValue(halpsed);
 
-                    int help_100_people = Integer.parseInt(ratingData.get(1).getValueRating());
-                    help_100_people++;
-                    int h100p = help_100_people/100 * 100;
-                    mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(1).getKey()).setValue(h100p+"");
 
-                    int help_1000_people = Integer.parseInt(ratingData.get(2).getValueRating());
-                    help_1000_people++;
-                    int h1000p = help_1000_people/1000 * 100;
-                    mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(2).getKey()).setValue(h1000p+"");
+////                  // add to user ochivments
+//
+//                    int help_10_people = Integer.parseInt(ratingData.get(0).getValueRating());
+//                    help_10_people++;
+//                    int h10p = help_10_people/10 * 100;
+//                    mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(0).getKey()).setValue(h10p+"");
+//
+//                    int help_100_people = Integer.parseInt(ratingData.get(1).getValueRating());
+//                    help_100_people++;
+//                    int h100p = help_100_people/100 * 100;
+//                    mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(1).getKey()).setValue(h100p+"");
+//
+//                    int help_1000_people = Integer.parseInt(ratingData.get(2).getValueRating());
+//                    help_1000_people++;
+//                    int h1000p = help_1000_people/1000 * 100;
+//                    mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(2).getKey()).setValue(h1000p+"");
 
                     mDatabase.child("Task").child(KEY_Task).child("accepted").setValue("end");
                 } else if(!taskLoader.getUserUID().equals(user.getUid()) && taskLoader.getAccepted().equals("false")){ // пользователь взял задачу

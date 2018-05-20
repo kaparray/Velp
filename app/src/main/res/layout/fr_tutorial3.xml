@@ -43,7 +43,7 @@
                 android:background="@drawable/text_round"
                 android:gravity="center"
                 android:text="@string/Tutorial3"
-                android:textColor="@color/white"
+                android:textColor="@color/Danude"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
