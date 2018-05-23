@@ -169,167 +169,168 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
         mAddTask.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-               imm.hideSoftInputFromWindow(mAddTask.getWindowToken(),
-                       InputMethodManager.HIDE_NOT_ALWAYS);
 
 
-
-               AlertDialog.Builder locationAlertDialog = new AlertDialog.Builder(getActivity());
-               locationAlertDialog.setTitle(getString(R.string.Title_AlretDialogAddTask));
-               locationAlertDialog.setCancelable(false);
-               locationAlertDialog.setIcon(R.drawable.ic_map);
-               locationAlertDialog.setMessage(getString(R.string.Text_AlretDialogAddTask));
-               // if set location in the task
-               locationAlertDialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
-                   @RequiresApi(api = Build.VERSION_CODES.O)
-                   @Override
-                   public void onClick(DialogInterface dialogInterface, int i) {
-                       dialogInterface.cancel();
-
-                       if(hasConnection(getContext())) {
-                           taskFragment = new TaskFragment();
-
-                           final DatabaseReference mUserAccount = myRef.push();
-                           mUserAccount.child("key").setValue(mUserAccount.toString()
-                                   .replace("https://velp-1544e.firebaseio.com/Task/", ""));
-
-                           mUserAccount.child("points").setValue(mPointsTask.getText().toString()+"");
-                           mUserAccount.child("userUID").setValue(user.getUid());
-                           mUserAccount.child("nameTask").setValue(mTask.getText().toString());
-                           mUserAccount.child("nameUser").setValue(user.getDisplayName());
-                           mUserAccount.child("valueTask").setValue(mValueTask.getText().toString());
-                           //mUserAccount.child("photoUser").setValue(user.getPhotoUrl());
-                           mUserAccount.child("uniqueIdentificator").setValue(myRef.push().toString()
-                                   .replaceAll("https://velp-1544e.firebaseio.com/Task/", ""));
-                           // Add data about taken user
-                           mUserAccount.child("accepted").setValue("false");
-                           mUserAccount.child("userTakeUID").setValue("none");
-                           mUserAccount.child("photo").setValue(photo);
+               if(!mPointsTask.getText().toString().equals("") && !mTask.getText().toString().equals("") &&
+                       !mValueTask.getText().toString().equals("")){
+                   InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                   imm.hideSoftInputFromWindow(mAddTask.getWindowToken(),
+                           InputMethodManager.HIDE_NOT_ALWAYS);
 
 
-                           //Date and time
-                           @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd\n HH:mm");
-                           String currentDateandTime = sdf.format(new Date());
+                   AlertDialog.Builder locationAlertDialog = new AlertDialog.Builder(getActivity());
+                   locationAlertDialog.setTitle(getString(R.string.Title_AlretDialogAddTask));
+                   locationAlertDialog.setCancelable(false);
+                   locationAlertDialog.setIcon(R.drawable.ic_map);
+                   locationAlertDialog.setMessage(getString(R.string.Text_AlretDialogAddTask));
+                   // if set location in the task
+                   locationAlertDialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                       @RequiresApi(api = Build.VERSION_CODES.O)
+                       @Override
+                       public void onClick(DialogInterface dialogInterface, int i) {
+                           dialogInterface.cancel();
 
-                           mUserAccount.child("time").setValue(currentDateandTime + "");
+                           if (hasConnection(getContext())) {
+                               taskFragment = new TaskFragment();
 
-                           // Location
-                           googleMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
+                               final DatabaseReference mUserAccount = myRef.push();
+                               mUserAccount.child("key").setValue(mUserAccount.toString()
+                                       .replace("https://velp-1544e.firebaseio.com/Task/", ""));
 
-                               @Override
-                               public void onMyLocationChange(Location location) {
-                                   if(counter) {
-                                       Marker marker = googleMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).title("It's Me!"));
-                                       marker.isVisible();
-                                       mUserAccount.child("locationLatitude").setValue(location.getLatitude());
-                                       mUserAccount.child("locationLongitude").setValue(location.getLongitude());
-                                       counter = false;
+                               mUserAccount.child("points").setValue(mPointsTask.getText().toString() + "");
+                               mUserAccount.child("userUID").setValue(user.getUid());
+                               mUserAccount.child("nameTask").setValue(mTask.getText().toString());
+                               mUserAccount.child("nameUser").setValue(user.getDisplayName());
+                               mUserAccount.child("valueTask").setValue(mValueTask.getText().toString());
+                               //mUserAccount.child("photoUser").setValue(user.getPhotoUrl());
+                               mUserAccount.child("uniqueIdentificator").setValue(myRef.push().toString()
+                                       .replaceAll("https://velp-1544e.firebaseio.com/Task/", ""));
+                               // Add data about taken user
+                               mUserAccount.child("accepted").setValue("false");
+                               mUserAccount.child("userTakeUID").setValue("none");
+                               mUserAccount.child("photo").setValue(photo);
+
+
+                               //Date and time
+                               @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd\n HH:mm");
+                               String currentDateandTime = sdf.format(new Date());
+
+                               mUserAccount.child("time").setValue(currentDateandTime + "");
+
+                               // Location
+                               googleMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
+
+                                   @Override
+                                   public void onMyLocationChange(Location location) {
+                                       if (counter) {
+                                           Marker marker = googleMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).title("It's Me!"));
+                                           marker.isVisible();
+                                           mUserAccount.child("locationLatitude").setValue(location.getLatitude());
+                                           mUserAccount.child("locationLongitude").setValue(location.getLongitude());
+                                           counter = false;
+                                       }
+
+                                   }
+                               });
+
+
+                               ValueEventListener postListener = new ValueEventListener() {
+                                   @Override
+                                   public void onDataChange(DataSnapshot dataSnapshot) {
+                                       if (counterMin) {
+                                           // Get user data in Firebase
+                                           points = (String) dataSnapshot.child("Users").child(user.getUid()).child("points").getValue();
+                                           int pointsInt = Integer.parseInt(points);
+                                           int pointsTask = Integer.parseInt(mPointsTask.getText().toString());
+                                           int ans = pointsInt - pointsTask;
+                                           mDatabase.child("Users").child(user.getUid()).child("points").setValue(ans + "");
+                                           counterMin = false;
+                                       }
                                    }
 
-                               }
-                           });
+                                   @Override
+                                   public void onCancelled(DatabaseError databaseError) {
 
-
-
-
-                           ValueEventListener postListener = new ValueEventListener() {
-                               @Override
-                               public void onDataChange(DataSnapshot dataSnapshot) {
-                                   if(counterMin) {
-                                   // Get user data in Firebase
-                                   points = (String) dataSnapshot.child("Users").child(user.getUid()).child("points").getValue();
-                                   int pointsInt = Integer.parseInt(points);
-                                   int pointsTask = Integer.parseInt(mPointsTask.getText().toString());
-                                   int ans = pointsInt - pointsTask;
-                                   mDatabase.child("Users").child(user.getUid()).child("points").setValue(ans + "");
-                                       counterMin = false;
                                    }
-                               }
-
-                               @Override
-                               public void onCancelled(DatabaseError databaseError) {
-
-                               }
-                           };
-                           mDatabase.addValueEventListener(postListener);
+                               };
+                               mDatabase.addValueEventListener(postListener);
 
 
-
-                           Toast.makeText(getContext(), R.string.taskAddInDataBase, Toast.LENGTH_LONG).show();
-                           getActivity().getSupportFragmentManager()
-                                   .beginTransaction()
-                                   .replace(R.id.container, taskFragment)
-                                   .addToBackStack(null)
-                                   .commit();
-                       }else{
-                           Toast.makeText(getActivity(), R.string.noInternet, Toast.LENGTH_LONG).show();
+                               Toast.makeText(getContext(), R.string.taskAddInDataBase, Toast.LENGTH_LONG).show();
+                               getActivity().getSupportFragmentManager()
+                                       .beginTransaction()
+                                       .replace(R.id.container, taskFragment)
+                                       .addToBackStack(null)
+                                       .commit();
+                           } else {
+                               Toast.makeText(getActivity(), R.string.noInternet, Toast.LENGTH_LONG).show();
+                           }
                        }
-                   }
-               });
-               // if not set location in the task
-               locationAlertDialog.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
-                   @Override
-                   public void onClick(DialogInterface dialog, int which) {
-                       if(hasConnection(getContext())) {
-                           taskFragment = new TaskFragment();
+                   });
+                   // if not set location in the task
+                   locationAlertDialog.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+                       @Override
+                       public void onClick(DialogInterface dialog, int which) {
+                           if (hasConnection(getContext())) {
+                               taskFragment = new TaskFragment();
 
-                           DatabaseReference mUserAccount = myRef.push();
-                           mUserAccount.child("key").setValue(mUserAccount.toString()
-                                   .replace("https://velp-1544e.firebaseio.com/Task/", ""));
+                               DatabaseReference mUserAccount = myRef.push();
+                               mUserAccount.child("key").setValue(mUserAccount.toString()
+                                       .replace("https://velp-1544e.firebaseio.com/Task/", ""));
 
-                           mUserAccount.child("points").setValue(mPointsTask.getText().toString()+"");
-                           mUserAccount.child("userUID").setValue(user.getUid());
-                           mUserAccount.child("nameTask").setValue(mTask.getText().toString());
-                           mUserAccount.child("nameUser").setValue(user.getDisplayName());
-                           mUserAccount.child("valueTask").setValue(mValueTask.getText().toString());
-                           //mUserAccount.child("photoUser").setValue(user.getPhotoUrl());
-                           mUserAccount.child("uniqueIdentificator").setValue(myRef.push().toString()
-                                   .replaceAll("https://velp-1544e.firebaseio.com/Task/", ""));
-                           // Add data about taken user
-                           mUserAccount.child("accepted").setValue("false");
-                           mUserAccount.child("userTakeUID").setValue("none");
+                               mUserAccount.child("points").setValue(mPointsTask.getText().toString() + "");
+                               mUserAccount.child("userUID").setValue(user.getUid());
+                               mUserAccount.child("nameTask").setValue(mTask.getText().toString());
+                               mUserAccount.child("nameUser").setValue(user.getDisplayName());
+                               mUserAccount.child("valueTask").setValue(mValueTask.getText().toString());
+                               //mUserAccount.child("photoUser").setValue(user.getPhotoUrl());
+                               mUserAccount.child("uniqueIdentificator").setValue(myRef.push().toString()
+                                       .replaceAll("https://velp-1544e.firebaseio.com/Task/", ""));
+                               // Add data about taken user
+                               mUserAccount.child("accepted").setValue("false");
+                               mUserAccount.child("userTakeUID").setValue("none");
 
 
-                           ValueEventListener postListener = new ValueEventListener() {
-                               @Override
-                               public void onDataChange(DataSnapshot dataSnapshot) {
-                                   if(counter) {
-                                       // Get user data in Firebase
-                                       points = (String) dataSnapshot.child("Users").child(user.getUid()).child("points").getValue();
+                               ValueEventListener postListener = new ValueEventListener() {
+                                   @Override
+                                   public void onDataChange(DataSnapshot dataSnapshot) {
+                                       if (counter) {
+                                           // Get user data in Firebase
+                                           points = (String) dataSnapshot.child("Users").child(user.getUid()).child("points").getValue();
 
-                                       int pointsInt = Integer.parseInt(points);
-                                       int pointsTask = Integer.parseInt(mPointsTask.getText().toString());
+                                           int pointsInt = Integer.parseInt(points);
+                                           int pointsTask = Integer.parseInt(mPointsTask.getText().toString());
 
-                                       int ans = pointsInt - pointsTask;
-                                       mDatabase.child("Users").child(user.getUid()).child("points").setValue(ans + "");
+                                           int ans = pointsInt - pointsTask;
+                                           mDatabase.child("Users").child(user.getUid()).child("points").setValue(ans + "");
 
-                                       counter = false;
+                                           counter = false;
+                                       }
                                    }
-                               }
 
-                               @Override
-                               public void onCancelled(DatabaseError databaseError) {
+                                   @Override
+                                   public void onCancelled(DatabaseError databaseError) {
 
-                               }
-                           };
-                           mDatabase.addValueEventListener(postListener);
-
+                                   }
+                               };
+                               mDatabase.addValueEventListener(postListener);
 
 
-                           Toast.makeText(getContext(), R.string.taskAddInDataBase, Toast.LENGTH_LONG).show();
-                           getActivity().getSupportFragmentManager()
-                                   .beginTransaction()
-                                   .replace(R.id.container, taskFragment)
-                                   .addToBackStack(null)
-                                   .commit();
-                       }else{
-                           Toast.makeText(getActivity(), R.string.noInternet, Toast.LENGTH_LONG).show();
-                       }
+                               Toast.makeText(getContext(), R.string.taskAddInDataBase, Toast.LENGTH_LONG).show();
+                               getActivity().getSupportFragmentManager()
+                                       .beginTransaction()
+                                       .replace(R.id.container, taskFragment)
+                                       .addToBackStack(null)
+                                       .commit();
+                           } else {
+                               Toast.makeText(getActivity(), R.string.noInternet, Toast.LENGTH_LONG).show();
+                           }
                    }
                });
                locationAlertDialog.show();
-
+           }else{
+                   Toast.makeText(getActivity(), "Вы не заполнили все поля!",  Toast.LENGTH_SHORT).show();
+               }
 
             }
         });

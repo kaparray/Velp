@@ -311,22 +311,26 @@ public class TaskFragment extends Fragment{
         public void setPhoto(String photo, Resources resources){
             ImageView ph = mView.findViewById(R.id.iv_photoTask);
 
-            if(photo.equals("ic_boy")){
-                ph.setImageDrawable(resources.getDrawable(R.drawable.ic_boy));
-            } else if(photo.equals("ic_boy1")){
-                ph.setImageDrawable(resources.getDrawable(R.drawable.ic_boy1));
-            }else if(photo.equals("ic_girl")){
-                ph.setImageDrawable(resources.getDrawable(R.drawable.ic_girl));
-            }else if(photo.equals("ic_girl1")){
-                ph.setImageDrawable(resources.getDrawable(R.drawable.ic_girl1));
-            }else if(photo.equals("ic_man1")){
-                ph.setImageDrawable(resources.getDrawable(R.drawable.ic_man1));
-            }else if(photo.equals("ic_man2")){
-                ph.setImageDrawable(resources.getDrawable(R.drawable.ic_man2));
-            }else if(photo.equals("ic_man3")){
-                ph.setImageDrawable(resources.getDrawable(R.drawable.ic_man3));
-            }else if(photo.equals("ic_man4")){
-                ph.setImageDrawable(resources.getDrawable(R.drawable.ic_man4));
+            try {
+                if (photo.equals("ic_boy")) {
+                    ph.setImageDrawable(resources.getDrawable(R.drawable.ic_boy));
+                } else if (photo.equals("ic_boy1")) {
+                    ph.setImageDrawable(resources.getDrawable(R.drawable.ic_boy1));
+                } else if (photo.equals("ic_girl")) {
+                    ph.setImageDrawable(resources.getDrawable(R.drawable.ic_girl));
+                } else if (photo.equals("ic_girl1")) {
+                    ph.setImageDrawable(resources.getDrawable(R.drawable.ic_girl1));
+                } else if (photo.equals("ic_man1")) {
+                    ph.setImageDrawable(resources.getDrawable(R.drawable.ic_man1));
+                } else if (photo.equals("ic_man2")) {
+                    ph.setImageDrawable(resources.getDrawable(R.drawable.ic_man2));
+                } else if (photo.equals("ic_man3")) {
+                    ph.setImageDrawable(resources.getDrawable(R.drawable.ic_man3));
+                } else if (photo.equals("ic_man4")) {
+                    ph.setImageDrawable(resources.getDrawable(R.drawable.ic_man4));
+                }
+            }catch (NullPointerException e){
+                ph.setImageDrawable(resources.getDrawable(R.drawable.ic_launcher_round));
             }
         }
 
