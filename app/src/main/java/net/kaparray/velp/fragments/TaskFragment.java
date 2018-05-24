@@ -293,18 +293,33 @@ public class TaskFragment extends Fragment{
         public void setTitleName(String title) {
             TextView name = mView.findViewById(R.id.tv_nameTask);
             name.setText(title);
+
+            try {
+                name.setText(title);
+            } catch (NullPointerException e){
+                name.setText("Error");
+            }
         }
 
         // This method return text for value task
         public void setValue(String value) {
             TextView val = mView.findViewById(R.id.tv_nameValue);
-            val.setText(value);
+            try {
+                val.setText(value);
+            } catch (NullPointerException e){
+                val.setText("Error");
+            }
         }
 
         // This method return text for name user
         public void setUser(final String userr) {
             TextView us = mView.findViewById(R.id.tv_userTask);
-            us.setText(userr);
+            try {
+                us.setText(userr);
+            } catch (NullPointerException e){
+                us.setText("Error");
+            }
+
         }
 
 
