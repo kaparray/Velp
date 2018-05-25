@@ -3,11 +3,17 @@ package net.kaparray.velp;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.pm.ShortcutInfo;
+import android.content.pm.ShortcutManager;
+import android.graphics.drawable.Icon;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
@@ -27,6 +33,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import net.kaparray.velp.fragments.AboutFragment;
+import net.kaparray.velp.fragments.AddTaskFragment;
 import net.kaparray.velp.fragments.BonusFragment;
 import net.kaparray.velp.fragments.ChatFragment;
 import net.kaparray.velp.fragments.EventsFragments;
@@ -36,6 +43,8 @@ import net.kaparray.velp.fragments.RatingFragment;
 import net.kaparray.velp.fragments.SettingsFragment;
 import net.kaparray.velp.fragments.TaskFragment;
 import net.kaparray.velp.utils.FirebaseIntegration;
+
+import java.util.Collections;
 
 
 public class MainActivity extends FirebaseIntegration implements NavigationView.OnNavigationItemSelectedListener {
@@ -80,6 +89,7 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         // Set Theme
         SharedPreferences preferences = getSharedPreferences("theme",MODE_PRIVATE);
