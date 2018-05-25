@@ -2,8 +2,8 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="70dp"
     android:height="70dp"
-    android:viewportWidth="188.148"
-    android:viewportHeight="188.148">
+    android:viewportWidth="188.149"
+    android:viewportHeight="188.149">
 
     <path
         android:name="SVGID_1_"
