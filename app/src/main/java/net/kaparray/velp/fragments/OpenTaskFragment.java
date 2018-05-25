@@ -3,8 +3,6 @@ package net.kaparray.velp.fragments;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
-import android.content.res.ColorStateList;
-import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -30,61 +28,57 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import net.kaparray.velp.R;
-import net.kaparray.velp.classes_for_data.OpenTaskLoader;
-import net.kaparray.velp.classes_for_data.RatingData;
 import net.kaparray.velp.classes_for_data.TaskLoader;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static net.kaparray.velp.fragments.ProfileFragment.TAG;
-
 
 public class OpenTaskFragment extends Fragment{
 
+    // Firebase
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     public FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
+    // View
     View rootView;
 
+    // View
+    @BindView(R.id.tv_nameTaskInOpenTask) TextView mNameTask;
+    @BindView(R.id.btn_universalButtonTask) Button mTakeTask;
+    @BindView(R.id.tv_valueTaskInOpenTask) TextView mValueTask;
+    @BindView(R.id.tv_nameUserInOpenTask) TextView mNameUser;
+    @BindView(R.id.tv_time) TextView mTime;
+    @BindView(R.id.tv_pointsInOpenFragment) TextView mPoints;
+    @BindView(R.id.iv_photoTask) ImageView mPhoto;
 
-    Button mTakeTask;
 
-    TextView mNameTask;
-    TextView mValueTask;
-    TextView mNameUser;
-    TextView mTime;
-    TextView mPoints;
-
+    // String variable
     String KEY_Task;
-
     String photo;
 
-//    List<RatingData> ratingData;
-
+    // Task Loader Fragment
     TaskLoader taskLoader;
 
+    // Counter
     private int clickCounter = 0;
 
-    ImageView mPhoto;
 
     // Map
     private GoogleMap googleMap;
     private MapView mMapView;
 
-    int points;
+
+
     int point;
+    int helped;
 
     @Nullable
     @Override
@@ -92,14 +86,7 @@ public class OpenTaskFragment extends Fragment{
         rootView = inflater.inflate(R.layout.fr_opentask, container, false);
 
 
-
-        mNameTask = rootView.findViewById(R.id.tv_nameTaskInOpenTask);
-        mValueTask = rootView.findViewById(R.id.tv_valueTaskInOpenTask);
-        mNameUser = rootView.findViewById(R.id.tv_nameUserInOpenTask);
-        mTakeTask = rootView.findViewById(R.id.btn_universalButtonTask);
-        mPoints = rootView.findViewById(R.id.tv_pointsInOpenFragment);
-        mTime = rootView.findViewById(R.id.tv_time);
-        mPhoto = rootView.findViewById(R.id.iv_photoTask);
+        ButterKnife.bind(this, rootView);
 
 
         mTakeTask.isClickable();
@@ -132,8 +119,6 @@ public class OpenTaskFragment extends Fragment{
                 }
 
 
-                photo = taskLoader.getPhoto();
-
 
 
 
@@ -163,32 +148,76 @@ public class OpenTaskFragment extends Fragment{
                     }
                 }
 
-
-
-
-
-
-
-                if(photo.equals("ic_boy")){
-                    mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_boy));
-                } else if(photo.equals("ic_boy1")){
-                    mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_boy1));
-                }else if(photo.equals("ic_girl")){
-                    mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_girl));
-                }else if(photo.equals("ic_girl1")){
-                    mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_girl1));
-                }else if(photo.equals("ic_man1")){
-                    mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_man1));
-                }else if(photo.equals("ic_man2")){
-                    mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_man2));
-                }else if(photo.equals("ic_man3")){
-                    mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_man3));
-                }else if(photo.equals("ic_man4")){
-                    mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_man4));
+                try {
+                    photo = taskLoader.getPhoto();
+                }catch (Exception e){
+                    Log.d("Error-Message", "Photo form server is null");
                 }
 
 
 
+                try {
+                    if(photo.equals("ic_boy")){
+                        try {
+                            mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_boy));
+                        }catch (Exception e){
+                            mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher_round));
+                        }
+                    } else if(photo.equals("ic_boy1")){
+                        try {
+                            mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_boy1));
+                        }catch (Exception e){
+                            mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher_round));
+                        }
+                    }else if(photo.equals("ic_girl")){
+                        try {
+                            mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_girl));
+                        }catch (Exception e){
+                            mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher_round));
+                        }
+                    }else if(photo.equals("ic_girl1")){
+                        try {
+                            mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_girl1));
+                        }catch (Exception e){
+                            mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher_round));
+                        }
+                    }else if(photo.equals("ic_man1")){
+                        try {
+                            mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_man1));
+                        }catch (Exception e){
+                            mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher_round));
+                        }
+                    }else if(photo.equals("ic_man2")){
+                        try {
+                            mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_man2));
+                        }catch (Exception e){
+                            mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher_round));
+                        }
+                    }else if(photo.equals("ic_man3")){
+                        try {
+                            mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_man3));
+                        }catch (Exception e){
+                            mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher_round));
+                        }
+                    }else if(photo.equals("ic_man4")){
+                        try {
+                            mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_man4));
+                        }catch (Exception e){
+                            mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher_round));
+                        }
+                    }else if(photo.equals("velp")){
+                        mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher_round));
+                    }
+                }catch (NullPointerException e){
+                    mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher_round));
+                }
+
+
+                try {
+                    helped = Integer.parseInt(dataSnapshot.child("Users").child(taskLoader.getUserTakeUID()).child("helped").getValue() + "");
+                }catch (Exception e){
+
+                }
             }
 
             @Override
@@ -254,13 +283,12 @@ public class OpenTaskFragment extends Fragment{
                     mTakeTask.setBackgroundResource(R.drawable.button_round_green);
                     mTakeTask.setText("Законченно");
 
-                    int halpsed =  Integer.parseInt(taskLoader.getHelped());
-                    halpsed++;
+                    helped++;
 
-                    mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("helped").setValue(halpsed);
+                    mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("helped").setValue(helped+"");
 
 
-////                  // add to user ochivments
+//                 // add to user ochivments
 //
 //                    int help_10_people = Integer.parseInt(ratingData.get(0).getValueRating());
 //                    help_10_people++;
