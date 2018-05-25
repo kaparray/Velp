@@ -134,7 +134,7 @@ public class TutorialActivity extends AppCompatActivity {
             pageNumber = getArguments() != null ? getArguments().getInt("num") : 1;
         }
         static String getTitle(Context context, int position) {
-            return "Страница № " + String.valueOf(position+1);
+            return  R.string.Page + String.valueOf(position+1);
         }
 
 

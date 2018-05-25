@@ -23,6 +23,8 @@
     <string name="Register">Зарегистрироваться</string>
 
     <!-- SingIn Activity -->
+    <string name="Type">Выберете тип входа:</string>
+    <string name="EmailAuth">Аутентификация по Email</string>
     <string name="ToastInSingIn">Ой, произошла ошибка!</string>
     <string name="registration">Регистрация</string>
     <string name="login">Вход</string>
@@ -33,6 +35,7 @@
     <string name="start">Начало</string>
 
     <!-- Tutorial text -->
+    <string name="Page">Страница № </string>
     <string name="Tutorial1">Velp: Проси. Помогай. Приложение для волонтеров.</string>
     <string name="Tutorial2">Добавляй задания и челленджи. Выполняй просьбы и зарабатывай баллы. Это просто!</string>
     <string name="Tutorial3">Обменивай баллы на бонусы или дополнительные функции. </string>
@@ -125,6 +128,7 @@
     <string name="task_name">Task Name</string>
     <string name="time">time</string>
     <string name="wiliam_snoe">Wiliam Snoe</string>
+
 
 
 </resources>

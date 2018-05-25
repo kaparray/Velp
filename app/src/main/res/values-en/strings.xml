@@ -23,6 +23,8 @@
     <string name="Register">Register</string>
 
     <!-- SingIn Activity -->
+    <string name="Type">Choose type of auth</string>
+    <string name="EmailAuth">Email authentication</string>
     <string name="ToastInSingIn">Oops, There is a mistake!</string>
     <string name="registration">Sign up</string>
     <string name="login">Sign in</string>
@@ -33,7 +35,8 @@
     <string name="start">Begin</string>
 
     <!-- Tutorial text -->
-    <string name="Tutorial1">Velp: Проси. Помогай. Приложение для волонтеров.</string>
+    <string name="Page">Page № </string>
+    <string name="Tutorial1">Velp: Ask. Help. Application for volunteers.</string>
     <string name="Tutorial2">Add tasks and challenges. Do requests and get points. It\'s a peace of cake!</string>
     <string name="Tutorial3">"Exchange points on bonuses or extra functions "</string>
     <string name="Tutorial4">Helping each other we make this world a bit better. Doesn\'t matter how  - help!</string>
@@ -126,6 +129,7 @@
     <string name="time">time</string>
     <string name="wiliam_snoe">Wiliam Snoe</string>
     <string name="noInternet">No internet connection</string>
+
 
 
 </resources>
