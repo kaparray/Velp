@@ -8,7 +8,6 @@
     <string name="take">Взять</string>
     <string name="send">Отправить</string>
 
-
     <!-- NavDrawer -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -50,6 +49,7 @@
     <string name="Title_AlretDialogBonus">Бонус</string>
     <string name="Text_AlretDialogBonus">В данный момент мы ведём работу над данной функцией!</string>
     <string name="coming_soon">В ближайшее время</string>
+    <string name="Understood"> Понятно</string>
 
     <!-- Chat Fragment -->
     <string name="ChatTitle">Чат</string>
@@ -76,6 +76,7 @@
     <string name="TaskName">Название задачи</string>
     <string name="Fr_Task">Задача</string>
     <string name="AddTask">Добавить задачу</string>
+    <string name="Fill">Вы не заполнили все поля!</string>
 
     <!-- Profile Fragment -->
     <string name="ProfileTitle">Профиль</string>

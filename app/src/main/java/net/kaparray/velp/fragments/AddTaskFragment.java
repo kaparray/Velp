@@ -184,7 +184,7 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
                    locationAlertDialog.setIcon(R.drawable.ic_map);
                    locationAlertDialog.setMessage(getString(R.string.Text_AlretDialogAddTask));
                    // if set location in the task
-                   locationAlertDialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                   locationAlertDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                        @RequiresApi(api = Build.VERSION_CODES.O)
                        @Override
                        public void onClick(DialogInterface dialogInterface, int i) {
@@ -268,7 +268,7 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
                        }
                    });
                    // if not set location in the task
-                   locationAlertDialog.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+                   locationAlertDialog.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                        @Override
                        public void onClick(DialogInterface dialog, int which) {
                            if (hasConnection(getContext())) {
@@ -329,7 +329,7 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
                });
                locationAlertDialog.show();
            }else{
-                   Toast.makeText(getActivity(), "Вы не заполнили все поля!",  Toast.LENGTH_SHORT).show();
+                   Toast.makeText(getActivity(), R.string.Fill,  Toast.LENGTH_SHORT).show();
                }
 
             }

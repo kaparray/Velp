@@ -49,6 +49,7 @@
     <string name="Title_AlretDialogBonus">Bonus</string>
     <string name="Text_AlretDialogBonus">We are working on it!</string>
     <string name="coming_soon">Coming soon</string>
+    <string name="Understood"> Understood</string>
 
     <!-- Chat Fragment -->
     <string name="ChatTitle">Chat</string>
@@ -75,6 +76,7 @@
     <string name="TaskName">Task name</string>
     <string name="Fr_Task">Task</string>
     <string name="AddTask">Add task</string>
+    <string name="Fill">You did not fill in all the gaps!</string>
 
     <!-- Profile Fragment -->
     <string name="ProfileTitle">Profile</string>

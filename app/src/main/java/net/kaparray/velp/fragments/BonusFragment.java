@@ -31,7 +31,7 @@ public class BonusFragment extends android.support.v4.app.Fragment {
         bonusAlretDialog.setCancelable(false);
         bonusAlretDialog.setIcon(R.drawable.ic_bonus);
         bonusAlretDialog.setMessage(getString(R.string.Text_AlretDialogBonus));
-        bonusAlretDialog.setPositiveButton("Понятно", new DialogInterface.OnClickListener() {
+        bonusAlretDialog.setPositiveButton(R.string.Understood, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.cancel();
