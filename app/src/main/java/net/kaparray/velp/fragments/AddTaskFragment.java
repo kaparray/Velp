@@ -4,7 +4,6 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -45,11 +44,7 @@ import com.google.firebase.database.ValueEventListener;
 import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 import java.util.Date;
 
 import static net.kaparray.velp.fragments.ProfileFragment.TAG;
@@ -209,6 +204,7 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
                                mUserAccount.child("accepted").setValue("false");
                                mUserAccount.child("userTakeUID").setValue("none");
                                mUserAccount.child("photo").setValue(photo);
+                               mUserAccount.child("done").setValue("false");
 
 
                                //Date and time

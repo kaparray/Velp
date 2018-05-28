@@ -305,6 +305,7 @@ public class OpenTaskFragment extends Fragment{
 //                    int h1000p = help_1000_people/1000 * 100;
 //                    mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(2).getKey()).setValue(h1000p+"");
 
+                    mDatabase.child("Task").child(KEY_Task).child("done").setValue(user.getUid()+"");
                     mDatabase.child("Task").child(KEY_Task).child("accepted").setValue("end");
                 } else if(!taskLoader.getUserUID().equals(user.getUid()) && taskLoader.getAccepted().equals("false")){ // пользователь взял задачу
                     Toast.makeText(getActivity(), "Вы взяли эту задачу", Toast.LENGTH_LONG).show();

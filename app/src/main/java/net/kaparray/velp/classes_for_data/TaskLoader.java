@@ -18,10 +18,11 @@ public class TaskLoader {
     private double locationLongitude;
     private String time;
     private String photo;
+    private String done;
     private String helped;
 
 
-    public TaskLoader(String taskName, String taskValue, String userUID, String key, String nameUser, String uniqueIdentificator, String points, String userTakeUID, String accepted, double locationLatitude, double locationLongitude, String time, String photo,  String helped) {
+    public TaskLoader(String taskName, String taskValue, String userUID, String key, String nameUser, String uniqueIdentificator, String points, String userTakeUID, String accepted, double locationLatitude, double locationLongitude, String time, String photo, String helped, String done) {
         this.nameTask = taskName;
         this.valueTask = taskValue;
         this.userUID = userUID;
@@ -36,6 +37,7 @@ public class TaskLoader {
         this.time = time;
         this.photo = photo;
         this.helped = helped;
+        this.done = done;
     }
 
     // For firebase! Without an empty constructor does not work :)
@@ -156,6 +158,15 @@ public class TaskLoader {
 
     public void setHelped(String helped) {
         this.helped = helped;
+    }
+
+
+    public String getDone() {
+        return done;
+    }
+
+    public void setDone(String done) {
+        this.done = done;
     }
 }
 
