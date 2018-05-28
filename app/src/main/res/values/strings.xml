@@ -90,6 +90,16 @@
     <!-- Task Fragment -->
     <string name="TaskTitle">Задачи</string>
 
+    <!-- OpenTask Fragment -->
+    <string name="Finished">Законченно</string>
+    <string name="NotGot">Вашу задачу никто не подтвердил</string>
+    <string name="TakeTask">Взять задачу</string>
+    <string name="AlreadyTaken">Эту задачу кто-то взял</string>
+    <string name="Taken">Вы взяли задачу</string>
+    <string name="FinishTask">Закончить задачу</string>
+    <string name="AlreadyFinished">Эту задачу уже закончили</string>
+    <string name="Own">Вы не можете брать собственные задачи</string>
+
     <!-- Settings Fragment -->
     <string name="SettingsTitle">Настройки</string>
     <string name="dark">Тёмная тема</string>
@@ -126,8 +136,10 @@
     <string name="TV">TextView</string>
     <string name="value_task">value task</string>
     <string name="task_name">Task Name</string>
+    <string name="task_phone">Phone</string>
     <string name="time">time</string>
     <string name="wiliam_snoe">Wiliam Snoe</string>
+    <string name="Profile_Phone">Телефон</string>
     <string name="DoneTitle">Done Task</string>
     <string name="MyTaskTitle">My Task</string>
     <string name="NotAcceptedTaskTitle">Not Accepted Task</string>

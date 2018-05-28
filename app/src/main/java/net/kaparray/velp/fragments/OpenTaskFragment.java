@@ -129,21 +129,21 @@ public class OpenTaskFragment extends Fragment{
 
                 if(taskLoader.getAccepted().equals("end")){
                     mTakeTask.setBackgroundResource(R.drawable.button_round_green);
-                    mTakeTask.setText("Законченно");
+                    mTakeTask.setText(R.string.Finished);
                 }else if(taskLoader.getUserUID().equals(user.getUid()) && taskLoader.getAccepted().equals("false")){
-                    mTakeTask.setText("Вашу задачу никто не подтвердил");
+                    mTakeTask.setText(R.string.NotGot);
                     mTakeTask.setBackgroundResource(R.drawable.button_round_grey);
                  }else{
-                    mTakeTask.setText("Взять задачу");
+                    mTakeTask.setText(R.string.TakeTask);
                 }
 
                 if(taskLoader.getAccepted().equals("true")){
                     if(!taskLoader.getUserUID().equals(user.getUid()) && !taskLoader.getUserTakeUID().equals(user.getUid())){
-                        mTakeTask.setText("Эту задачу кто-то взял");
+                        mTakeTask.setText(R.string.AlreadyTaken);
                     }else if(taskLoader.getUserTakeUID().equals(user.getUid())){
-                        mTakeTask.setText("Вы взяли задачу");
+                        mTakeTask.setText(R.string.Taken);
                     }else if(taskLoader.getUserUID().equals(user.getUid())){
-                        mTakeTask.setText("Закончить задачу");
+                        mTakeTask.setText(R.string.Finish);
 
                     }
                 }
@@ -275,13 +275,13 @@ public class OpenTaskFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 if(taskLoader.getUserUID().equals(user.getUid()) && taskLoader.getAccepted().equals("false")){ // Нельзя юоать свои
-                    Toast.makeText(getActivity(), "Вы не можете брать свои задачи", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), R.string.Own, Toast.LENGTH_LONG).show();
                 } else if(taskLoader.getUserUID().equals(user.getUid()) && taskLoader.getAccepted().equals("true")){ // Закончить задачц
                     // End task
                     point += Integer.parseInt(taskLoader.getPoints());
                     mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("points").setValue(point+"");
                     mTakeTask.setBackgroundResource(R.drawable.button_round_green);
-                    mTakeTask.setText("Законченно");
+                    mTakeTask.setText(R.string.Finished);
 
                     helped++;
 
@@ -308,18 +308,18 @@ public class OpenTaskFragment extends Fragment{
                     mDatabase.child("Task").child(KEY_Task).child("done").setValue(user.getUid()+"");
                     mDatabase.child("Task").child(KEY_Task).child("accepted").setValue("end");
                 } else if(!taskLoader.getUserUID().equals(user.getUid()) && taskLoader.getAccepted().equals("false")){ // пользователь взял задачу
-                    Toast.makeText(getActivity(), "Вы взяли эту задачу", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), R.string.Taken, Toast.LENGTH_LONG).show();
                     mDatabase.child("Task").child(KEY_Task).child("accepted").setValue("true");
                     mDatabase.child("Task").child(KEY_Task).child("userTakeUID").setValue(user.getUid());
                     clickCounter++;
 
 
                 } else if (clickCounter > 0 || taskLoader.getUserTakeUID().equals(user.getUid())){ // Не кликай много раз
-                    Toast.makeText(getActivity(), "Вы взяли эту задачу", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), R.string.Taken, Toast.LENGTH_LONG).show();
                 }else if(taskLoader.getAccepted().equals("end")){  // Задача законченна
-                    Toast.makeText(getActivity(), "Эту задачу уже закончили", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), R.string.AlreadyFinished, Toast.LENGTH_LONG).show();
                 }else if(taskLoader.getAccepted().equals("true")){ // Эту задачу кто-то взял
-                    Toast.makeText(getActivity(), "Эту задачу кто-то взял", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), R.string.AlreadyTaken, Toast.LENGTH_LONG).show();
                 }
             }
         });

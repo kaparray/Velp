@@ -90,6 +90,16 @@
     <!-- Task Fragment -->
     <string name="TaskTitle">Tasks</string>
 
+    <!-- OpenTask Fragment -->
+    <string name="Finished">Completed</string>
+    <string name="NotGot">Nobody has confirmed your task</string>
+    <string name="TakeTask">Get task</string>
+    <string name="AlreadyTaken">Somebody has taken this task</string>
+    <string name="Taken">You took this task</string>
+    <string name="FinishTask">Complete the task</string>
+    <string name="AlreadyFinished">This task has been already completed</string>
+    <string name="Own">you cannot get your own tasks</string>
+
     <!-- Settings Fragment -->
     <string name="SettingsTitle">Settings</string>
     <string name="dark">Dark theme</string>
@@ -126,10 +136,14 @@
     <string name="TV">TextView</string>
     <string name="value_task">value task</string>
     <string name="task_name">Task Name</string>
+    <string name="task_phone">Phone</string>
     <string name="time">time</string>
     <string name="wiliam_snoe">Wiliam Snoe</string>
     <string name="noInternet">No internet connection</string>
-
+    <string name="Profile_Phone">Phone</string>
+    <string name="DoneTitle">Done Task</string>
+    <string name="MyTaskTitle">My Task</string>
+    <string name="NotAcceptedTaskTitle">Not Accepted Task</string>
 
 
 </resources>

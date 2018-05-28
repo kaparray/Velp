@@ -32,11 +32,13 @@ public class ProfileFragment extends Fragment{
     TextView mUserHelped;
     TextView mUserName;
     TextView mUserLevel;
+    TextView mUserPhone;
     String name;
     String level;
     String helped;
     String points;
     String photo;
+    String phone;
     LinearLayout mLL;
     ImageView mPhotoUser;
     public static final String TAG = "Points";
@@ -55,6 +57,7 @@ public class ProfileFragment extends Fragment{
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get user data in Firebase
                 name = (String) dataSnapshot.child("Users").child(user.getUid()).child("name").getValue();
+                phone = (String) dataSnapshot.child("Users").child(user.getUid()).child("phone").getValue();
                 level = (String) dataSnapshot.child("Users").child(user.getUid()).child("level").getValue() + "";
                 helped = (String) dataSnapshot.child("Users").child(user.getUid()).child("helped").getValue() + "";
                 points = (String) dataSnapshot.child("Users").child(user.getUid()).child("points").getValue() + "";
@@ -64,6 +67,7 @@ public class ProfileFragment extends Fragment{
                 // Find all view in fragment
                 mLL = rootView.findViewById(R.id.LL_profileBackground);
                 mUserName = (TextView) rootView.findViewById(R.id.tv_profileName);
+                mUserPhone = (TextView) rootView.findViewById(R.id.tv_profilePhone);
                 mUserHelped = (TextView) rootView.findViewById(R.id.tv_profileHelped);
                 mUserLevel = (TextView) rootView.findViewById(R.id.tv_profileLevel);
                 mUserPoints = (TextView) rootView.findViewById(R.id.tv_profilePoints);
@@ -101,6 +105,7 @@ public class ProfileFragment extends Fragment{
 
 
                 mUserName.setText(name);
+                mUserPhone.setText(phone);
                 mUserHelped.setText(helped);
                 mUserLevel.setText(level);
                 mUserPoints.setText(points);
