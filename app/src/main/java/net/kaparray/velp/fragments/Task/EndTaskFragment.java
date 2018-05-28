@@ -10,7 +10,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -42,26 +41,34 @@ import net.kaparray.velp.fragments.OpenTaskFragment;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import static android.content.Context.MODE_PRIVATE;
 
 
 public class EndTaskFragment extends Fragment{
 
+    // String
     private static final String TAG = "All right";
-    private DatabaseReference mFirebaseRef;
 
+    // Util for check click
     private TaskViewHolder.ClickListener mClickListener;
+
+    // Fragment
     private OpenTaskFragment openTaskFragment;
 
-    FloatingActionButton fab;
-    private RecyclerView mRecyclerView;
-    private ProgressBar progressBar;
+    // Firebase
+    private DatabaseReference mFirebaseRef;
     public FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
 
     ArrayList<TaskLoader> loderer; // so funny name for variable
 
-    TextView mTextNoInternet;
+    // View
+    @BindView(R.id.tv_NoInternet) TextView mTextNoInternet;
+    @BindView(R.id.rvTask) RecyclerView mRecyclerView;
+    @BindView(R.id.progressBarTaskFragment) ProgressBar progressBar;
 
 
     public static boolean hasConnection(final Context context)
@@ -93,7 +100,10 @@ public class EndTaskFragment extends Fragment{
 
         final View rootView = inflater.inflate(R.layout.fr_for_task, container, false);
         // Add title
-        ((MainActivity) getActivity()).setTitle(getString(R.string.BonusTitle));
+        ((MainActivity) getActivity()).setTitle(getString(R.string.DoneTitle));
+
+        //Butter Knife
+        ButterKnife.bind(this, rootView);
 
 
         loderer = new ArrayList<TaskLoader>();
@@ -102,13 +112,10 @@ public class EndTaskFragment extends Fragment{
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         mFirebaseRef = database.getReference("Task");
 
-        mTextNoInternet = rootView.findViewById(R.id.tv_NoInternet);
+
+        progressBar.setVisibility(View.VISIBLE);
         mTextNoInternet.setVisibility(View.GONE);
 
-
-
-        mRecyclerView = rootView.findViewById(R.id.rvTask);
-        progressBar = rootView.findViewById(R.id.progressBarTaskFragment);
 
 
         // Create llm
@@ -168,6 +175,7 @@ public class EndTaskFragment extends Fragment{
                                     .commit();
 
                             ((MainActivity) getActivity()).setFragmentCounter(false);
+                            ((MainActivity) getActivity()).setTaskFragmentCounter("none");
 
 
                             // This is magic bundle. I transit data in DB to OpenTaskFragment

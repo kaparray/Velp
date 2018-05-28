@@ -41,26 +41,34 @@ import net.kaparray.velp.fragments.OpenTaskFragment;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import static android.content.Context.MODE_PRIVATE;
 
 
 public class MyTaskFragment extends Fragment{
 
+    // String
     private static final String TAG = "All right";
-    private DatabaseReference mFirebaseRef;
 
-    private TaskViewHolder.ClickListener mClickListener;
+    // Util for check click
+    private EndTaskFragment.TaskViewHolder.ClickListener mClickListener;
+
+    // Fragment
     private OpenTaskFragment openTaskFragment;
 
-    private RecyclerView mRecyclerView;
-    private ProgressBar progressBar;
+    // Firebase
+    private DatabaseReference mFirebaseRef;
     public FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
 
     ArrayList<TaskLoader> loderer; // so funny name for variable
 
-    TextView mTextNoInternet;
-
+    // View
+    @BindView(R.id.tv_NoInternet) TextView mTextNoInternet;
+    @BindView(R.id.rvTask) RecyclerView mRecyclerView;
+    @BindView(R.id.progressBarTaskFragment) ProgressBar progressBar;
 
     public static boolean hasConnection(final Context context)
     {
@@ -91,7 +99,10 @@ public class MyTaskFragment extends Fragment{
 
         final View rootView = inflater.inflate(R.layout.fr_for_task, container, false);
         // Add title
-        ((MainActivity) getActivity()).setTitle(getString(R.string.BonusTitle));
+        ((MainActivity) getActivity()).setTitle(getString(R.string.MyTaskTitle));
+
+        //Butter Knife
+        ButterKnife.bind(this, rootView);
 
 
         loderer = new ArrayList<TaskLoader>();
@@ -100,14 +111,10 @@ public class MyTaskFragment extends Fragment{
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         mFirebaseRef = database.getReference("Task");
 
-        mTextNoInternet = rootView.findViewById(R.id.tv_NoInternet);
+
+
         mTextNoInternet.setVisibility(View.GONE);
-
-
-
-        mRecyclerView = rootView.findViewById(R.id.rvTask);
-        progressBar = rootView.findViewById(R.id.progressBarTaskFragment);
-
+        progressBar.setVisibility(View.VISIBLE);
 
         // Create llm
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mRecyclerView.getContext()));
@@ -166,6 +173,7 @@ public class MyTaskFragment extends Fragment{
                                     .commit();
 
                             ((MainActivity) getActivity()).setFragmentCounter(false);
+                            ((MainActivity) getActivity()).setTaskFragmentCounter("none");
 
 
                             // This is magic bundle. I transit data in DB to OpenTaskFragment

@@ -47,13 +47,16 @@ import net.kaparray.velp.R;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import static net.kaparray.velp.fragments.ProfileFragment.TAG;
 
 
 public class AddTaskFragment extends android.support.v4.app.Fragment{
 
+    // Firebase
     private FirebaseAuth mAuth;
-
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     public FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -61,15 +64,18 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
 
     // Map
     private GoogleMap googleMap;
-    private MapView mMapView;
+    @BindView(R.id.mapForAddTask) MapView mMapView;
 
+    // View
+    @BindView(R.id.btn_addTask) Button mAddTask;
+    @BindView(R.id.et_NameTask) EditText mTask;
+    @BindView(R.id.et_valueTask) EditText mValueTask;
+    @BindView(R.id.et_pointsTask) EditText mPointsTask;
 
-    Button mAddTask;
-    EditText mTask;
-    EditText mValueTask;
-    EditText mPointsTask;
+    //Fragment
     TaskFragment taskFragment;
 
+    // Global variables
     String name;
     String photo;
     String points;
@@ -87,10 +93,10 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
         // Add title
         ((MainActivity) getActivity()).setTitle(getString(R.string.AddTaskTitle));
 
-        mAddTask = rootView.findViewById(R.id.btn_addTask);
-        mTask = rootView.findViewById(R.id.et_NameTask);
-        mValueTask = rootView.findViewById(R.id.et_valueTask);
-        mPointsTask = rootView.findViewById(R.id.et_pointsTask);
+
+        //Butter Knife
+        ButterKnife.bind(this, rootView);
+
 
         // Set text color
         if (theme.equals("dark")) {
@@ -115,7 +121,6 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
         mDatabase.addValueEventListener(postListener);
 
 
-        mMapView = (MapView) rootView.findViewById(R.id.mapForAddTask);
         mMapView.onCreate(savedInstanceState);
 
         mMapView.onResume(); // needed to get the map to display immediately

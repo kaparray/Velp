@@ -128,7 +128,9 @@
     <string name="task_name">Task Name</string>
     <string name="time">time</string>
     <string name="wiliam_snoe">Wiliam Snoe</string>
-
+    <string name="DoneTitle">Done Task</string>
+    <string name="MyTaskTitle">My Task</string>
+    <string name="NotAcceptedTaskTitle">Not Accepted Task</string>
 
 
 </resources>

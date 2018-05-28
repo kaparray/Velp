@@ -63,15 +63,18 @@ public class TaskFragment extends Fragment{
                     return true;
                 case R.id.navigation_my:
                     myTaskFragment = new MyTaskFragment();
+                    ((MainActivity) getActivity()).setTaskFragmentCounter("false");
                     getActivity().getSupportFragmentManager()
                             .beginTransaction()
                             .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                             .replace(R.id.task, myTaskFragment)
                             .commit();
                     ((MainActivity) getActivity()).setFragmentCounter(false);
+
                     return true;
                 case R.id.navigation_end:
                     endTaskFragment = new EndTaskFragment();
+                    ((MainActivity) getActivity()).setTaskFragmentCounter("false");
                     getActivity().getSupportFragmentManager()
                             .beginTransaction()
                             .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
@@ -81,6 +84,7 @@ public class TaskFragment extends Fragment{
                     return true;
                 case R.id.navigation_accepted:
                     acceptedTaskFragment = new NotAcceptedTaskFragment();
+                    ((MainActivity) getActivity()).setTaskFragmentCounter("false");
                     getActivity().getSupportFragmentManager()
                             .beginTransaction()
                             .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
@@ -106,15 +110,6 @@ public class TaskFragment extends Fragment{
         ButterKnife.bind(this, rootView);
 
 
-        allTaskFragment = new AllTaskFragment();
-
-
-        getActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .add(R.id.task, allTaskFragment)
-                .commit();
-
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         BottomNavigationViewHelper.removeShiftMode(navigation);
@@ -130,15 +125,35 @@ public class TaskFragment extends Fragment{
 
                         getActivity().getSupportFragmentManager()
                                 .beginTransaction()
+                                .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                                 .replace(R.id.container, addTaskFragment)
                                 .commit();
 
                         ((MainActivity) getActivity()).setFragmentCounter(false);
+                        ((MainActivity) getActivity()).setTaskFragmentCounter("none");
                     }
                 });
 
         return rootView;
     }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+
+        allTaskFragment = new AllTaskFragment();
+
+
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .add(R.id.task, allTaskFragment)
+                .commit();
+    }
+
+
 
 }
 
