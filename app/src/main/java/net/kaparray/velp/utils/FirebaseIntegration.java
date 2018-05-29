@@ -22,8 +22,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import net.kaparray.velp.R;
 
-import butterknife.BindView;
-
 
 @SuppressLint("Registered")
 public class FirebaseIntegration extends AppCompatActivity {
@@ -72,7 +70,7 @@ public class FirebaseIntegration extends AppCompatActivity {
                 View headerView = navigationView.getHeaderView(0);
 
                 TextView navName = (TextView) headerView.findViewById(R.id.tv_username);
-                navName.setText(nameUser);
+                navName.setText(name);
                 TextView navEmail = (TextView) headerView.findViewById(R.id.tv_emainuser);
                 navEmail.setText(emailUser);
                 ImageView navPhoto =  headerView.findViewById(R.id.imageViewProfile);

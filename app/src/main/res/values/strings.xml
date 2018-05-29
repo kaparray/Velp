@@ -149,6 +149,7 @@
     <string name="EmailTitle">Change Email</string>
     <string name="NameTitle">Change Name</string>
     <string name="PhoneNamberTitle">Edit Mobile Phone Number</string>
+    <string name="ChangeDataTitle">Change Data</string>
 
 
 </resources>
