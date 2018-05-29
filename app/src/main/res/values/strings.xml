@@ -108,6 +108,7 @@
     <string name="Dark">Выбор тёмной темы</string>
     <string name="Logout">Выйти из аккаунта</string>
     <string name="DellAcc">Удалить аккаунт</string>
+    <string name="changeUserData">Изменить данные аккаунта</string>
 
     <!-- Event Fragment -->
     <string name="Events">События</string>
@@ -143,6 +144,11 @@
     <string name="DoneTitle">Done Task</string>
     <string name="MyTaskTitle">My Task</string>
     <string name="NotAcceptedTaskTitle">Not Accepted Task</string>
+    <string name="AgeTitle">Change Age</string>
+    <string name="CityTitle">Change City</string>
+    <string name="EmailTitle">Change Email</string>
+    <string name="NameTitle">Change Name</string>
+    <string name="PhoneNamberTitle">Edit Mobile Phone Number</string>
 
 
 </resources>

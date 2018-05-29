@@ -146,7 +146,6 @@ public class AllTaskFragment extends Fragment{
                     //                          ▼
                     //                        _| |_
 
-
                     viewHolder.setTitleName(model.getNameTask());
                     viewHolder.setValue(model.getValueTask());
                     viewHolder.setUser(model.getNameUser());
@@ -249,7 +248,6 @@ public class AllTaskFragment extends Fragment{
             mTextNoInternet.setTextSize(0, 50);
         }
     }
-
 
 
 

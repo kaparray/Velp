@@ -255,7 +255,6 @@ public class EndTaskFragment extends Fragment{
 
 
 
-
     // ViewHolder for FirebaseRecyclerAdapter
     public static class TaskViewHolder extends RecyclerView.ViewHolder {
 

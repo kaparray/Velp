@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,20 +20,37 @@ import com.google.firebase.auth.FirebaseUser;
 import net.kaparray.velp.Auth.AuthActivity;
 import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
+import net.kaparray.velp.fragments.chandeDataUser.ChangeDataFragment;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static android.content.Context.MODE_PRIVATE;
 
 
 public class SettingsFragment extends Fragment{
 
+    // Firebase
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
 
     public ProgressDialog mProgressDialog;
-    Switch mChangeTheme;
-    Button mLogOut;
-    Button mDell;
+    @BindView(R.id.sw_theme) Switch mChangeTheme;
+    @BindView(R.id.btn_signOut) Button mLogOut;
+    @BindView(R.id.btn_dellUser) Button mDell;
 
+
+
+    @OnClick(R.id.btn_changeUserData)
+    public void submit() {
+        ChangeDataFragment changeDataFragment = new ChangeDataFragment();
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                .replace(R.id.container, changeDataFragment)
+                .commit();
+    }
 
     @Nullable
     @Override
@@ -42,10 +60,8 @@ public class SettingsFragment extends Fragment{
         // Add title
         ((MainActivity) getActivity()).setTitle(getString(R.string.SettingsTitle));
 
-
-        mChangeTheme = rootView.findViewById(R.id.sw_theme);
-        mLogOut = rootView.findViewById(R.id.btn_signOut);
-        mDell = rootView.findViewById(R.id.btn_dellUser);
+        // Butter Knife
+        ButterKnife.bind(this, rootView);
 
         mLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,8 +123,15 @@ public class SettingsFragment extends Fragment{
             }
         });
 
+
+
+
         return rootView;
     }
+
+
+
+
 
     public void showProgressDialog() {
         if (mProgressDialog == null) {
