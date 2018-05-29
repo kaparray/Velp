@@ -159,6 +159,7 @@
     <string name="changeName">Редактировать имя</string>
     <string name="Text_AlretDialogEmailChange">Извените но вы не можите поменять email.\nВаш email:</string>
     <string name="Title_AlretDialogEmailChange">Изменить email</string>
+    <string name="PasswordTitle">Chenge Password</string>
 
 
 </resources>

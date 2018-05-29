@@ -1,5 +1,6 @@
 package net.kaparray.velp.fragments.chandeDataUser;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,13 +8,15 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -36,22 +39,26 @@ public class ChangeDataFragment extends Fragment{
     public FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     private ChangeDataOpenFragment changeDataOpenFragment;
+    public ProgressDialog mProgressDialog;
+
 
     // Tag
     public String TAG = "Error";
 
-    @BindView(R.id.cv_age) CardView cvAge;
-    @BindView(R.id.cv_city) CardView cvCity;
-    @BindView(R.id.cv_email) CardView cvEmail;
-    @BindView(R.id.cv_name) CardView cvName;
-    @BindView(R.id.cv_number) CardView cvNumber;
-    @BindView(R.id.cv_password) CardView cvPassword;
+
+    // View
     @BindView(R.id.tv_changeEmailEmail) TextView tvEmail;
     @BindView(R.id.tv_changeNameName) TextView tvName;
     @BindView(R.id.tv_changeNumberNumber) TextView tvNumber;
     @BindView(R.id.tv_changeAgeAge) TextView tvAge;
     @BindView(R.id.tv_changeCityCity) TextView tvCity;
 
+
+    ////////////////////////////////////
+    //                                //
+    //    On Click on Butter Knife    //
+    //                                //
+    ////////////////////////////////////
 
     @OnClick(R.id.cv_age)
     public void submitAge() {
@@ -150,6 +157,23 @@ public class ChangeDataFragment extends Fragment{
     @OnClick(R.id.cv_password)
     public void submitPassword() {
 
+        showProgressDialog();
+
+        FirebaseAuth.getInstance().sendPasswordResetEmail(user.getEmail().toString())
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getActivity(), "Message send to your email", Toast.LENGTH_LONG).show();
+                            Log.d(TAG, "Email sent.");
+                        } else {
+                            Toast.makeText(getActivity(), "Error message send", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+        hideProgressDialog();
+
     }
 
 
@@ -191,5 +215,23 @@ public class ChangeDataFragment extends Fragment{
         mDatabase.addValueEventListener(postListener);
 
         return rootView;
+    }
+
+
+
+    public void showProgressDialog() {
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(getContext());
+            mProgressDialog.setMessage("Загрузка..");
+            mProgressDialog.setIndeterminate(true);
+        }
+
+        mProgressDialog.show();
+    }
+
+    public void hideProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
     }
 }

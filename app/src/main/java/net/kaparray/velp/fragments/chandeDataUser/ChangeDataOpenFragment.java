@@ -55,6 +55,7 @@ public class ChangeDataOpenFragment extends Fragment{
     @BindView(R.id.et_changeData) EditText mChangeText;
     @BindView(R.id.btn_ApplyData) Button mApplyData;
     @BindView(R.id.tv_type) TextView mTextType;
+    @BindView(R.id.tv_little_description) TextView mTextDescription;
 
 
     // Variables
@@ -230,18 +231,12 @@ public class ChangeDataOpenFragment extends Fragment{
 
                 if (type.equals("age")){
                     mChangeText.setText(age);
-                    mTextType.setText(getResources().getString(R.string.changeAge));
                 }else if(type.equals("city")){
                     mChangeText.setText(city);
-                    mTextType.setText(getResources().getString(R.string.changeCity));
-                }else if(type.equals("email")){
-                    mTextType.setText(getResources().getString(R.string.changeEmail));
                 }else if(type.equals("name")){
                     mChangeText.setText(name);
-               //     mTextType.setText(getResources().getString(R.string.changeName));
                 }else if(type.equals("number")){
                     mChangeText.setText(number);
-                    mTextType.setText(getResources().getString(R.string.changePhone));
                 }
             }
 
@@ -257,24 +252,23 @@ public class ChangeDataOpenFragment extends Fragment{
             ((MainActivity) getActivity()).setTitle(getString(R.string.AgeTitle));
             mChangeText.setInputType(InputType.TYPE_CLASS_TEXT |
                     InputType.TYPE_CLASS_NUMBER);
+            mTextType.setText(getResources().getString(R.string.changeAge));
         }else if(type.equals("city")){
             ((MainActivity) getActivity()).setTitle(getString(R.string.CityTitle));
             mChangeText.setInputType(InputType.TYPE_CLASS_TEXT |
                     InputType.TYPE_TEXT_VARIATION_POSTAL_ADDRESS);
-        }else if(type.equals("email")){
-            ((MainActivity) getActivity()).setTitle(getString(R.string.EmailTitle));
-            mChangeText.setInputType(InputType.TYPE_CLASS_TEXT |
-                    InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+            mTextType.setText(getResources().getString(R.string.changeCity));
         }else if(type.equals("name")){
             ((MainActivity) getActivity()).setTitle(getString(R.string.NameTitle));
             mChangeText.setInputType(InputType.TYPE_CLASS_TEXT |
                     InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
+            mTextType.setText(getResources().getString(R.string.changeName));
         }else if(type.equals("number")){
             ((MainActivity) getActivity()).setTitle(getString(R.string.PhoneNamberTitle));
             mChangeText.setInputType(InputType.TYPE_CLASS_TEXT |
                     InputType.TYPE_CLASS_PHONE);
+            mTextType.setText(getResources().getString(R.string.changePhone));
         }
-
 
         return rootView;
     }
