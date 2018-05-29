@@ -79,6 +79,7 @@ public class OpenTaskFragment extends Fragment{
 
     int point;
     int helped;
+    String name;
 
     @Nullable
     @Override
@@ -111,7 +112,7 @@ public class OpenTaskFragment extends Fragment{
                 try {
                     mNameTask.setText(taskLoader.getNameTask() + "");
                     mValueTask.setText(taskLoader.getValueTask() + "");
-                    mNameUser.setText(taskLoader.getNameUser() + "");
+                    mNameUser.setText(dataSnapshot.child("Users").child(taskLoader.getUserUID()).child("name").getValue() + "");
                     mPoints.setText(taskLoader.getPoints() + " points");
                     mTime.setText(taskLoader.getTime() + "");
                 }catch (Exception e){
@@ -119,8 +120,8 @@ public class OpenTaskFragment extends Fragment{
                 }
 
 
-
-
+                name = dataSnapshot.child("Users").child(taskLoader.getUserUID()).child("name").getValue() + "";
+                mDatabase.child("Task").child(taskLoader.getKey()).child("nameUser").setValue(name);
 
 
                  if(!taskLoader.getUserTakeUID().equals("none")){

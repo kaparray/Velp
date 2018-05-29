@@ -108,6 +108,8 @@
     <string name="Dark">Chose dark theme</string>
     <string name="Logout">Log out</string>
     <string name="DellAcc">Delete account</string>
+    <string name="changeUserData">Change data account</string>
+
 
     <!-- Event Fragment -->
     <string name="Events">Events</string>
@@ -139,11 +141,26 @@
     <string name="task_phone">Phone</string>
     <string name="time">time</string>
     <string name="wiliam_snoe">Wiliam Snoe</string>
-    <string name="noInternet">No internet connection</string>
-    <string name="Profile_Phone">Phone</string>
+    <string name="Profile_Phone">Телефон</string>
     <string name="DoneTitle">Done Task</string>
     <string name="MyTaskTitle">My Task</string>
     <string name="NotAcceptedTaskTitle">Not Accepted Task</string>
+    <string name="AgeTitle">Change Age</string>
+    <string name="CityTitle">Change City</string>
+    <string name="EmailTitle">Change Email</string>
+    <string name="NameTitle">Change Name</string>
+    <string name="PhoneNamberTitle">Edit Mobile Phone Number</string>
+    <string name="ChangeDataTitle">Change Data</string>
+
+
+    <!-- Change Data -->
+    <string name="changeAge">Edit age</string>
+    <string name="changePhone">Edit mobile phone number</string>
+    <string name="changeEmail">Edit email address</string>
+    <string name="changeCity">Edit city</string>
+    <string name="changeName">Edit name</string>
+    <string name="Text_AlretDialogEmailChange">Sorry, you can\'t change your email.\nYour email:</string>
+    <string name="Title_AlretDialogEmailChange">Change email</string>
 
 
 </resources>

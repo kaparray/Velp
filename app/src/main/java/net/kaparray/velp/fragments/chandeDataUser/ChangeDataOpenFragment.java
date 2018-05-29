@@ -14,14 +14,17 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import net.kaparray.velp.MainActivity;
@@ -51,6 +54,7 @@ public class ChangeDataOpenFragment extends Fragment{
     // View
     @BindView(R.id.et_changeData) EditText mChangeText;
     @BindView(R.id.btn_ApplyData) Button mApplyData;
+    @BindView(R.id.tv_type) TextView mTextType;
 
 
     // Variables
@@ -122,6 +126,39 @@ public class ChangeDataOpenFragment extends Fragment{
                     .setDisplayName(mChangeText.getText().toString()).build();
             user.updateProfile(profileUpdates);
 
+
+
+
+            Query myTopPostsQuery = mDatabase.child("Task").orderByChild("userUID").equalTo(user.getUid());
+            myTopPostsQuery.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    mDatabase.child("Task").child(dataSnapshot.child("key").getValue()+"")
+                            .child("nameUser").setValue(mChangeText.getText().toString());
+                }
+
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+
             // Hide keyboard
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(rootView.getWindowToken(),
@@ -192,29 +229,19 @@ public class ChangeDataOpenFragment extends Fragment{
 
 
                 if (type.equals("age")){
-                    ((MainActivity) getActivity()).setTitle(getString(R.string.AgeTitle));
-                    mChangeText.setInputType(InputType.TYPE_CLASS_TEXT |
-                            InputType.TYPE_CLASS_NUMBER);
                     mChangeText.setText(age);
+                    mTextType.setText(getResources().getString(R.string.changeAge));
                 }else if(type.equals("city")){
-                    ((MainActivity) getActivity()).setTitle(getString(R.string.CityTitle));
-                    mChangeText.setInputType(InputType.TYPE_CLASS_TEXT |
-                            InputType.TYPE_TEXT_VARIATION_POSTAL_ADDRESS);
                     mChangeText.setText(city);
+                    mTextType.setText(getResources().getString(R.string.changeCity));
                 }else if(type.equals("email")){
-                    ((MainActivity) getActivity()).setTitle(getString(R.string.EmailTitle));
-                    mChangeText.setInputType(InputType.TYPE_CLASS_TEXT |
-                            InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+                    mTextType.setText(getResources().getString(R.string.changeEmail));
                 }else if(type.equals("name")){
-                    ((MainActivity) getActivity()).setTitle(getString(R.string.NameTitle));
-                    mChangeText.setInputType(InputType.TYPE_CLASS_TEXT |
-                            InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
                     mChangeText.setText(name);
+               //     mTextType.setText(getResources().getString(R.string.changeName));
                 }else if(type.equals("number")){
-                    ((MainActivity) getActivity()).setTitle(getString(R.string.PhoneNamberTitle));
-                    mChangeText.setInputType(InputType.TYPE_CLASS_TEXT |
-                            InputType.TYPE_CLASS_PHONE);
                     mChangeText.setText(number);
+                    mTextType.setText(getResources().getString(R.string.changePhone));
                 }
             }
 
@@ -225,6 +252,28 @@ public class ChangeDataOpenFragment extends Fragment{
         };
         mDatabase.addValueEventListener(postListener);
 
+
+        if (type.equals("age")){
+            ((MainActivity) getActivity()).setTitle(getString(R.string.AgeTitle));
+            mChangeText.setInputType(InputType.TYPE_CLASS_TEXT |
+                    InputType.TYPE_CLASS_NUMBER);
+        }else if(type.equals("city")){
+            ((MainActivity) getActivity()).setTitle(getString(R.string.CityTitle));
+            mChangeText.setInputType(InputType.TYPE_CLASS_TEXT |
+                    InputType.TYPE_TEXT_VARIATION_POSTAL_ADDRESS);
+        }else if(type.equals("email")){
+            ((MainActivity) getActivity()).setTitle(getString(R.string.EmailTitle));
+            mChangeText.setInputType(InputType.TYPE_CLASS_TEXT |
+                    InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        }else if(type.equals("name")){
+            ((MainActivity) getActivity()).setTitle(getString(R.string.NameTitle));
+            mChangeText.setInputType(InputType.TYPE_CLASS_TEXT |
+                    InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
+        }else if(type.equals("number")){
+            ((MainActivity) getActivity()).setTitle(getString(R.string.PhoneNamberTitle));
+            mChangeText.setInputType(InputType.TYPE_CLASS_TEXT |
+                    InputType.TYPE_CLASS_PHONE);
+        }
 
 
         return rootView;

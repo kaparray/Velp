@@ -1,10 +1,12 @@
 package net.kaparray.velp.fragments.chandeDataUser;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -92,6 +94,20 @@ public class ChangeDataFragment extends Fragment{
         Bundle bundle = new Bundle();
         bundle.putString("typeData", "email");
         changeDataOpenFragment.setArguments(bundle);
+
+        AlertDialog.Builder bonusAlretDialog = new AlertDialog.Builder(getActivity());
+        bonusAlretDialog.setTitle(getString(R.string.Title_AlretDialogEmailChange));
+        bonusAlretDialog.setCancelable(false);
+        bonusAlretDialog.setIcon(R.drawable.ic_bonus);
+        bonusAlretDialog.setMessage(getString(R.string.Text_AlretDialogEmailChange) + " " + user.getEmail());
+        bonusAlretDialog.setPositiveButton(R.string.Understood, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+        bonusAlretDialog.show();
+
         ((MainActivity) getActivity()).setSettingsFragmentCounter(false);
         ((MainActivity) getActivity()).setChangeDataFragmentCounter(false);
     }
