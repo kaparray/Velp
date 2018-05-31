@@ -101,7 +101,6 @@ public class TaskLoader {
         this.nameUser = nameUser;
     }
 
-
     public String getPoints() {
         return points;
     }
