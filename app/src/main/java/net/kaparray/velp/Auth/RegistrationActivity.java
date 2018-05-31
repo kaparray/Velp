@@ -322,7 +322,7 @@ public class RegistrationActivity extends AppCompatActivity{
                                 }
                             });
                 } else {
-                    Toast.makeText(RegistrationActivity.this, "You email or mpassword is not valid", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegistrationActivity.this, "You email or password is not valid", Toast.LENGTH_LONG).show();
                 }
             }
         });

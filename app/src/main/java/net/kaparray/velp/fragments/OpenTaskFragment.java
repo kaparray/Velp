@@ -2,6 +2,7 @@ package net.kaparray.velp.fragments;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -55,6 +56,7 @@ public class OpenTaskFragment extends Fragment{
     @BindView(R.id.btn_universalButtonTask) Button mTakeTask;
     @BindView(R.id.tv_valueTaskInOpenTask) TextView mValueTask;
     @BindView(R.id.tv_nameUserInOpenTask) TextView mNameUser;
+    @BindView(R.id.tv_phoneUserInOpenTask) TextView mPhoneUser;
     @BindView(R.id.tv_time) TextView mTime;
     @BindView(R.id.tv_pointsInOpenFragment) TextView mPoints;
     @BindView(R.id.iv_photoTask) ImageView mPhoto;
@@ -63,6 +65,7 @@ public class OpenTaskFragment extends Fragment{
     // String variable
     String KEY_Task;
     String photo;
+
 
     // Task Loader Fragment
     TaskLoader taskLoader;
@@ -99,6 +102,7 @@ public class OpenTaskFragment extends Fragment{
 
 
 
+
         ValueEventListener postListener = new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @SuppressLint("SetTextI18n")
@@ -114,6 +118,7 @@ public class OpenTaskFragment extends Fragment{
                     mNameUser.setText(taskLoader.getNameUser() + "");
                     mPoints.setText(taskLoader.getPoints() + " points");
                     mTime.setText(taskLoader.getTime() + "");
+                    mPhoneUser.setText(R.string.Show);
                 }catch (Exception e){
                     Log.d("Error", e+"");
                 }
@@ -122,31 +127,36 @@ public class OpenTaskFragment extends Fragment{
 
 
 
-
-                 if(!taskLoader.getUserTakeUID().equals("none")){
-                    point = Integer.parseInt(dataSnapshot.child("Users").child(taskLoader.getUserTakeUID()).child("points").getValue()+"");
-                }
-
-                if(taskLoader.getAccepted().equals("end")){
-                    mTakeTask.setBackgroundResource(R.drawable.button_round_green);
-                    mTakeTask.setText(R.string.Finished);
-                }else if(taskLoader.getUserUID().equals(user.getUid()) && taskLoader.getAccepted().equals("false")){
-                    mTakeTask.setText(R.string.NotGot);
-                    mTakeTask.setBackgroundResource(R.drawable.button_round_grey);
-                 }else{
-                    mTakeTask.setText(R.string.TakeTask);
-                }
-
-                if(taskLoader.getAccepted().equals("true")){
-                    if(!taskLoader.getUserUID().equals(user.getUid()) && !taskLoader.getUserTakeUID().equals(user.getUid())){
-                        mTakeTask.setText(R.string.AlreadyTaken);
-                    }else if(taskLoader.getUserTakeUID().equals(user.getUid())){
-                        mTakeTask.setText(R.string.Taken);
-                    }else if(taskLoader.getUserUID().equals(user.getUid())){
-                        mTakeTask.setText(R.string.Finish);
-
+                try {
+                    if(!taskLoader.getUserTakeUID().equals("none")){
+                        point = Integer.parseInt(dataSnapshot.child("Users").child(taskLoader.getUserTakeUID()).child("points").getValue()+"");
                     }
+
+                    if(taskLoader.getAccepted().equals("end")){
+                        mTakeTask.setBackgroundResource(R.drawable.button_round_green);
+                        mTakeTask.setText(R.string.Finished);
+                    }else if(taskLoader.getUserUID().equals(user.getUid()) && taskLoader.getAccepted().equals("false")){
+                        mTakeTask.setText(R.string.NotGot);
+                        mTakeTask.setBackgroundResource(R.drawable.button_round_grey);
+                    }else{
+                        mTakeTask.setText(R.string.TakeTask);
+                    }
+
+                    if(taskLoader.getAccepted().equals("true")){
+                        if(!taskLoader.getUserUID().equals(user.getUid()) && !taskLoader.getUserTakeUID().equals(user.getUid())){
+                            mTakeTask.setText(R.string.AlreadyTaken);
+                        }else if(taskLoader.getUserTakeUID().equals(user.getUid())){
+                            mTakeTask.setText(R.string.Taken);
+                            mPhoneUser.setText(dataSnapshot.child("Users").child(taskLoader.getUserUID()).child("phone").getValue() + "");
+                        }else if(taskLoader.getUserUID().equals(user.getUid())){
+                            mTakeTask.setText(R.string.Finish);
+                            mPhoneUser.setText(dataSnapshot.child("Users").child(taskLoader.getUserUID()).child("phone").getValue() + "");
+                        }
+                    }
+                }catch (Exception e){
+                    Toast.makeText(getContext(), "Hold on", Toast.LENGTH_LONG).show();
                 }
+
 
                 try {
                     photo = taskLoader.getPhoto();
@@ -276,12 +286,14 @@ public class OpenTaskFragment extends Fragment{
             public void onClick(View v) {
                 if(taskLoader.getUserUID().equals(user.getUid()) && taskLoader.getAccepted().equals("false")){ // Нельзя юоать свои
                     Toast.makeText(getActivity(), R.string.Own, Toast.LENGTH_LONG).show();
+                    mDatabase.child("Task").child(KEY_Task).child("userTakeUID").setValue(user.getUid());
                 } else if(taskLoader.getUserUID().equals(user.getUid()) && taskLoader.getAccepted().equals("true")){ // Закончить задачц
                     // End task
                     point += Integer.parseInt(taskLoader.getPoints());
                     mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("points").setValue(point+"");
                     mTakeTask.setBackgroundResource(R.drawable.button_round_green);
                     mTakeTask.setText(R.string.Finished);
+
 
                     helped++;
 
@@ -316,6 +328,7 @@ public class OpenTaskFragment extends Fragment{
 
                 } else if (clickCounter > 0 || taskLoader.getUserTakeUID().equals(user.getUid())){ // Не кликай много раз
                     Toast.makeText(getActivity(), R.string.Taken, Toast.LENGTH_LONG).show();
+                    mDatabase.child("Task").child(KEY_Task).child("userTakeUID").setValue(user.getUid());
                 }else if(taskLoader.getAccepted().equals("end")){  // Задача законченна
                     Toast.makeText(getActivity(), R.string.AlreadyFinished, Toast.LENGTH_LONG).show();
                 }else if(taskLoader.getAccepted().equals("true")){ // Эту задачу кто-то взял
