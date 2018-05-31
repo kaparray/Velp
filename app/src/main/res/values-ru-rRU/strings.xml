@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Velp</string>
 
@@ -18,7 +19,6 @@
     <string name="PassAgain">Еще раз пароль</string>
     <string name="Name">Имя</string>
     <string name="Phone">Телефон</string>
-    <string name="Show">Телефон будет доступен после взятия задачи</string>
     <string name="Age">Возраст</string>
     <string name="City">Город</string>
     <string name="Register">Зарегистрироваться</string>
@@ -160,7 +160,5 @@
     <string name="changeName">Редактировать имя</string>
     <string name="Text_AlretDialogEmailChange">Извените но вы не можите поменять email.\nВаш email:</string>
     <string name="Title_AlretDialogEmailChange">Изменить email</string>
-    <string name="PasswordTitle">Chenge Password</string>
-
 
 </resources>

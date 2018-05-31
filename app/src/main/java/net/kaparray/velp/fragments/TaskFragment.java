@@ -109,7 +109,7 @@ public class TaskFragment extends Fragment{
 
         ButterKnife.bind(this, rootView);
 
-
+        ((MainActivity) getActivity()).setTaskFragmentCounter("true");
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         BottomNavigationViewHelper.removeShiftMode(navigation);

@@ -29,14 +29,20 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import net.kaparray.velp.R;
+import net.kaparray.velp.classes_for_data.RatingData;
 import net.kaparray.velp.classes_for_data.TaskLoader;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -69,6 +75,7 @@ public class OpenTaskFragment extends Fragment{
 
     // Task Loader Fragment
     TaskLoader taskLoader;
+    List<RatingData> ratingData;
 
     // Counter
     private int clickCounter = 0;
@@ -79,9 +86,9 @@ public class OpenTaskFragment extends Fragment{
     private MapView mMapView;
 
 
-
     int point;
     int helped;
+    String name;
 
     @Nullable
     @Override
@@ -100,7 +107,7 @@ public class OpenTaskFragment extends Fragment{
             KEY_Task = bundle.getString("TaskKey");
         }
 
-
+        ratingData = new ArrayList<>();
 
 
         ValueEventListener postListener = new ValueEventListener() {
@@ -115,7 +122,7 @@ public class OpenTaskFragment extends Fragment{
                 try {
                     mNameTask.setText(taskLoader.getNameTask() + "");
                     mValueTask.setText(taskLoader.getValueTask() + "");
-                    mNameUser.setText(taskLoader.getNameUser() + "");
+                    mNameUser.setText(dataSnapshot.child("Users").child(taskLoader.getUserUID()).child("name").getValue() + "");
                     mPoints.setText(taskLoader.getPoints() + " points");
                     mTime.setText(taskLoader.getTime() + "");
                     mPhoneUser.setText(R.string.Show);
@@ -124,8 +131,8 @@ public class OpenTaskFragment extends Fragment{
                 }
 
 
-
-
+                name = dataSnapshot.child("Users").child(taskLoader.getUserUID()).child("name").getValue() + "";
+                mDatabase.child("Task").child(taskLoader.getKey()).child("nameUser").setValue(name);
 
                 try {
                     if(!taskLoader.getUserTakeUID().equals("none")){
@@ -228,6 +235,43 @@ public class OpenTaskFragment extends Fragment{
                 }catch (Exception e){
 
                 }
+
+
+
+
+                Query myTopPostsQuery = mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").orderByChild("key");
+                myTopPostsQuery.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+
+                        ratingData.add(new RatingData(dataSnapshot.child("nameRating").getValue() + "",
+                                dataSnapshot.child("valueRating").getValue() + "",
+                                dataSnapshot.child("key").getValue() + ""));
+
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
             }
 
             @Override
@@ -301,24 +345,32 @@ public class OpenTaskFragment extends Fragment{
 
 
 //                 // add to user ochivments
-//
-//                    int help_10_people = Integer.parseInt(ratingData.get(0).getValueRating());
-//                    help_10_people++;
-//                    int h10p = help_10_people/10 * 100;
-//                    mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(0).getKey()).setValue(h10p+"");
-//
-//                    int help_100_people = Integer.parseInt(ratingData.get(1).getValueRating());
-//                    help_100_people++;
-//                    int h100p = help_100_people/100 * 100;
-//                    mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(1).getKey()).setValue(h100p+"");
-//
-//                    int help_1000_people = Integer.parseInt(ratingData.get(2).getValueRating());
-//                    help_1000_people++;
-//                    int h1000p = help_1000_people/1000 * 100;
-//                    mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(2).getKey()).setValue(h1000p+"");
+
+                    float help_10_people = Float.parseFloat(ratingData.get(0).getValueRating());
+                    if(help_10_people  <= 100) {
+                        help_10_people += 10;
+                        mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(0).getKey()).child("valueRating").setValue(help_10_people + "");
+                    }
+
+
+                    float help_100_people = Float.parseFloat(ratingData.get(1).getValueRating());
+                    if(help_100_people  <= 100) {
+                        help_100_people += 1;
+                        mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(1).getKey()).child("valueRating").setValue(help_100_people + "");
+                    }
+
+
+                    float help_1000_people = Float.parseFloat(ratingData.get(2).getValueRating());
+                    if(help_1000_people <= 100) {
+                        help_1000_people += 0.1;
+                        mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(2).getKey()).child("valueRating").setValue(help_1000_people + "");
+                    }
+
 
                     mDatabase.child("Task").child(KEY_Task).child("done").setValue(user.getUid()+"");
                     mDatabase.child("Task").child(KEY_Task).child("accepted").setValue("end");
+
+
                 } else if(!taskLoader.getUserUID().equals(user.getUid()) && taskLoader.getAccepted().equals("false")){ // пользователь взял задачу
                     Toast.makeText(getActivity(), R.string.Taken, Toast.LENGTH_LONG).show();
                     mDatabase.child("Task").child(KEY_Task).child("accepted").setValue("true");

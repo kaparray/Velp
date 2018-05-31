@@ -60,6 +60,7 @@ public class AllTaskFragment extends Fragment{
     // Firebase
     private DatabaseReference mFirebaseRef;
     public FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
 
     ArrayList<TaskLoader> loderer; // so funny name for variable
@@ -139,7 +140,7 @@ public class AllTaskFragment extends Fragment{
                     mFirebaseRef
             ) {
                 @Override
-                protected void populateViewHolder(TaskViewHolder viewHolder, final TaskLoader model, int position) {
+                protected void populateViewHolder(final TaskViewHolder viewHolder, final TaskLoader model, int position) {
                     // This is real magic      ___
                     //                     ⎺\_(◦-◦)_/⎺
                     //                          ▲
@@ -147,9 +148,9 @@ public class AllTaskFragment extends Fragment{
                     //                        _| |_
 
 
+                    viewHolder.setUser(model.getNameUser());
                     viewHolder.setTitleName(model.getNameTask());
                     viewHolder.setValue(model.getValueTask());
-                    viewHolder.setUser(model.getNameUser());
                     viewHolder.setPhoto(model.getPhoto(), getResources());
 
 
@@ -249,7 +250,6 @@ public class AllTaskFragment extends Fragment{
             mTextNoInternet.setTextSize(0, 50);
         }
     }
-
 
 
 
