@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -60,6 +61,7 @@ public class NotAcceptedTaskFragment extends Fragment{
     private DatabaseReference mFirebaseRef;
     public FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
+    boolean counrter = true;
 
     ArrayList<TaskLoader> loderer; // so funny name for variable
 
@@ -136,6 +138,43 @@ public class NotAcceptedTaskFragment extends Fragment{
                     TaskViewHolder.class,
                     mFirebaseRef.orderByChild("accepted").equalTo("false")
             ) {
+
+                @Override
+                protected void onDataChanged() {
+
+                    NotAcceptedTaskFragment.super.onStart();
+
+                    new CountDownTimer(3000, 1000) {
+
+                        public void onTick(long millisUntilFinished) {
+                            if(loderer.size() <= 0 ){
+                                counrter = true;
+                                Log.d("lol", "loh");
+                            }else {
+                                counrter = false;
+                                Log.d("lol", "lol");
+
+                            }
+
+                        }
+
+                        public void onFinish() {
+                            if(counrter){
+
+                                progressBar.setVisibility(View.GONE);
+                                mTextNoInternet.setVisibility(View.VISIBLE);
+                                mTextNoInternet.setText("No task");
+                                mRecyclerView.setVisibility(View.GONE);
+                            }else {
+
+                            }
+
+                            Log.d("lol", "yes");
+
+                        }
+                    }.start();
+                }
+
                 @Override
                 protected void populateViewHolder(TaskViewHolder viewHolder, final TaskLoader model, int position) {
                     // This is real magic      ___
@@ -247,6 +286,38 @@ public class NotAcceptedTaskFragment extends Fragment{
             mTextNoInternet.setText(getString(R.string.noInternet));
             mTextNoInternet.setTextSize(0, 50);
         }
+
+
+
+        new CountDownTimer(3000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                if(loderer.size() <= 0 ){
+                    counrter = true;
+                    Log.d("lol", "loh");
+                }else {
+                    counrter = false;
+                    Log.d("lol", "lol");
+
+                }
+
+            }
+
+            public void onFinish() {
+                if(counrter){
+
+                    progressBar.setVisibility(View.GONE);
+                    mTextNoInternet.setVisibility(View.VISIBLE);
+                    mTextNoInternet.setText("No task");
+                    mRecyclerView.setVisibility(View.GONE);
+                }else {
+
+                }
+
+                Log.d("lol", "yes");
+
+            }
+        }.start();
     }
 
 

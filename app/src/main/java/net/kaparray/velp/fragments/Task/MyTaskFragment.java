@@ -9,6 +9,7 @@ import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -62,6 +63,7 @@ public class MyTaskFragment extends Fragment{
     private DatabaseReference mFirebaseRef;
     public FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
+    boolean counrter = true;
 
     ArrayList<TaskLoader> loderer; // so funny name for variable
 
@@ -121,6 +123,9 @@ public class MyTaskFragment extends Fragment{
 
         openTaskFragment = new OpenTaskFragment();
 
+
+
+
         return rootView;
     }
 
@@ -128,7 +133,7 @@ public class MyTaskFragment extends Fragment{
     public void onStart() {
         super.onStart();
 
-        if(hasConnection(getContext())) {
+        if (hasConnection(getContext())) {
             // Create FirebaseRecyclerAdapter for automatic work with FDB
             FirebaseRecyclerAdapter<TaskLoader, TaskViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<TaskLoader, TaskViewHolder>(
 
@@ -137,6 +142,43 @@ public class MyTaskFragment extends Fragment{
                     TaskViewHolder.class,
                     mFirebaseRef.orderByChild("userUID").equalTo(user.getUid())
             ) {
+
+                @Override
+                protected void onDataChanged() {
+                    MyTaskFragment.super.onStart();
+
+
+                    new CountDownTimer(3000, 1000) {
+
+                        public void onTick(long millisUntilFinished) {
+                            if(loderer.size() <= 0 ){
+                                counrter = true;
+                                Log.d("lol", "loh");
+                            }else {
+                                counrter = false;
+                                Log.d("lol", "lol");
+
+                            }
+
+                        }
+
+                        public void onFinish() {
+                            if(counrter){
+
+                                progressBar.setVisibility(View.GONE);
+                                mTextNoInternet.setVisibility(View.VISIBLE);
+                                mTextNoInternet.setText("No task");
+                                mRecyclerView.setVisibility(View.GONE);
+                            }else {
+
+                            }
+
+                            Log.d("lol", "yes");
+
+                        }
+                    }.start();
+                }
+
                 @Override
                 protected void populateViewHolder(TaskViewHolder viewHolder, final TaskLoader model, int position) {
                     // This is real magic      ___
@@ -183,7 +225,6 @@ public class MyTaskFragment extends Fragment{
                         }
 
 
-
                         @Override
                         public void onItemLongClick(View view, final int position) {
                             if (user != null && loderer.get(position).getUserUID().equals(user.getUid())) {
@@ -191,12 +232,12 @@ public class MyTaskFragment extends Fragment{
                                 AlretDialog.setTitle(getString(R.string.Title_AlretDialogDeleteTask));
                                 AlretDialog.setCancelable(false);
                                 // Set Theme
-                                SharedPreferences preferences = getActivity().getSharedPreferences("theme",MODE_PRIVATE);
-                                String theme = preferences.getString("THEME"," ");
+                                SharedPreferences preferences = getActivity().getSharedPreferences("theme", MODE_PRIVATE);
+                                String theme = preferences.getString("THEME", " ");
 
-                                if (theme.equals("dark")){
+                                if (theme.equals("dark")) {
                                     AlretDialog.setIcon(R.drawable.ic_delete_white); // add delete icon
-                                } else if (theme.equals("light")){
+                                } else if (theme.equals("light")) {
                                     AlretDialog.setIcon(R.drawable.ic_delete_black_24dp); // add delete icon
                                 }
 
@@ -242,12 +283,46 @@ public class MyTaskFragment extends Fragment{
                 }
             };
             mRecyclerView.setAdapter(firebaseRecyclerAdapter);
-        }else{
+        } else {
             progressBar.setVisibility(View.GONE);
             mTextNoInternet.setVisibility(View.VISIBLE);
             mTextNoInternet.setText(getString(R.string.noInternet));
             mTextNoInternet.setTextSize(0, 50);
         }
+
+
+
+
+            new CountDownTimer(3000, 1000) {
+
+                public void onTick(long millisUntilFinished) {
+                    if(loderer.size() <= 0 ){
+                        counrter = true;
+                        Log.d("lol", "loh");
+                    }else {
+                        counrter = false;
+                        Log.d("lol", "lol");
+
+                    }
+
+                }
+
+                public void onFinish() {
+                    if(counrter){
+
+                        progressBar.setVisibility(View.GONE);
+                        mTextNoInternet.setVisibility(View.VISIBLE);
+                        mTextNoInternet.setText("No task");
+                        mRecyclerView.setVisibility(View.GONE);
+                    }else {
+
+                    }
+
+                    Log.d("lol", "yes");
+
+                }
+            }.start();
+
     }
 
 
@@ -351,6 +426,7 @@ public class MyTaskFragment extends Fragment{
         public void setOnClickListener(TaskViewHolder.ClickListener clickListener){
             mClickListener = clickListener;
         }
+
 
     }
 
