@@ -2,10 +2,8 @@ package net.kaparray.velp.fragments;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -14,19 +12,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -35,12 +28,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
+import com.google.maps.android.clustering.ClusterItem;
+import com.google.maps.android.clustering.ClusterManager;
 
 import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
 import net.kaparray.velp.classes_for_data.MarkerData;
-import net.kaparray.velp.classes_for_data.TaskLoader;
 
 import java.util.ArrayList;
 
@@ -66,6 +59,39 @@ public class MapFragment extends Fragment {
     private ProgressBar mProgressBar;
 
 
+
+    // Declare a variable for the cluster manager.
+    private ClusterManager<MyItem> mClusterManager;
+
+    private void setUpClusterer(GoogleMap map) {
+        // Position the map.
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(55.716911, 37.610526), 10));
+
+        // Initialize the manager with the context and the map.
+        // (Activity extends context, so we can pass 'this' in the constructor.)
+        mClusterManager = new ClusterManager<MyItem>(getContext(), map);
+
+        // Point the map's listeners at the listeners implemented by the cluster
+        // manager.
+        map.setOnCameraIdleListener(mClusterManager);
+        map.setOnMarkerClickListener(mClusterManager);
+
+        // Add cluster items (markers) to the cluster manager.
+        addItems();
+    }
+
+    private void addItems() {
+
+
+        for (int i = 0; i < markerData.size(); i++){
+            // Add new marker in map
+
+            MyItem offsetItem = new MyItem(markerData.get(i).getLocationLongitude(),markerData.get(i).getLocationLatitude());
+            mClusterManager.addItem(offsetItem);
+        }
+    }
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -88,6 +114,7 @@ public class MapFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
 
 
 
@@ -122,12 +149,8 @@ public class MapFragment extends Fragment {
 
                         }
 
+                        setUpClusterer(googleMap);
 
-                        for (int i = 0; i < markerData.size(); i++){
-                            LatLng latLng =  new LatLng(markerData.get(i).getLocationLongitude(),markerData.get(i).getLocationLatitude());
-                            // Add new marker in map
-                            googleMap.addMarker(new MarkerOptions().position(latLng).title(markerData.get(i).getNameTask())).setTag(markerData.get(i).getKey());
-                        }
 
                         // Hide progress bar
                         mProgressBar.setVisibility(View.GONE);
@@ -171,10 +194,14 @@ public class MapFragment extends Fragment {
                                         .commit();
                             }
                         }
+
                     }
                 });
+
             }
         });
+
+
 
 
 
@@ -192,12 +219,15 @@ public class MapFragment extends Fragment {
     public void onPause() {
         super.onPause();
         mMapView.onPause();
+        markerData.clear();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         mMapView.onDestroy();
+        markerData.clear();
+
     }
 
     @Override
@@ -205,6 +235,25 @@ public class MapFragment extends Fragment {
         super.onLowMemory();
         mMapView.onLowMemory();
     }
+
+
+
+
+}
+
+
+class MyItem implements ClusterItem {
+    private final LatLng mPosition;
+
+    public MyItem(double lat, double lng) {
+        mPosition = new LatLng(lat, lng);
+    }
+
+    @Override
+    public LatLng getPosition() {
+        return mPosition;
+    }
+
 
 
 }

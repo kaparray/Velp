@@ -27,7 +27,6 @@ import net.kaparray.velp.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 
 public class RegistrationActivity extends AppCompatActivity{
@@ -286,6 +285,12 @@ public class RegistrationActivity extends AppCompatActivity{
                                             mUserAccount.child("status").setValue("user");
                                             mUserAccount.child("photo").setValue(photo);
 
+
+
+                                            DatabaseReference rating0 = mUserAccount.child("rating").push();
+                                            rating0.child("nameRating").setValue("help_1_people");
+                                            rating0.child("valueRating").setValue("0");
+                                            rating0.child("key").setValue(rating0.getKey());
 
                                             DatabaseReference rating1 = mUserAccount.child("rating").push();
                                             rating1.child("nameRating").setValue("help_10_people");

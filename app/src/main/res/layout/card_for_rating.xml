@@ -19,35 +19,44 @@
         android:padding="10dp">
 
 
+        <TextView
+            android:id="@+id/tv_nameRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/value_task"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
 
+
+        <TextView
+            android:id="@+id/tv_valTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/TV"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@+id/tv_nameRating" />
 
 
         <TextView
             android:id="@+id/tv_valueRating"
-            android:layout_width="240dp"
-            android:layout_height="22dp"
-            android:layout_margin="10dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/value_task"
-            card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@+id/textView3"
-            tools:ignore="MissingConstraints" />
-
-        <TextView
-            android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_margin="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/TV"
-            card_view:layout_constraintBottom_toTopOf="parent"
-            card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintHorizontal_bias="0.027"
-            card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toTopOf="parent"
-            card_view:layout_constraintVertical_bias="0.0" />
+            android:layout_marginTop="20dp"
+            android:text="@string/value_task"
+            card_view:layout_constraintStart_toEndOf="@+id/prBar_Rating"
+            card_view:layout_constraintTop_toBottomOf="@+id/tv_valTask"
+            tools:ignore="MissingConstraints" />
 
         <ImageView
             android:id="@+id/iv_photoRating"
@@ -59,8 +68,22 @@
             android:layout_marginTop="8dp"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintStart_toEndOf="@+id/tv_valueRating"
+            card_view:layout_constraintHorizontal_bias="0.964"
+            card_view:layout_constraintStart_toEndOf="@+id/tv_valTask"
             card_view:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/prBar_Rating"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="200dp"
+            android:layout_height="12dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:progressDrawable="@drawable/progress_bar"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@+id/tv_valTask" />
 
 
     </android.support.constraint.ConstraintLayout>

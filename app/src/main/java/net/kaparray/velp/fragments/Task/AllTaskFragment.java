@@ -143,41 +143,6 @@ public class AllTaskFragment extends Fragment{
             ) {
 
 
-                @Override
-                protected void onDataChanged() {
-
-
-                    AllTaskFragment.super.onStart();
-                    new CountDownTimer(3000, 1000) {
-
-                        public void onTick(long millisUntilFinished) {
-                            if(loderer.size() <= 0 ){
-                                counrter = true;
-                                Log.d("lol", "loh");
-                            }else {
-                                counrter = false;
-                                Log.d("lol", "lol");
-
-                            }
-
-                        }
-
-                        public void onFinish() {
-                            if(counrter){
-
-                                progressBar.setVisibility(View.GONE);
-                                mTextNoInternet.setVisibility(View.VISIBLE);
-                                mTextNoInternet.setText("No task");
-                                mRecyclerView.setVisibility(View.GONE);
-                            }else {
-
-                            }
-
-                            Log.d("lol", "yes");
-
-                        }
-                    }.start();
-                }
 
                 @Override
                 protected void populateViewHolder(final TaskViewHolder viewHolder, final TaskLoader model, int position) {
