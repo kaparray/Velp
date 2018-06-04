@@ -1,43 +1,34 @@
 package net.kaparray.velp.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
 import net.kaparray.velp.classes_for_data.RatingData;
-import net.kaparray.velp.classes_for_data.TaskLoader;
+import net.kaparray.velp.utils.ProgressBarAnimation;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -129,31 +120,30 @@ public class RatingFragment extends Fragment {
 
 
         // This method return text for name task
+        @SuppressLint("SetTextI18n")
         public void setTitleName(String title, Resources resources, Context context) {
-            TextView name = mView.findViewById(R.id.textView3);
+            TextView name = mView.findViewById(R.id.tv_nameRating);
             ImageView photo = mView.findViewById(R.id.iv_photoRating);
-            if(title.equals("help_10_people")){
-                name.setText("Помочь 10 людям");
+            TextView val = mView.findViewById(R.id.tv_valTask);
+
+            if (title.equals("help_1_people")) {
+                name.setText("Первая Помощь");
+                val.setText("Помочь 1 человеку");
+                photo.setImageDrawable(resources.getDrawable(R.drawable.ic_1_user));
+            }else if(title.equals("help_10_people")){
+                name.setText("Хороший марафонец");
+                val.setText("Помочь 10 людям");
                 photo.setImageDrawable(resources.getDrawable(R.drawable.ic_10_users));
             }else if(title.equals("help_100_people")){
-                name.setText("Помочь 100 людям");
+                name.setText("Мастер марафонец");
+                val.setText("Помочь 100 людям");
                 photo.setImageDrawable(resources.getDrawable(R.drawable.ic_100_users));
             }else if(title.equals("help_1000_people")){
-                name.setText("Помочь 1000 людям");
+                name.setText("Олимпийский марафонец");
+                val.setText("Помочь 1000 людям");
                 photo.setImageDrawable(resources.getDrawable(R.drawable.ic_1000_users));
-            }else if(title.equals("help_in_3_events")){
-                name.setText("Помочь на 3 эвенках");
-            }else if(title.equals("help_in_5_events")){
-                name.setText("Помочь на 5 эвенках");
-            }else if(title.equals("help_in_10_events")){
-                name.setText("Помочь на 10 эвенках");
-            }else if(title.equals("help_in_30_events")){
-                name.setText("Помочь на 30 эвенках");
-            }else if(title.equals("help_in_50_events")){
-
-            }else if(title.equals("help_in_100_events")){
-
             }
+
 
 
             // Set Theme
@@ -172,7 +162,13 @@ public class RatingFragment extends Fragment {
         // This method return text for value task
         public void setValue(String value,  Context context) {
             TextView val = mView.findViewById(R.id.tv_valueRating);
+            ProgressBar progressBar = mView.findViewById(R.id.prBar_Rating);
             val.setText(value + "%");
+            progressBar.setProgress(Integer.parseInt(value));
+
+            ProgressBarAnimation anim = new ProgressBarAnimation(progressBar, 0, Integer.parseInt(value));
+            anim.setDuration(2500);
+            progressBar.startAnimation(anim);
 
             // Set Theme
             SharedPreferences preferences = context.getSharedPreferences("theme",MODE_PRIVATE);
