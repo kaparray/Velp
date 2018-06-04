@@ -18,7 +18,7 @@
     <string name="PassAgain">Password again</string>
     <string name="Name">Name</string>
     <string name="Phone">Phone</string>
-    <string name="Show">Phone will be shown if you take this task</string>
+    <string name="Show">There is a secret</string>
     <string name="Age">Age</string>
     <string name="City">City</string>
     <string name="Register">Register</string>

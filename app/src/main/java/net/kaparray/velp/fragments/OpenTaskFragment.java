@@ -66,6 +66,8 @@ public class OpenTaskFragment extends Fragment{
     @BindView(R.id.tv_time) TextView mTime;
     @BindView(R.id.tv_pointsInOpenFragment) TextView mPoints;
     @BindView(R.id.iv_photoTask) ImageView mPhoto;
+    @BindView(R.id.iv_check) ImageView mCheck;
+
 
 
     // String variable
@@ -142,21 +144,29 @@ public class OpenTaskFragment extends Fragment{
                     if(taskLoader.getAccepted().equals("end")){
                         mTakeTask.setBackgroundResource(R.drawable.button_round_green);
                         mTakeTask.setText(R.string.Finished);
+                        mCheck.setImageResource(R.drawable.baseline_done_all_24px);
                     }else if(taskLoader.getUserUID().equals(user.getUid()) && taskLoader.getAccepted().equals("false")){
                         mTakeTask.setText(R.string.NotGot);
+                        mCheck.setImageResource(R.drawable.baseline_query_builder_24px);
                         mTakeTask.setBackgroundResource(R.drawable.button_round_grey);
                     }else{
                         mTakeTask.setText(R.string.TakeTask);
+                        mCheck.setImageResource(R.drawable.baseline_lock_open_24px);
+
                     }
 
                     if(taskLoader.getAccepted().equals("true")){
                         if(!taskLoader.getUserUID().equals(user.getUid()) && !taskLoader.getUserTakeUID().equals(user.getUid())){
                             mTakeTask.setText(R.string.AlreadyTaken);
+                            mCheck.setImageResource(R.drawable.baseline_lock_24px);
+
                         }else if(taskLoader.getUserTakeUID().equals(user.getUid())){
                             mTakeTask.setText(R.string.Taken);
                             mPhoneUser.setText(dataSnapshot.child("Users").child(taskLoader.getUserUID()).child("phone").getValue() + "");
+                            mCheck.setImageResource(R.drawable.baseline_done_24px);
                         }else if(taskLoader.getUserUID().equals(user.getUid())){
                             mTakeTask.setText(R.string.Finish);
+                            mCheck.setImageResource(R.drawable.baseline_done_24px);
                             mPhoneUser.setText(dataSnapshot.child("Users").child(taskLoader.getUserUID()).child("phone").getValue() + "");
                         }
                     }
@@ -225,7 +235,7 @@ public class OpenTaskFragment extends Fragment{
                     }else if(photo.equals("velp")){
                         mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher_round));
                     }
-                }catch (NullPointerException e){
+                }catch (Exception e){
                     mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher_round));
                 }
 
@@ -328,66 +338,77 @@ public class OpenTaskFragment extends Fragment{
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
-                if(taskLoader.getUserUID().equals(user.getUid()) && taskLoader.getAccepted().equals("false")){ // Нельзя юоать свои
-                    Toast.makeText(getActivity(), R.string.Own, Toast.LENGTH_LONG).show();
-                    mDatabase.child("Task").child(KEY_Task).child("userTakeUID").setValue(user.getUid());
-                } else if(taskLoader.getUserUID().equals(user.getUid()) && taskLoader.getAccepted().equals("true")){ // Закончить задачц
-                    // End task
-                    point += Integer.parseInt(taskLoader.getPoints());
-                    mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("points").setValue(point+"");
-                    mTakeTask.setBackgroundResource(R.drawable.button_round_green);
-                    mTakeTask.setText(R.string.Finished);
+                try {
+
+                    if (taskLoader.getUserUID().equals(user.getUid()) && taskLoader.getAccepted().equals("false")) { // Нельзя юоать свои
+                        Toast.makeText(getActivity(), R.string.Own, Toast.LENGTH_LONG).show();
+                        mDatabase.child("Task").child(KEY_Task).child("userTakeUID").setValue(user.getUid());
+                        mCheck.setImageResource(R.drawable.baseline_query_builder_24px);
+                    } else if (taskLoader.getUserUID().equals(user.getUid()) && taskLoader.getAccepted().equals("true")) { // Закончить задачц
+                        // End task
+                        point += Integer.parseInt(taskLoader.getPoints());
+                        mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("points").setValue(point + "");
+                        mTakeTask.setBackgroundResource(R.drawable.button_round_green);
+                        mCheck.setImageResource(R.drawable.baseline_done_all_24px);
+                        mTakeTask.setText(R.string.Finished);
 
 
-                    helped++;
+                        helped++;
 
-                    mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("helped").setValue(helped+"");
+                        mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("helped").setValue(helped + "");
 
 
 //                 // add to user ochivments
 
-                    float help_10_people = Float.parseFloat(ratingData.get(0).getValueRating());
-                    if(help_10_people  <= 100) {
-                        help_10_people += 10;
-                        mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(0).getKey()).child("valueRating").setValue(help_10_people + "");
+                        float help_10_people = Float.parseFloat(ratingData.get(0).getValueRating());
+                        if (help_10_people <= 100) {
+                            help_10_people += 10;
+                            mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(0).getKey()).child("valueRating").setValue(help_10_people + "");
+                        }
+
+
+                        float help_100_people = Float.parseFloat(ratingData.get(1).getValueRating());
+                        if (help_100_people <= 100) {
+                            help_100_people += 1;
+                            mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(1).getKey()).child("valueRating").setValue(help_100_people + "");
+                        }
+
+
+                        float help_1000_people = Float.parseFloat(ratingData.get(2).getValueRating());
+                        if (help_1000_people <= 100) {
+                            help_1000_people += 0.1;
+                            mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(2).getKey()).child("valueRating").setValue(help_1000_people + "");
+                        }
+
+
+                        mDatabase.child("Task").child(KEY_Task).child("done").setValue(user.getUid() + "");
+                        mDatabase.child("Task").child(KEY_Task).child("accepted").setValue("end");
+
+
+                    } else if (!taskLoader.getUserUID().equals(user.getUid()) && taskLoader.getAccepted().equals("false")) { // пользователь взял задачу
+                        Toast.makeText(getActivity(), R.string.Taken, Toast.LENGTH_LONG).show();
+                        mDatabase.child("Task").child(KEY_Task).child("accepted").setValue("true");
+                        mDatabase.child("Task").child(KEY_Task).child("userTakeUID").setValue(user.getUid());
+                        clickCounter++;
+
+
+                    } else if (clickCounter > 0 || taskLoader.getUserTakeUID().equals(user.getUid())) { // Не кликай много раз
+                        Toast.makeText(getActivity(), R.string.Taken, Toast.LENGTH_LONG).show();
+                        mDatabase.child("Task").child(KEY_Task).child("userTakeUID").setValue(user.getUid());
+
+                    } else if (taskLoader.getAccepted().equals("end")) {  // Задача законченна
+                        Toast.makeText(getActivity(), R.string.AlreadyFinished, Toast.LENGTH_LONG).show();
+                        mCheck.setImageResource(R.drawable.baseline_lock_24px);
+                    } else if (taskLoader.getAccepted().equals("true")) { // Эту задачу кто-то взял
+                        Toast.makeText(getActivity(), R.string.AlreadyTaken, Toast.LENGTH_LONG).show();
+                        mCheck.setImageResource(R.drawable.baseline_lock_24px);
                     }
-
-
-                    float help_100_people = Float.parseFloat(ratingData.get(1).getValueRating());
-                    if(help_100_people  <= 100) {
-                        help_100_people += 1;
-                        mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(1).getKey()).child("valueRating").setValue(help_100_people + "");
-                    }
-
-
-                    float help_1000_people = Float.parseFloat(ratingData.get(2).getValueRating());
-                    if(help_1000_people <= 100) {
-                        help_1000_people += 0.1;
-                        mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(2).getKey()).child("valueRating").setValue(help_1000_people + "");
-                    }
-
-
-                    mDatabase.child("Task").child(KEY_Task).child("done").setValue(user.getUid()+"");
-                    mDatabase.child("Task").child(KEY_Task).child("accepted").setValue("end");
-
-
-                } else if(!taskLoader.getUserUID().equals(user.getUid()) && taskLoader.getAccepted().equals("false")){ // пользователь взял задачу
-                    Toast.makeText(getActivity(), R.string.Taken, Toast.LENGTH_LONG).show();
-                    mDatabase.child("Task").child(KEY_Task).child("accepted").setValue("true");
-                    mDatabase.child("Task").child(KEY_Task).child("userTakeUID").setValue(user.getUid());
-                    clickCounter++;
-
-
-                } else if (clickCounter > 0 || taskLoader.getUserTakeUID().equals(user.getUid())){ // Не кликай много раз
-                    Toast.makeText(getActivity(), R.string.Taken, Toast.LENGTH_LONG).show();
-                    mDatabase.child("Task").child(KEY_Task).child("userTakeUID").setValue(user.getUid());
-                }else if(taskLoader.getAccepted().equals("end")){  // Задача законченна
-                    Toast.makeText(getActivity(), R.string.AlreadyFinished, Toast.LENGTH_LONG).show();
-                }else if(taskLoader.getAccepted().equals("true")){ // Эту задачу кто-то взял
-                    Toast.makeText(getActivity(), R.string.AlreadyTaken, Toast.LENGTH_LONG).show();
-                }
+                }catch (Exception e){
+                Toast.makeText(getContext(), "Hold on", Toast.LENGTH_LONG).show();
+            }
             }
         });
+
 
 
         return rootView;

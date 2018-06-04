@@ -67,9 +67,9 @@
                 android:layout_height="22dp"
                 android:layout_margin="10dp"
                 android:layout_marginEnd="8dp"
-                android:gravity="center"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:gravity="center"
                 android:text="@string/value_task"
                 card_view:layout_constraintBottom_toTopOf="@+id/tv_nameUserInOpenTask"
                 card_view:layout_constraintEnd_toEndOf="parent"
@@ -80,18 +80,18 @@
             <TextView
                 android:id="@+id/tv_nameUserInOpenTask"
                 android:layout_width="242dp"
-                android:gravity="center"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
+                android:gravity="center"
                 android:text="@string/wiliam_snoe"
-                card_view:layout_constraintBottom_toTopOf="@+id/tv_phoneUserInOpenTask"
                 card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintBottom_toTopOf="@+id/tv_phoneUserInOpenTask"
                 card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/tv_valueTaskInOpenTask"
-                card_view:layout_constraintStart_toStartOf="parent" />
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/tv_valueTaskInOpenTask" />
 
             <TextView
                 android:id="@+id/tv_phoneUserInOpenTask"
@@ -137,6 +137,62 @@
                 card_view:layout_constraintEnd_toStartOf="@+id/iv_photoTask"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_taskName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="89dp"
+                android:src="@drawable/ic_baseline_assignment_24px"
+                card_view:layout_constraintEnd_toStartOf="@+id/tv_nameTaskInOpenTask"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/baseline_call_24px"
+                card_view:layout_constraintEnd_toStartOf="@+id/tv_phoneUserInOpenTask"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/iv_user" />
+
+            <ImageView
+                android:id="@+id/iv_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/baseline_account_circle_24px"
+                card_view:layout_constraintEnd_toStartOf="@+id/tv_nameUserInOpenTask"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/iv_task" />
+
+            <ImageView
+                android:id="@+id/iv_task"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/baseline_speaker_notes_24px"
+                card_view:layout_constraintEnd_toStartOf="@+id/tv_valueTaskInOpenTask"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/iv_taskName" />
+
+            <ImageView
+                android:id="@+id/iv_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:src="@drawable/baseline_query_builder_24px"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintStart_toEndOf="@+id/tv_phoneUserInOpenTask" />
 
         </android.support.constraint.ConstraintLayout>
 
