@@ -68,8 +68,6 @@ public class OpenTaskFragment extends Fragment{
     @BindView(R.id.iv_photoTask) ImageView mPhoto;
     @BindView(R.id.iv_check) ImageView mCheck;
 
-
-
     // String variable
     String KEY_Task;
     String photo;
