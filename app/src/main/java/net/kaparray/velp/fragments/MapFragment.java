@@ -7,11 +7,16 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -33,9 +38,12 @@ import com.google.maps.android.clustering.ClusterManager;
 
 import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
-import net.kaparray.velp.classes_for_data.MarkerData;
+import net.kaparray.velp.classes_for_data.TaskLoader;
 
 import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MapFragment extends Fragment {
 
@@ -51,19 +59,33 @@ public class MapFragment extends Fragment {
     // List for all marker's in map
     ArrayList<Marker> arrayListMarker = new ArrayList<>();
     // New open task fragment
-    OpenTaskFragment openTaskFragment;
 
-    ArrayList<MarkerData> markerData = new ArrayList<>();
+    ArrayList<TaskLoader> markerData = new ArrayList<>();
 
 
     private ProgressBar mProgressBar;
+    OpenTaskFragment openTaskFragment;
+
+
+    @BindView(R.id.cv_TaskMap) CardView mCardInfo;
+    @BindView(R.id.tv_nameTaskInOpenTaskMap) TextView mNameTask;
+    @BindView(R.id.tv_valueTaskInOpenTaskMap) TextView mValueTask;
+    @BindView(R.id.tv_nameUserInOpenTaskMap) TextView mNameUser;
+    @BindView(R.id.tv_pointsInOpenFragmentMap) TextView mPoints;
+    @BindView(R.id.tv_timeMap) TextView mTime;
+    @BindView(R.id.iv_photoTaskMap) ImageView mPhotoUser;
+    Animation anim;
+
+    String KEY;
+
+
 
 
 
     // Declare a variable for the cluster manager.
     private ClusterManager<MyItem> mClusterManager;
 
-    private void setUpClusterer(GoogleMap map) {
+    private void setUpClusterer(final GoogleMap map) {
         // Position the map.
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(55.716911, 37.610526), 10));
 
@@ -78,6 +100,70 @@ public class MapFragment extends Fragment {
 
         // Add cluster items (markers) to the cluster manager.
         addItems();
+
+
+        mClusterManager.setOnClusterItemClickListener(new ClusterManager.OnClusterItemClickListener<MyItem>() {
+            @Override
+            public boolean onClusterItemClick(MyItem myItem) {
+
+                ((MainActivity) getActivity()).setMapCard(true);
+
+                Double log = myItem.getPosition().latitude;
+                Double lat = myItem.getPosition().longitude;
+
+                for(int i = 0; i < markerData.size(); i++){
+                    if(lat == markerData.get(i).getLocationLatitude() && log == markerData.get(i).getLocationLongitude()){
+                        mNameTask.setText(markerData.get(i).getNameTask());
+                        mValueTask.setText(markerData.get(i).getValueTask());
+                        mNameUser.setText(markerData.get(i).getNameUser());
+                        mPoints.setText(markerData.get(i).getPoints() + "points");
+                        mTime.setText(markerData.get(i).getTime());
+
+                        KEY = markerData.get(i).getKey();
+
+                        String photo = markerData.get(i).getPhoto();
+
+                        try {
+                            if (photo.equals("ic_boy")) {
+                                mPhotoUser.setImageDrawable(getResources().getDrawable(R.drawable.ic_boy));
+                            } else if (photo.equals("ic_boy1")) {
+                                mPhotoUser.setImageDrawable(getResources().getDrawable(R.drawable.ic_boy1));
+                            } else if (photo.equals("ic_girl")) {
+                                mPhotoUser.setImageDrawable(getResources().getDrawable(R.drawable.ic_girl));
+                            } else if (photo.equals("ic_girl1")) {
+                                mPhotoUser.setImageDrawable(getResources().getDrawable(R.drawable.ic_girl1));
+                            } else if (photo.equals("ic_man1")) {
+                                mPhotoUser.setImageDrawable(getResources().getDrawable(R.drawable.ic_man1));
+                            } else if (photo.equals("ic_man2")) {
+                                mPhotoUser.setImageDrawable(getResources().getDrawable(R.drawable.ic_man2));
+                            } else if (photo.equals("ic_man3")) {
+                                mPhotoUser.setImageDrawable(getResources().getDrawable(R.drawable.ic_man3));
+                            } else if (photo.equals("ic_man4")) {
+                                mPhotoUser.setImageDrawable(getResources().getDrawable(R.drawable.ic_man4));
+                            }
+                        }catch (Exception w){
+                            try {
+                                mPhotoUser.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher_round));
+                            }catch (Exception e){
+                                Log.d("Error-Message", e.getStackTrace() + "");
+                            }
+
+                        }
+                    }
+                }
+
+
+                anim = AnimationUtils.loadAnimation(getContext(),R.anim.alpha_animation);
+                mCardInfo.startAnimation(anim);
+
+                mCardInfo.setVisibility(View.VISIBLE);
+
+
+
+
+                return false;
+            }
+        });
     }
 
     private void addItems() {
@@ -87,6 +173,7 @@ public class MapFragment extends Fragment {
             // Add new marker in map
 
             MyItem offsetItem = new MyItem(markerData.get(i).getLocationLongitude(),markerData.get(i).getLocationLatitude());
+
             mClusterManager.addItem(offsetItem);
         }
     }
@@ -97,6 +184,9 @@ public class MapFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fr_map, container, false);
+
+        ButterKnife.bind(this, rootView);
+
         mMapView = (MapView) rootView.findViewById(R.id.map);
         ((MainActivity) getActivity()).setTitle(getString(R.string.MapTitle));
         mMapView.onCreate(savedInstanceState);
@@ -115,8 +205,26 @@ public class MapFragment extends Fragment {
             e.printStackTrace();
         }
 
+        openTaskFragment = new OpenTaskFragment();
+
+        mCardInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .replace(R.id.container, openTaskFragment)
+                        .commit();
+
+                ((MainActivity) getActivity()).setMapCard(false);
 
 
+                // This is magic bundle. I transit data in DB to OpenTaskFragment
+                Bundle bundle = new Bundle();
+                bundle.putString("TaskKey", KEY);
+                openTaskFragment.setArguments(bundle);
+            }
+        });
 
 
 
@@ -140,12 +248,16 @@ public class MapFragment extends Fragment {
                 myMostViewedPostsQuery.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        Log.d("0000", dataSnapshot.child("locationLatitude").getValue() + "");
                         if(dataSnapshot.child("locationLatitude").getValue() != null){
 
-                            markerData.add(new MarkerData((double)dataSnapshot.child("locationLongitude").getValue(),
-                                    (double)dataSnapshot.child("locationLatitude").getValue(),
-                                    dataSnapshot.child("key").getValue()+"", dataSnapshot.child("nameTask").getValue()+""));
+                            markerData.add(new TaskLoader(dataSnapshot.child("nameTask").getValue()+"", dataSnapshot.child("valueTask").getValue()+"",
+                                    dataSnapshot.child("nameUser").getValue()+"",  dataSnapshot.child("points").getValue()+"",
+                                     dataSnapshot.child("acepted").getValue()+"",
+                                     (double) Double.parseDouble(dataSnapshot.child("locationLongitude").getValue()+""),(double) Double.parseDouble(dataSnapshot.child("locationLatitude").getValue()+""),
+                                    dataSnapshot.child("time").getValue()+"",
+                                    dataSnapshot.child("photo").getValue()+"", dataSnapshot.child("key").getValue()+""));
+
+
 
                         }
 
@@ -175,28 +287,7 @@ public class MapFragment extends Fragment {
                 });
 
 
-                googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-                    @Override
-                    public void onInfoWindowClick(Marker marker) {
-                        for (int i = 0; i < markerData.size(); i++){
-                            if(markerData.get(i).getKey() == marker.getTag()){
 
-                                openTaskFragment =  new OpenTaskFragment();
-
-                                Bundle bundle = new Bundle();
-                                bundle.putString("TaskKey", marker.getTag()+"");
-                                openTaskFragment.setArguments(bundle);
-
-                                getActivity().getSupportFragmentManager()
-                                        .beginTransaction()
-                                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                                        .replace(R.id.container, openTaskFragment)
-                                        .commit();
-                            }
-                        }
-
-                    }
-                });
 
             }
         });

@@ -15,10 +15,13 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -66,11 +69,15 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
     String taskFragmentCounter = "true";
     boolean settingsFragmentCounter = true;
     boolean changeDataFragmentCounter = true;
+    boolean mapCard = false;
     private int PERMISSION_CODE = 23;
 
     String lastFragment;
 
     @BindView(R.id.nav_view) NavigationView navigationView;
+
+
+    Animation anim;
 
     @Override
     protected void onDestroy() {
@@ -186,64 +193,82 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
 
+        if(mapCard) {
+            CardView mCardInfo = findViewById(R.id.cv_TaskMap);
+            anim = AnimationUtils.loadAnimation(this,R.anim.animate_top_bottom);
+            mCardInfo.startAnimation(anim);
 
-        if(!settingsFragmentCounter){
+            mCardInfo.setVisibility(View.GONE);
 
-            changeDataFragment = new ChangeDataFragment();
+            mapCard = false;
+        }else{
+            if (!settingsFragmentCounter) {
 
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
-                    .replace(R.id.container, changeDataFragment)
-                    .commit();
-            navigationView.setCheckedItem(R.id.nav_settings);
+                changeDataFragment = new ChangeDataFragment();
 
-            settingsFragmentCounter = true;
-        }else if(settingsFragmentCounter) {
-
-            if(!changeDataFragmentCounter){
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
-                        .replace(R.id.container, settingsFragment)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                        .replace(R.id.container, changeDataFragment)
                         .commit();
                 navigationView.setCheckedItem(R.id.nav_settings);
 
-                changeDataFragmentCounter = true;
+                settingsFragmentCounter = true;
+            } else if (settingsFragmentCounter) {
 
-            }else if(changeDataFragmentCounter) {
-                if (taskFragmentCounter.equals("false")) {
-                    allTaskFragment = new AllTaskFragment();
-                    getSupportFragmentManager()
-                            .beginTransaction()
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                            .replace(R.id.task, allTaskFragment)
-                            .commit();
-
-                    taskFragmentCounter = "true";
-                } else if (taskFragmentCounter.equals("true")) {
-                    super.onBackPressed();
-                }
-
-
-                if (drawer.isDrawerOpen(GravityCompat.START)) {
-                    drawer.closeDrawer(GravityCompat.START);
-                } else if (!fragmentCounter) {
+                if (!changeDataFragmentCounter) {
                     getSupportFragmentManager()
                             .beginTransaction()
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
-                            .replace(R.id.container, taskFragment)
+                            .replace(R.id.container, settingsFragment)
                             .commit();
-                    navigationView.setCheckedItem(R.id.nav_task);
-                    fragmentCounter = true;
-                } else {
-                    super.onBackPressed();
+                    navigationView.setCheckedItem(R.id.nav_settings);
+
+                    changeDataFragmentCounter = true;
+
+                } else if (changeDataFragmentCounter) {
+                    if (taskFragmentCounter.equals("false")) {
+                        allTaskFragment = new AllTaskFragment();
+                        getSupportFragmentManager()
+                                .beginTransaction()
+                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                                .replace(R.id.task, allTaskFragment)
+                                .commit();
+
+                        taskFragmentCounter = "true";
+                    } else if (taskFragmentCounter.equals("true")) {
+                        super.onBackPressed();
+                    }
+
+
+                    if (drawer.isDrawerOpen(GravityCompat.START)) {
+                        drawer.closeDrawer(GravityCompat.START);
+                    } else if (!fragmentCounter) {
+                        getSupportFragmentManager()
+                                .beginTransaction()
+                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                                .replace(R.id.container, taskFragment)
+                                .commit();
+                        navigationView.setCheckedItem(R.id.nav_task);
+                        fragmentCounter = true;
+                    } else {
+                        super.onBackPressed();
+
+                    }
 
                 }
-
             }
         }
 
+    }
+
+
+    public boolean isMapCard() {
+        return mapCard;
+    }
+
+    public void setMapCard(boolean mapCard) {
+        this.mapCard = mapCard;
     }
 
     public boolean isFragmentCounter() {
@@ -292,6 +317,7 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
                     .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
                     .replace(R.id.container, profileFragment)
                     .commit();
+            mapCard = false;
             fragmentCounter = false;
             taskFragmentCounter = "none";
             settingsFragmentCounter = true;
@@ -305,6 +331,7 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
                     .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .replace(R.id.container, taskFragment)
                     .commit();
+            mapCard = false;
             settingsFragmentCounter = true;
             changeDataFragmentCounter = true;
 
@@ -326,6 +353,7 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
                     .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
                     .replace(R.id.container, eventsFragment)
                     .commit();
+            mapCard = false;
             fragmentCounter = false;
             settingsFragmentCounter = true;
             changeDataFragmentCounter = true;
@@ -337,6 +365,7 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
                     .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
                     .replace(R.id.container, ratingFragment)
                     .commit();
+            mapCard = false;
             fragmentCounter = false;
             settingsFragmentCounter = true;
             changeDataFragmentCounter = true;
@@ -348,6 +377,7 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
                     .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .replace(R.id.container, chatFragment)
                     .commit();
+            mapCard = false;
             fragmentCounter = false;
             settingsFragmentCounter = true;
             changeDataFragmentCounter = true;
@@ -359,6 +389,7 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
                     .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
                     .replace(R.id.container, settingsFragment)
                     .commit();
+            mapCard = false;
             fragmentCounter = false;
             taskFragmentCounter = "none";
         } else if (id == R.id.nav_bonus) {
@@ -368,6 +399,7 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
                     .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .replace(R.id.container, bonusFragment)
                     .commit();
+            mapCard = false;
             fragmentCounter = false;
             settingsFragmentCounter = true;
             changeDataFragmentCounter = true;
@@ -379,6 +411,7 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
                     .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
                     .replace(R.id.container, aboutFragment)
                     .commit();
+            mapCard = false;
             fragmentCounter = false;
             settingsFragmentCounter = true;
             changeDataFragmentCounter = true;

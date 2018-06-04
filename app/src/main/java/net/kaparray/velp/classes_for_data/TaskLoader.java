@@ -45,6 +45,21 @@ public class TaskLoader {
     }
 
 
+
+    public TaskLoader(String taskName, String taskValue,  String nameUser,  String points, String accepted, double locationLatitude, double locationLongitude, String time, String photo, String key) {
+        this.nameTask = taskName;
+        this.valueTask = taskValue;
+        this.nameUser = nameUser;
+        this.points = points;
+        this.accepted= accepted;
+        this.locationLatitude = locationLatitude;
+        this.locationLongitude = locationLongitude;
+        this.time = time;
+        this.photo = photo;
+        this.key = key;
+    }
+
+
     public String getPhoto() {
         return photo;
     }
