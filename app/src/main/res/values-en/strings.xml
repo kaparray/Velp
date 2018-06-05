@@ -38,9 +38,11 @@
     <!-- Tutorial text -->
     <string name="Page">Page № </string>
     <string name="Tutorial1">Velp: Ask. Help. Application for volunteers.</string>
-    <string name="Tutorial2">Add tasks and challenges. Do requests and get points. It\'s a peace of cake!</string>
-    <string name="Tutorial3">"Exchange points on bonuses or extra functions "</string>
-    <string name="Tutorial4">Helping each other we make this world a bit better. Doesn\'t matter how  - help!</string>
+    <string name="Tutorial2">Add tasks and Challenges using one button. Choose the requests that you can perform in the Tasks section by clicking on the cards with a brief description.</string>
+    <string name="Tutorial3">Follow the volunteer activities in the Events section. They are presented in the form of cards with a description.</string>
+    <string name="Tutorial4">Become the coolest volunteer, keeping track of your status in the Rating section. There you will be able to receive purifications by completing a certain number of tasks.</string>
+    <string name="Tutorial5">And you can change the theme of the application in the settings, just one click on the switch!</string>
+    <string name="Tutorial6">See the location of jobs on the map using the markers! When you click on them, you can view the task.</string>
 
     <!-- About Fragment -->
     <string name="AboutTitle">About app</string>

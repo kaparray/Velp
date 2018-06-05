@@ -1,8 +1,10 @@
 package net.kaparray.velp.tutorial;
 
 
+import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +39,7 @@ public class TutorialFragment4 extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fr_tutorial4, container, false);
+        View rootView = inflater.inflate(R.layout.fr_tutorial3, container, false);
 
 //        TextView tvLabel = (TextView) rootView.findViewById(R.id.pager_header);
 //        tvLabel.setText(page + " -- " + title);

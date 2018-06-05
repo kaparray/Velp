@@ -36,7 +36,7 @@ public class TutorialActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return (4);
+            return (6);
         }
 
         @Override
@@ -50,6 +50,10 @@ public class TutorialActivity extends AppCompatActivity {
                     return (TutorialFragment3.newInstance(position));
                 case 3:
                     return (TutorialFragment4.newInstance(position));
+                case 4:
+                    return (TutorialFragment5.newInstance(position));
+                case 5:
+                    return (TutorialFragment6.newInstance(position));
                 default:
                     return PlaceholderFragment.newInstance(position); 
             }
@@ -69,6 +73,10 @@ public class TutorialActivity extends AppCompatActivity {
                     return (TutorialFragment3.getTitle(context, position));
                 case 3:
                     return (TutorialFragment4.getTitle(context, position));
+                case 4:
+                    return (TutorialFragment5.getTitle(context, position));
+                case 5:
+                    return (TutorialFragment6.getTitle(context, position));
                 default:
                     return (PlaceholderFragment.getTitle(context, position + 1));
             }

@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:scaleType="centerInside"
-                android:src="@drawable/num_one" />
+                android:src="@drawable/ic_baseline_supervisor_account_24px" />
 
             <TextView
                 android:id="@+id/section_label"

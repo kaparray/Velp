@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:scaleType="centerInside"
-                android:src="@drawable/baseline_event_available_24px" />
+                android:src="@drawable/baseline_color_lens_24px" />
 
             <TextView
                 android:id="@+id/section_label"
@@ -42,7 +42,7 @@
                 android:layout_margin="8dp"
                 android:background="@drawable/text_round"
                 android:gravity="center"
-                android:text="@string/Tutorial3"
+                android:text="@string/Tutorial5"
                 android:textColor="@color/Danude"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -52,7 +52,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <TextView
+                <Button
+                    android:id="@+id/startAuthActivity"
                     android:layout_margin="8dp"
                     android:background="@drawable/button_round"
                     android:gravity="center"
@@ -62,7 +63,8 @@
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     android:textSize="16sp"
-                    android:text="@string/swiping"/>
+                    android:text="@string/start"
+                    android:onClick="startAuthActivity"/>
 
 
             </LinearLayout>

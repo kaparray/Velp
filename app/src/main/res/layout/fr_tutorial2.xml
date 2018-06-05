@@ -28,12 +28,12 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_margin="25dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_margin="25dp"
                 android:scaleType="centerInside"
-                android:src="@drawable/num_two" />
+                android:src="@drawable/round_add_circle_24px" />
 
             <TextView
                 android:id="@+id/section_label"

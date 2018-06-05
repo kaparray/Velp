@@ -11,21 +11,21 @@ import android.widget.TextView;
 
 import net.kaparray.velp.R;
 
+public class TutorialFragment5 extends android.support.v4.app.Fragment{
 
-public class TutorialFragment3 extends android.support.v4.app.Fragment {
 
 
     private int pageNumber;
 
-    public static TutorialFragment3 newInstance(int page) {
-        TutorialFragment3 fragment = new TutorialFragment3();
+    public static TutorialFragment5 newInstance(int page) {
+        TutorialFragment5 fragment = new TutorialFragment5();
         Bundle args=new Bundle();
         args.putInt("num", page);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public TutorialFragment3() {
+    public TutorialFragment5() {
     }
 
     @Override
@@ -41,11 +41,9 @@ public class TutorialFragment3 extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fr_tutorial6, container, false);
-//        TextView tvLabel = (TextView) rootView.findViewById(R.id.pager_header);
-//        tvLabel.setText(page + " -- " + title);
+
+        View rootView = inflater.inflate(R.layout.fr_tutorial4, container, false);
 
         return rootView;
     }
 }
-
