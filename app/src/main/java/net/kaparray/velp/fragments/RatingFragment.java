@@ -164,9 +164,10 @@ public class RatingFragment extends Fragment {
             TextView val = mView.findViewById(R.id.tv_valueRating);
             ProgressBar progressBar = mView.findViewById(R.id.prBar_Rating);
             val.setText(value + "%");
-            progressBar.setProgress(Integer.parseInt(value));
+            Integer in =  (int)Double.parseDouble(value);
+            progressBar.setProgress(in);
 
-            ProgressBarAnimation anim = new ProgressBarAnimation(progressBar, 0, Integer.parseInt(value));
+            ProgressBarAnimation anim = new ProgressBarAnimation(progressBar, 0,in);
             anim.setDuration(2500);
             progressBar.startAnimation(anim);
 

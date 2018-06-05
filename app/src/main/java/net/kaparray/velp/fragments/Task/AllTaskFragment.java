@@ -8,7 +8,6 @@ import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -256,35 +255,7 @@ public class AllTaskFragment extends Fragment{
         }
 
 
-        new CountDownTimer(3000, 1000) {
 
-            public void onTick(long millisUntilFinished) {
-                if(loderer.size() <= 0 ){
-                    counrter = true;
-                    Log.d("lol", "loh");
-                }else {
-                    counrter = false;
-                    Log.d("lol", "lol");
-
-                }
-
-            }
-
-            public void onFinish() {
-                if(counrter){
-
-                    progressBar.setVisibility(View.GONE);
-                    mTextNoInternet.setVisibility(View.VISIBLE);
-                    mTextNoInternet.setText("No task");
-                    mRecyclerView.setVisibility(View.GONE);
-                }else {
-
-                }
-
-                Log.d("lol", "yes");
-
-            }
-        }.start();
     }
 
 

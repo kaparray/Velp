@@ -116,7 +116,7 @@ public class MapFragment extends Fragment {
                         mNameTask.setText(markerData.get(i).getNameTask());
                         mValueTask.setText(markerData.get(i).getValueTask());
                         mNameUser.setText(markerData.get(i).getNameUser());
-                        mPoints.setText(markerData.get(i).getPoints() + "points");
+                        mPoints.setText(markerData.get(i).getPoints() + " points");
                         mTime.setText(markerData.get(i).getTime());
 
                         KEY = markerData.get(i).getKey();
