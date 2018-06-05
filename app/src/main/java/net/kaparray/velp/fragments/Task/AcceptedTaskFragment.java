@@ -46,7 +46,7 @@ import butterknife.ButterKnife;
 import static android.content.Context.MODE_PRIVATE;
 
 
-public class AllTaskFragment extends Fragment{
+public class AcceptedTaskFragment extends Fragment{
 
     // String
     private static final String TAG = "All right";
@@ -138,7 +138,7 @@ public class AllTaskFragment extends Fragment{
                     TaskLoader.class,
                     R.layout.card_for_task,
                     TaskViewHolder.class,
-                    mFirebaseRef
+                    mFirebaseRef.orderByChild("accepted").equalTo("true")
             ) {
 
 

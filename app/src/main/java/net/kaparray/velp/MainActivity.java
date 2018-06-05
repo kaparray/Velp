@@ -36,7 +36,7 @@ import net.kaparray.velp.fragments.MapFragment;
 import net.kaparray.velp.fragments.ProfileFragment;
 import net.kaparray.velp.fragments.RatingFragment;
 import net.kaparray.velp.fragments.SettingsFragment;
-import net.kaparray.velp.fragments.Task.AllTaskFragment;
+import net.kaparray.velp.fragments.Task.AcceptedTaskFragment;
 import net.kaparray.velp.fragments.TaskFragment;
 import net.kaparray.velp.fragments.chandeDataUser.ChangeDataFragment;
 import net.kaparray.velp.utils.FirebaseIntegration;
@@ -63,7 +63,7 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
     MapFragment mapFragment;
     ChangeDataFragment changeDataFragment;
     View mNavHeader;
-    AllTaskFragment allTaskFragment;
+    AcceptedTaskFragment acceptedTaskFragment;
 
     boolean fragmentCounter = true;
     String taskFragmentCounter = "true";
@@ -228,11 +228,11 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
 
                 } else if (changeDataFragmentCounter) {
                     if (taskFragmentCounter.equals("false")) {
-                        allTaskFragment = new AllTaskFragment();
+                        acceptedTaskFragment = new AcceptedTaskFragment();
                         getSupportFragmentManager()
                                 .beginTransaction()
                                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                                .replace(R.id.task, allTaskFragment)
+                                .replace(R.id.task, acceptedTaskFragment)
                                 .commit();
 
                         taskFragmentCounter = "true";

@@ -18,8 +18,8 @@ import android.view.ViewGroup;
 
 import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
+import net.kaparray.velp.fragments.Task.AcceptedTaskFragment;
 import net.kaparray.velp.fragments.Task.NotAcceptedTaskFragment;
-import net.kaparray.velp.fragments.Task.AllTaskFragment;
 import net.kaparray.velp.fragments.Task.EndTaskFragment;
 import net.kaparray.velp.fragments.Task.MyTaskFragment;
 
@@ -37,11 +37,11 @@ public class TaskFragment extends Fragment{
     @BindView(R.id.navigationView) BottomNavigationView navigation;
 
 
-    private AllTaskFragment allTaskFragment;
+    private AcceptedTaskFragment acceptedTaskFragment;
     private MyTaskFragment myTaskFragment;
     private EndTaskFragment endTaskFragment;
     private AddTaskFragment addTaskFragment;
-    private NotAcceptedTaskFragment acceptedTaskFragment;
+    private NotAcceptedTaskFragment notAcceptedTaskFragment;
 
     @BindView(R.id.fab) FloatingActionButton fab;
 
@@ -52,12 +52,12 @@ public class TaskFragment extends Fragment{
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
             switch (item.getItemId()) {
-                case R.id.navigation_all:
-                    allTaskFragment = new AllTaskFragment();
+                case R.id.navigation_accepted:
+                    acceptedTaskFragment = new AcceptedTaskFragment();
                     getActivity().getSupportFragmentManager()
                             .beginTransaction()
                             .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                            .replace(R.id.task, allTaskFragment)
+                            .replace(R.id.task, acceptedTaskFragment)
                             .commit();
                     ((MainActivity) getActivity()).setFragmentCounter(false);
                     return true;
@@ -82,13 +82,13 @@ public class TaskFragment extends Fragment{
                             .commit();
                     ((MainActivity) getActivity()).setFragmentCounter(false);
                     return true;
-                case R.id.navigation_accepted:
-                    acceptedTaskFragment = new NotAcceptedTaskFragment();
+                case R.id.navigation_notaccepted:
+                    notAcceptedTaskFragment = new NotAcceptedTaskFragment();
                     ((MainActivity) getActivity()).setTaskFragmentCounter("false");
                     getActivity().getSupportFragmentManager()
                             .beginTransaction()
                             .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                            .replace(R.id.task, acceptedTaskFragment)
+                            .replace(R.id.task, notAcceptedTaskFragment)
                             .commit();
                     ((MainActivity) getActivity()).setFragmentCounter(false);
                     return true;
@@ -143,13 +143,13 @@ public class TaskFragment extends Fragment{
         super.onStart();
 
 
-        allTaskFragment = new AllTaskFragment();
+        acceptedTaskFragment = new AcceptedTaskFragment();
 
 
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .add(R.id.task, allTaskFragment)
+                .add(R.id.task, acceptedTaskFragment)
                 .commit();
     }
 

@@ -32,17 +32,12 @@ public class TutorialFragment4 extends android.support.v4.app.Fragment {
         super.onCreate(savedInstanceState);
         pageNumber = getArguments() != null ? getArguments().getInt("num") : 1;
     }
-    static String getTitle(Context context, int position) {
-        return "Страница № " + String.valueOf(position+1);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fr_tutorial3, container, false);
 
-//        TextView tvLabel = (TextView) rootView.findViewById(R.id.pager_header);
-//        tvLabel.setText(page + " -- " + title);
         return rootView;
     }
 }

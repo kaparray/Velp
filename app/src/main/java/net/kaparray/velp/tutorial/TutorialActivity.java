@@ -62,25 +62,6 @@ public class TutorialActivity extends AppCompatActivity {
 
         }
 
-        @Override
-        public String getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return (TutorialFragment1.getTitle(context, position));
-                case 1:
-                    return (TutorialFragment2.getTitle(context, position));
-                case 2:
-                    return (TutorialFragment3.getTitle(context, position));
-                case 3:
-                    return (TutorialFragment4.getTitle(context, position));
-                case 4:
-                    return (TutorialFragment5.getTitle(context, position));
-                case 5:
-                    return (TutorialFragment6.getTitle(context, position));
-                default:
-                    return (PlaceholderFragment.getTitle(context, position + 1));
-            }
-        }
     }
 
 
@@ -140,9 +121,6 @@ public class TutorialActivity extends AppCompatActivity {
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             pageNumber = getArguments() != null ? getArguments().getInt("num") : 1;
-        }
-        static String getTitle(Context context, int position) {
-            return  R.string.Page + String.valueOf(position+1);
         }
 
 

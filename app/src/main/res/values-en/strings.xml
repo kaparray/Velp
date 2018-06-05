@@ -165,5 +165,11 @@
     <string name="Text_AlretDialogEmailChange">Sorry, you can\'t change your email.\nYour email:</string>
     <string name="Title_AlretDialogEmailChange">Change email</string>
 
+    <!-- Navigation -->
+    <string name="Accepted">Accepted</string>
+    <string name="NotAccepted">NotAccepted</string>
+    <string name="My">My</string>
+    <string name="Done">Done</string>
+
 
 </resources>

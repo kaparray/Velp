@@ -34,9 +34,6 @@ public class TutorialFragment1 extends Fragment {
         super.onCreate(savedInstanceState);
         pageNumber = getArguments() != null ? getArguments().getInt("num") : 1;
     }
-    static String getTitle(Context context, int position) {
-        return "Страница № " + String.valueOf(position+1);
-    }
 
 
     @SuppressLint("SetTextI18n")
@@ -46,8 +43,6 @@ public class TutorialFragment1 extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fr_tutorial1, container, false);
 
-//        TextView tvLabel = (TextView) rootView.findViewById(R.id.pager_header);
-//        tvLabel.setText(" -- ");
         return rootView;
     }
 

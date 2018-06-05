@@ -33,9 +33,6 @@ public class TutorialFragment5 extends android.support.v4.app.Fragment{
         super.onCreate(savedInstanceState);
         pageNumber = getArguments() != null ? getArguments().getInt("num") : 1;
     }
-    static String getTitle(Context context, int position) {
-        return "Страница № " + String.valueOf(position+1);
-    }
 
 
     @Override

@@ -163,4 +163,10 @@
     <string name="Text_AlretDialogEmailChange">Извените но вы не можите поменять email.\nВаш email:</string>
     <string name="Title_AlretDialogEmailChange">Изменить email</string>
 
+    <!-- Navigation -->
+    <string name="Accepted">Взятые</string>
+    <string name="NotAccepted">Доступные</string>
+    <string name="My">Мои</string>
+    <string name="Done">Выполненные</string>
+
 </resources>
