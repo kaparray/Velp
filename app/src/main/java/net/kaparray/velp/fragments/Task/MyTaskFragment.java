@@ -4,6 +4,7 @@ package net.kaparray.velp.fragments.Task;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
@@ -12,7 +13,10 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,10 +39,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import net.kaparray.velp.Auth.AuthActivity;
 import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
 import net.kaparray.velp.classes_for_data.TaskLoader;
 import net.kaparray.velp.fragments.OpenTaskFragment;
+import net.kaparray.velp.tutorial.TutorialActivity;
+import net.kaparray.velp.tutorial.TutorialFragment1;
+import net.kaparray.velp.tutorial.TutorialFragment2;
+import net.kaparray.velp.tutorial.TutorialFragment3;
+import net.kaparray.velp.tutorial.TutorialFragment4;
+import net.kaparray.velp.tutorial.TutorialFragment5;
+import net.kaparray.velp.tutorial.TutorialFragment6;
 
 import java.util.ArrayList;
 
@@ -153,10 +165,8 @@ public class MyTaskFragment extends Fragment{
                         public void onTick(long millisUntilFinished) {
                             if(loderer.size() <= 0 ){
                                 counrter = true;
-                                Log.d("lol", "loh");
                             }else {
                                 counrter = false;
-                                Log.d("lol", "lol");
 
                             }
 
@@ -173,7 +183,6 @@ public class MyTaskFragment extends Fragment{
 
                             }
 
-                            Log.d("lol", "yes");
 
                         }
                     }.start();
@@ -214,8 +223,7 @@ public class MyTaskFragment extends Fragment{
                                     .replace(R.id.container, openTaskFragment)
                                     .commit();
 
-                            ((MainActivity) getActivity()).setFragmentCounter(false);
-                            ((MainActivity) getActivity()).setTaskFragmentCounter("none");
+
 
 
                             // This is magic bundle. I transit data in DB to OpenTaskFragment

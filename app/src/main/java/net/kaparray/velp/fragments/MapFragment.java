@@ -67,19 +67,25 @@ public class MapFragment extends Fragment {
     OpenTaskFragment openTaskFragment;
 
 
-    @BindView(R.id.cv_TaskMap) CardView mCardInfo;
-    @BindView(R.id.tv_nameTaskInOpenTaskMap) TextView mNameTask;
-    @BindView(R.id.tv_valueTaskInOpenTaskMap) TextView mValueTask;
-    @BindView(R.id.tv_nameUserInOpenTaskMap) TextView mNameUser;
-    @BindView(R.id.tv_pointsInOpenFragmentMap) TextView mPoints;
-    @BindView(R.id.tv_timeMap) TextView mTime;
-    @BindView(R.id.iv_photoTaskMap) ImageView mPhotoUser;
+    @BindView(R.id.cv_TaskMap)
+    CardView mCardInfo;
+    @BindView(R.id.tv_nameTaskInOpenTaskMap)
+    TextView mNameTask;
+    @BindView(R.id.tv_valueTaskInOpenTaskMap)
+    TextView mValueTask;
+    @BindView(R.id.tv_nameUserInOpenTaskMap)
+    TextView mNameUser;
+    @BindView(R.id.tv_pointsInOpenFragmentMap)
+    TextView mPoints;
+    @BindView(R.id.tv_timeMap)
+    TextView mTime;
+    @BindView(R.id.iv_photoTaskMap)
+    ImageView mPhotoUser;
     Animation anim;
 
     String KEY;
 
-
-
+    View rootView;
 
 
     // Declare a variable for the cluster manager.
@@ -91,7 +97,11 @@ public class MapFragment extends Fragment {
 
         // Initialize the manager with the context and the map.
         // (Activity extends context, so we can pass 'this' in the constructor.)
-        mClusterManager = new ClusterManager<MyItem>(getContext(), map);
+        try {
+            mClusterManager = new ClusterManager<MyItem>(getContext(), map);
+        }catch (Exception e){
+
+        }
 
         // Point the map's listeners at the listeners implemented by the cluster
         // manager.
@@ -99,7 +109,11 @@ public class MapFragment extends Fragment {
         map.setOnMarkerClickListener(mClusterManager);
 
         // Add cluster items (markers) to the cluster manager.
-        addItems();
+        try {
+            addItems();
+        }catch (Exception e){
+
+        }
 
 
         mClusterManager.setOnClusterItemClickListener(new ClusterManager.OnClusterItemClickListener<MyItem>() {
@@ -111,8 +125,8 @@ public class MapFragment extends Fragment {
                 Double log = myItem.getPosition().latitude;
                 Double lat = myItem.getPosition().longitude;
 
-                for(int i = 0; i < markerData.size(); i++){
-                    if(lat == markerData.get(i).getLocationLatitude() && log == markerData.get(i).getLocationLongitude()){
+                for (int i = 0; i < markerData.size(); i++) {
+                    if (lat == markerData.get(i).getLocationLatitude() && log == markerData.get(i).getLocationLongitude()) {
                         mNameTask.setText(markerData.get(i).getNameTask());
                         mValueTask.setText(markerData.get(i).getValueTask());
                         mNameUser.setText(markerData.get(i).getNameUser());
@@ -141,10 +155,10 @@ public class MapFragment extends Fragment {
                             } else if (photo.equals("ic_man4")) {
                                 mPhotoUser.setImageDrawable(getResources().getDrawable(R.drawable.ic_man4));
                             }
-                        }catch (Exception w){
+                        } catch (Exception w) {
                             try {
                                 mPhotoUser.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher_round));
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 Log.d("Error-Message", e.getStackTrace() + "");
                             }
 
@@ -153,12 +167,10 @@ public class MapFragment extends Fragment {
                 }
 
 
-                anim = AnimationUtils.loadAnimation(getContext(),R.anim.alpha_animation);
+                anim = AnimationUtils.loadAnimation(getContext(), R.anim.alpha_animation);
                 mCardInfo.startAnimation(anim);
 
                 mCardInfo.setVisibility(View.VISIBLE);
-
-
 
 
                 return false;
@@ -169,10 +181,10 @@ public class MapFragment extends Fragment {
     private void addItems() {
 
 
-        for (int i = 0; i < markerData.size(); i++){
+        for (int i = 0; i < markerData.size(); i++) {
             // Add new marker in map
 
-            MyItem offsetItem = new MyItem(markerData.get(i).getLocationLongitude(),markerData.get(i).getLocationLatitude());
+            MyItem offsetItem = new MyItem(markerData.get(i).getLocationLongitude(), markerData.get(i).getLocationLatitude());
 
             mClusterManager.addItem(offsetItem);
         }
@@ -183,7 +195,7 @@ public class MapFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fr_map, container, false);
+        rootView = inflater.inflate(R.layout.fr_map, container, false);
 
         ButterKnife.bind(this, rootView);
 
@@ -196,7 +208,6 @@ public class MapFragment extends Fragment {
 
         mProgressBar = rootView.findViewById(R.id.progressBarInMap);
         mProgressBar.setVisibility(View.VISIBLE);
-
 
 
         try {
@@ -227,7 +238,6 @@ public class MapFragment extends Fragment {
         });
 
 
-
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap mMap) {
@@ -243,20 +253,18 @@ public class MapFragment extends Fragment {
                 googleMap.getUiSettings().setZoomControlsEnabled(true);
 
 
-
                 Query myMostViewedPostsQuery = mDatabase.child("Task");
                 myMostViewedPostsQuery.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        if(dataSnapshot.child("locationLatitude").getValue() != null){
+                        if (dataSnapshot.child("locationLatitude").getValue() != null) {
 
-                            markerData.add(new TaskLoader(dataSnapshot.child("nameTask").getValue()+"", dataSnapshot.child("valueTask").getValue()+"",
-                                    dataSnapshot.child("nameUser").getValue()+"",  dataSnapshot.child("points").getValue()+"",
-                                     dataSnapshot.child("acepted").getValue()+"",
-                                     (double) Double.parseDouble(dataSnapshot.child("locationLongitude").getValue()+""),(double) Double.parseDouble(dataSnapshot.child("locationLatitude").getValue()+""),
-                                    dataSnapshot.child("time").getValue()+"",
-                                    dataSnapshot.child("photo").getValue()+"", dataSnapshot.child("key").getValue()+""));
-
+                            markerData.add(new TaskLoader(dataSnapshot.child("nameTask").getValue() + "", dataSnapshot.child("valueTask").getValue() + "",
+                                    dataSnapshot.child("nameUser").getValue() + "", dataSnapshot.child("points").getValue() + "",
+                                    dataSnapshot.child("acepted").getValue() + "",
+                                    (double) Double.parseDouble(dataSnapshot.child("locationLongitude").getValue() + ""), (double) Double.parseDouble(dataSnapshot.child("locationLatitude").getValue() + ""),
+                                    dataSnapshot.child("time").getValue() + "",
+                                    dataSnapshot.child("photo").getValue() + "", dataSnapshot.child("key").getValue() + ""));
 
 
                         }
@@ -287,14 +295,8 @@ public class MapFragment extends Fragment {
                 });
 
 
-
-
             }
         });
-
-
-
-
 
 
         return rootView;
@@ -326,8 +328,6 @@ public class MapFragment extends Fragment {
         super.onLowMemory();
         mMapView.onLowMemory();
     }
-
-
 
 
 }

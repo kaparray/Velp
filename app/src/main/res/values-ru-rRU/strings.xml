@@ -144,9 +144,10 @@
     <string name="time">time</string>
     <string name="wiliam_snoe">Wiliam Snoe</string>
     <string name="Profile_Phone">Телефон</string>
-    <string name="DoneTitle">Done Task</string>
-    <string name="MyTaskTitle">My Task</string>
-    <string name="NotAcceptedTaskTitle">Not Accepted Task</string>
+    <string name="DoneTitle">Мною закончанные задачи</string>
+    <string name="MyTaskTitle">Мои задачи</string>
+    <string name="TakenTaskTitle">Взятые задачи</string>
+    <string name="NotAcceptedTaskTitle">Не взятые задачи</string>
     <string name="AgeTitle">Изменить возоаст</string>
     <string name="CityTitle">Изменить горад</string>
     <string name="EmailTitle">Изменить email</string>

@@ -73,8 +73,7 @@ public class ChangeDataFragment extends Fragment{
                 .commit();
 
 
-        ((MainActivity) getActivity()).setSettingsFragmentCounter(false);
-        ((MainActivity) getActivity()).setChangeDataFragmentCounter(false);
+
     }
 
 
@@ -90,8 +89,7 @@ public class ChangeDataFragment extends Fragment{
                 .replace(R.id.container, changeDataOpenFragment)
                 .commit();
 
-        ((MainActivity) getActivity()).setSettingsFragmentCounter(false);
-        ((MainActivity) getActivity()).setChangeDataFragmentCounter(false);
+
     }
 
 
@@ -115,8 +113,7 @@ public class ChangeDataFragment extends Fragment{
         });
         bonusAlretDialog.show();
 
-        ((MainActivity) getActivity()).setSettingsFragmentCounter(false);
-        ((MainActivity) getActivity()).setChangeDataFragmentCounter(false);
+
     }
 
 
@@ -132,8 +129,7 @@ public class ChangeDataFragment extends Fragment{
                 .replace(R.id.container, changeDataOpenFragment)
                 .commit();
 
-        ((MainActivity) getActivity()).setSettingsFragmentCounter(false);
-        ((MainActivity) getActivity()).setChangeDataFragmentCounter(false);
+
     }
 
 
@@ -149,8 +145,6 @@ public class ChangeDataFragment extends Fragment{
                 .replace(R.id.container, changeDataOpenFragment)
                 .commit();
 
-        ((MainActivity) getActivity()).setSettingsFragmentCounter(false);
-        ((MainActivity) getActivity()).setChangeDataFragmentCounter(false);
     }
 
 

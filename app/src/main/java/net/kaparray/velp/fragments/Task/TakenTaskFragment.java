@@ -1,6 +1,5 @@
 package net.kaparray.velp.fragments.Task;
 
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -48,13 +47,12 @@ import butterknife.ButterKnife;
 import static android.content.Context.MODE_PRIVATE;
 
 
-public class EndTaskFragment extends Fragment{
-
+public class TakenTaskFragment extends Fragment{
     // String
     private static final String TAG = "All right";
 
     // Util for check click
-    private TaskViewHolder.ClickListener mClickListener;
+    private EndTaskFragment.TaskViewHolder.ClickListener mClickListener;
 
     // Fragment
     private OpenTaskFragment openTaskFragment;
@@ -65,14 +63,12 @@ public class EndTaskFragment extends Fragment{
 
     boolean counrter = true;
 
-
     ArrayList<TaskLoader> loderer; // so funny name for variable
 
     // View
     @BindView(R.id.tv_NoInternet) TextView mTextNoInternet;
     @BindView(R.id.rvTask) RecyclerView mRecyclerView;
     @BindView(R.id.progressBarTaskFragment) ProgressBar progressBar;
-
 
     public static boolean hasConnection(final Context context)
     {
@@ -103,11 +99,11 @@ public class EndTaskFragment extends Fragment{
 
         final View rootView = inflater.inflate(R.layout.fr_for_task, container, false);
         // Add title
-        ((MainActivity) getActivity()).setTitle(getString(R.string.DoneTitle));
+        ((MainActivity) getActivity()).setTitle(getString(R.string.TakenTaskTitle));
+
 
         //Butter Knife
         ButterKnife.bind(this, rootView);
-
 
         loderer = new ArrayList<TaskLoader>();
 
@@ -116,8 +112,8 @@ public class EndTaskFragment extends Fragment{
         mFirebaseRef = database.getReference("Task");
 
 
-        progressBar.setVisibility(View.VISIBLE);
         mTextNoInternet.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
 
 
 
@@ -140,13 +136,14 @@ public class EndTaskFragment extends Fragment{
                     TaskLoader.class,
                     R.layout.card_for_task,
                     TaskViewHolder.class,
-                    mFirebaseRef.orderByChild("done").equalTo(user.getUid())
+                    mFirebaseRef.orderByChild("userTakeUID").equalTo(user.getUid())
             ) {
 
                 @Override
                 protected void onDataChanged() {
 
-                    EndTaskFragment.super.onStart();
+                    TakenTaskFragment.super.onStart();
+
                     new CountDownTimer(3000, 1000) {
 
                         public void onTick(long millisUntilFinished) {
@@ -154,7 +151,6 @@ public class EndTaskFragment extends Fragment{
                                 counrter = true;
                             }else {
                                 counrter = false;
-
                             }
 
                         }
@@ -209,8 +205,6 @@ public class EndTaskFragment extends Fragment{
                                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                                     .replace(R.id.container, openTaskFragment)
                                     .commit();
-
-
 
 
                             // This is magic bundle. I transit data in DB to OpenTaskFragment
@@ -287,6 +281,7 @@ public class EndTaskFragment extends Fragment{
         }
 
 
+
         new CountDownTimer(3000, 1000) {
 
             public void onTick(long millisUntilFinished) {
@@ -317,6 +312,7 @@ public class EndTaskFragment extends Fragment{
             }
         }.start();
     }
+
 
 
 

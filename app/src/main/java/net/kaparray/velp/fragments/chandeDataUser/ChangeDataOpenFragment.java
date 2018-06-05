@@ -91,7 +91,6 @@ public class ChangeDataOpenFragment extends Fragment{
                     .replace(R.id.container, changeDataFragment)
                     .commit();
 
-            ((MainActivity) getActivity()).setSettingsFragmentCounter(true);
 
         }else if(type.equals("city")){
 
@@ -114,7 +113,6 @@ public class ChangeDataOpenFragment extends Fragment{
                     .replace(R.id.container, changeDataFragment)
                     .commit();
 
-            ((MainActivity) getActivity()).setSettingsFragmentCounter(true);
 
 
         }else if(type.equals("email")){
@@ -171,7 +169,6 @@ public class ChangeDataOpenFragment extends Fragment{
                     .replace(R.id.container, changeDataFragment)
                     .commit();
 
-            ((MainActivity) getActivity()).setSettingsFragmentCounter(true);
 
 
         }else if(type.equals("number")){
@@ -194,7 +191,6 @@ public class ChangeDataOpenFragment extends Fragment{
                     .replace(R.id.container, changeDataFragment)
                     .commit();
 
-            ((MainActivity) getActivity()).setSettingsFragmentCounter(true);
 
         }
     }

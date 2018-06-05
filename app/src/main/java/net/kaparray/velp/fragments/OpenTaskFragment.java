@@ -37,6 +37,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
 import net.kaparray.velp.classes_for_data.RatingData;
 import net.kaparray.velp.classes_for_data.TaskLoader;
@@ -95,6 +96,8 @@ public class OpenTaskFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fr_opentask, container, false);
 
+
+        ((MainActivity) getActivity()).setAddTask(false);
 
         ButterKnife.bind(this, rootView);
 
@@ -186,55 +189,46 @@ public class OpenTaskFragment extends Fragment{
                         try {
                             mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_boy));
                         }catch (Exception e){
-                            mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher_round));
-                        }
+                            mPhoto.setImageResource(R.drawable.ic_launcher_round);                        }
                     } else if(photo.equals("ic_boy1")){
                         try {
                             mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_boy1));
                         }catch (Exception e){
-                            mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher_round));
-                        }
+                            mPhoto.setImageResource(R.drawable.ic_launcher_round);                        }
                     }else if(photo.equals("ic_girl")){
                         try {
                             mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_girl));
                         }catch (Exception e){
-                            mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher_round));
-                        }
+                            mPhoto.setImageResource(R.drawable.ic_launcher_round);                        }
                     }else if(photo.equals("ic_girl1")){
                         try {
                             mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_girl1));
                         }catch (Exception e){
-                            mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher_round));
-                        }
+                            mPhoto.setImageResource(R.drawable.ic_launcher_round);                        }
                     }else if(photo.equals("ic_man1")){
                         try {
                             mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_man1));
                         }catch (Exception e){
-                            mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher_round));
-                        }
+                            mPhoto.setImageResource(R.drawable.ic_launcher_round);                        }
                     }else if(photo.equals("ic_man2")){
                         try {
                             mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_man2));
                         }catch (Exception e){
-                            mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher_round));
-                        }
+                            mPhoto.setImageResource(R.drawable.ic_launcher_round);                        }
                     }else if(photo.equals("ic_man3")){
                         try {
                             mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_man3));
                         }catch (Exception e){
-                            mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher_round));
-                        }
+                            mPhoto.setImageResource(R.drawable.ic_launcher_round);                        }
                     }else if(photo.equals("ic_man4")){
                         try {
                             mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_man4));
                         }catch (Exception e){
-                            mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher_round));
-                        }
+                            mPhoto.setImageResource(R.drawable.ic_launcher_round);                        }
                     }else if(photo.equals("velp")){
-                        mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher_round));
-                    }
+                        mPhoto.setImageResource(R.drawable.ic_launcher_round);                    }
                 }catch (Exception e){
-                    mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher_round));
+                    mPhoto.setImageResource(R.drawable.ic_launcher_round);
                 }
 
 

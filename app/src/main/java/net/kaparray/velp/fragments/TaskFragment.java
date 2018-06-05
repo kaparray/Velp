@@ -22,6 +22,7 @@ import net.kaparray.velp.fragments.Task.AcceptedTaskFragment;
 import net.kaparray.velp.fragments.Task.NotAcceptedTaskFragment;
 import net.kaparray.velp.fragments.Task.EndTaskFragment;
 import net.kaparray.velp.fragments.Task.MyTaskFragment;
+import net.kaparray.velp.fragments.Task.TakenTaskFragment;
 
 import java.lang.reflect.Field;
 
@@ -41,6 +42,7 @@ public class TaskFragment extends Fragment{
     private MyTaskFragment myTaskFragment;
     private EndTaskFragment endTaskFragment;
     private AddTaskFragment addTaskFragment;
+    private TakenTaskFragment takenTaskFragment;
     private NotAcceptedTaskFragment notAcceptedTaskFragment;
 
     @BindView(R.id.fab) FloatingActionButton fab;
@@ -59,39 +61,41 @@ public class TaskFragment extends Fragment{
                             .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                             .replace(R.id.task, acceptedTaskFragment)
                             .commit();
-                    ((MainActivity) getActivity()).setFragmentCounter(false);
                     return true;
                 case R.id.navigation_my:
                     myTaskFragment = new MyTaskFragment();
-                    ((MainActivity) getActivity()).setTaskFragmentCounter("false");
                     getActivity().getSupportFragmentManager()
                             .beginTransaction()
                             .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                             .replace(R.id.task, myTaskFragment)
                             .commit();
-                    ((MainActivity) getActivity()).setFragmentCounter(false);
 
                     return true;
                 case R.id.navigation_end:
                     endTaskFragment = new EndTaskFragment();
-                    ((MainActivity) getActivity()).setTaskFragmentCounter("false");
                     getActivity().getSupportFragmentManager()
                             .beginTransaction()
                             .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                             .replace(R.id.task, endTaskFragment)
                             .commit();
-                    ((MainActivity) getActivity()).setFragmentCounter(false);
                     return true;
-                case R.id.navigation_notaccepted:
+                case R.id.navigation_not_accepted:
                     notAcceptedTaskFragment = new NotAcceptedTaskFragment();
-                    ((MainActivity) getActivity()).setTaskFragmentCounter("false");
                     getActivity().getSupportFragmentManager()
                             .beginTransaction()
                             .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                             .replace(R.id.task, notAcceptedTaskFragment)
                             .commit();
-                    ((MainActivity) getActivity()).setFragmentCounter(false);
                     return true;
+                case R.id.navigation_taken:
+                    takenTaskFragment = new TakenTaskFragment();
+                    getActivity().getSupportFragmentManager()
+                            .beginTransaction()
+                            .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                            .replace(R.id.task, takenTaskFragment)
+                            .commit();
+                    return true;
+
             }
             return false;
         }
@@ -109,7 +113,6 @@ public class TaskFragment extends Fragment{
 
         ButterKnife.bind(this, rootView);
 
-        ((MainActivity) getActivity()).setTaskFragmentCounter("true");
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         BottomNavigationViewHelper.removeShiftMode(navigation);
@@ -128,9 +131,8 @@ public class TaskFragment extends Fragment{
                                 .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                                 .replace(R.id.container, addTaskFragment)
                                 .commit();
+                        ((MainActivity) getActivity()).setAddTask(false);
 
-                        ((MainActivity) getActivity()).setFragmentCounter(false);
-                        ((MainActivity) getActivity()).setTaskFragmentCounter("none");
                     }
                 });
 
@@ -149,8 +151,11 @@ public class TaskFragment extends Fragment{
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .add(R.id.task, acceptedTaskFragment)
+                .replace(R.id.task, acceptedTaskFragment)
                 .commit();
+
+
+
     }
 
 

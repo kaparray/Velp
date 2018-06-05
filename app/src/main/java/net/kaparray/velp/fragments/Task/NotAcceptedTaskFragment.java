@@ -149,10 +149,8 @@ public class NotAcceptedTaskFragment extends Fragment{
                         public void onTick(long millisUntilFinished) {
                             if(loderer.size() <= 0 ){
                                 counrter = true;
-                                Log.d("lol", "loh");
                             }else {
                                 counrter = false;
-                                Log.d("lol", "lol");
 
                             }
 
@@ -169,7 +167,6 @@ public class NotAcceptedTaskFragment extends Fragment{
 
                             }
 
-                            Log.d("lol", "yes");
 
                         }
                     }.start();
@@ -209,9 +206,6 @@ public class NotAcceptedTaskFragment extends Fragment{
                                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                                     .replace(R.id.container, openTaskFragment)
                                     .commit();
-
-                            ((MainActivity) getActivity()).setFragmentCounter(false);
-                            ((MainActivity) getActivity()).setTaskFragmentCounter("none");
 
 
                             // This is magic bundle. I transit data in DB to OpenTaskFragment

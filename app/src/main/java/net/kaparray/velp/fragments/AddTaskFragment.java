@@ -261,7 +261,6 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
                                getActivity().getSupportFragmentManager()
                                        .beginTransaction()
                                        .replace(R.id.container, taskFragment)
-                                       .addToBackStack(null)
                                        .commit();
                            } else {
                                Toast.makeText(getActivity(), R.string.noInternet, Toast.LENGTH_LONG).show();
@@ -321,7 +320,6 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
                                getActivity().getSupportFragmentManager()
                                        .beginTransaction()
                                        .replace(R.id.container, taskFragment)
-                                       .addToBackStack(null)
                                        .commit();
                            } else {
                                Toast.makeText(getActivity(), R.string.noInternet, Toast.LENGTH_LONG).show();
@@ -333,6 +331,8 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
                    Toast.makeText(getActivity(), R.string.Fill,  Toast.LENGTH_SHORT).show();
                }
 
+
+               ((MainActivity) getActivity()).setAddTask(true);
             }
         });
 

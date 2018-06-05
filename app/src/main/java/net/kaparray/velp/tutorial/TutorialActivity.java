@@ -55,7 +55,7 @@ public class TutorialActivity extends AppCompatActivity {
                 case 5:
                     return (TutorialFragment6.newInstance(position));
                 default:
-                    return PlaceholderFragment.newInstance(position); 
+                    return PlaceholderFragment.newInstance(position);
             }
 
 
@@ -66,11 +66,11 @@ public class TutorialActivity extends AppCompatActivity {
 
 
 
-   public void startAuthActivity(View view){
-       Intent intent = new Intent(TutorialActivity.this, AuthActivity.class);
-       startActivity(intent);
-       finish();
-   }
+    public void startAuthActivity(View view){
+        Intent intent = new Intent(TutorialActivity.this, AuthActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
 
 
@@ -105,7 +105,7 @@ public class TutorialActivity extends AppCompatActivity {
         }
 
 
-    // Adapter for
+        // Adapter for
         ViewPager pager=(ViewPager)findViewById(R.id.pager);
         pager.setAdapter(new MyAdapter(this, getSupportFragmentManager()));
     }
@@ -144,4 +144,3 @@ public class TutorialActivity extends AppCompatActivity {
 
 
 }
-

@@ -148,6 +148,7 @@
     <string name="DoneTitle">Done Task</string>
     <string name="MyTaskTitle">My Task</string>
     <string name="NotAcceptedTaskTitle">Not Accepted Task</string>
+    <string name="TakenTaskTitle">Taken Task</string>
     <string name="AgeTitle">Change Age</string>
     <string name="CityTitle">Change City</string>
     <string name="EmailTitle">Change Email</string>

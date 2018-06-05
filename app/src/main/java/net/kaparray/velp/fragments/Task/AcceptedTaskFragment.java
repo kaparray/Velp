@@ -178,8 +178,7 @@ public class AcceptedTaskFragment extends Fragment{
                                     .replace(R.id.container, openTaskFragment)
                                     .commit();
 
-                            ((MainActivity) getActivity()).setFragmentCounter(false);
-                            ((MainActivity) getActivity()).setTaskFragmentCounter("none");
+
 
                             // This is magic bundle. I transit data in DB to OpenTaskFragment
                             Bundle bundle = new Bundle();
