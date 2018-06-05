@@ -330,8 +330,7 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
            }else{
                    Toast.makeText(getActivity(), R.string.Fill,  Toast.LENGTH_SHORT).show();
                }
-
-
+               
                ((MainActivity) getActivity()).setAddTask(true);
             }
         });
