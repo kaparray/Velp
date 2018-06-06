@@ -16,12 +16,11 @@ public class TutorialFragment1 extends Fragment {
 
 
 
-    private int pageNumber;
+
 
     public static TutorialFragment1 newInstance(int page) {
         TutorialFragment1 fragment = new TutorialFragment1();
         Bundle args=new Bundle();
-        args.putInt("num", page);
         fragment.setArguments(args);
         return fragment;
     }
@@ -32,7 +31,6 @@ public class TutorialFragment1 extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pageNumber = getArguments() != null ? getArguments().getInt("num") : 1;
     }
 
 

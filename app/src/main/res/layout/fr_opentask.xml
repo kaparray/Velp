@@ -139,18 +139,33 @@
                 card_view:layout_constraintTop_toTopOf="parent" />
 
 
-
             <ImageView
                 android:id="@+id/iv_check"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="16dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:src="@drawable/baseline_query_builder_24px"
                 card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toStartOf="@+id/tv_phoneUserInOpenTask"
+                card_view:layout_constraintHorizontal_bias="0.216"
+                card_view:layout_constraintStart_toStartOf="parent" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_call"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:clickable="true"
+                app:srcCompat="@drawable/baseline_call_24px"
+                card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintStart_toEndOf="@+id/tv_phoneUserInOpenTask" />
+                card_view:layout_constraintHorizontal_bias="0.6"
+                card_view:layout_constraintStart_toEndOf="@+id/tv_phoneUserInOpenTask"
+                tools:ignore="VectorDrawableCompat" />
 
         </android.support.constraint.ConstraintLayout>
 

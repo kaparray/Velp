@@ -170,4 +170,11 @@
     <string name="My">Мои</string>
     <string name="Done">Выполненные</string>
 
+
+    <string name="further">далее</string>
+    <string name="Workkk">Мы работаем над этим </string>
+
+    <string name="Mark">❗Пароль должен быть длиннее 6 символов</string>
+
+
 </resources>

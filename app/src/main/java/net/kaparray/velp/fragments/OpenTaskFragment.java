@@ -3,11 +3,15 @@ package net.kaparray.velp.fragments;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -47,6 +51,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class OpenTaskFragment extends Fragment{
@@ -68,10 +73,12 @@ public class OpenTaskFragment extends Fragment{
     @BindView(R.id.tv_pointsInOpenFragment) TextView mPoints;
     @BindView(R.id.iv_photoTask) ImageView mPhoto;
     @BindView(R.id.iv_check) ImageView mCheck;
+    @BindView(R.id.fab_call) FloatingActionButton mCall;
 
     // String variable
     String KEY_Task;
     String photo;
+    String mPhone;
 
 
     // Task Loader Fragment
@@ -91,6 +98,24 @@ public class OpenTaskFragment extends Fragment{
     int helped;
     String name;
 
+
+    @OnClick(R.id.fab_call)
+    public void submit() {
+
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CALL_PHONE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CALL_PHONE},24);
+            Log.d("0000", "WTF");
+
+        }else{
+            Intent intent = new Intent(Intent.ACTION_CALL);
+            intent.setData(Uri.parse("tel:" + mPhone));
+            startActivity(intent);
+        }
+
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -102,6 +127,7 @@ public class OpenTaskFragment extends Fragment{
         ButterKnife.bind(this, rootView);
 
 
+        mCall.setVisibility(View.GONE);
         mTakeTask.isClickable();
 
         // Check data in bundle
@@ -134,8 +160,7 @@ public class OpenTaskFragment extends Fragment{
                 }
 
 
-                name = dataSnapshot.child("Users").child(taskLoader.getUserUID()).child("name").getValue() + "";
-                mDatabase.child("Task").child(taskLoader.getKey()).child("nameUser").setValue(name);
+                mPhone = dataSnapshot.child("Users").child(taskLoader.getUserUID()).child("phone").getValue() + "";
 
                 try {
                     if(!taskLoader.getUserTakeUID().equals("none")){
@@ -143,13 +168,16 @@ public class OpenTaskFragment extends Fragment{
                     }
 
                     if(taskLoader.getAccepted().equals("end")){
+                        mPhoneUser.setText(mPhone);
                         mTakeTask.setBackgroundResource(R.drawable.button_round_green);
                         mTakeTask.setText(R.string.Finished);
                         mCheck.setImageResource(R.drawable.baseline_done_all_24px);
+                        mCall.setVisibility(View.VISIBLE);
                     }else if(taskLoader.getUserUID().equals(user.getUid()) && taskLoader.getAccepted().equals("false")){
                         mTakeTask.setText(R.string.NotGot);
                         mCheck.setImageResource(R.drawable.baseline_query_builder_24px);
                         mTakeTask.setBackgroundResource(R.drawable.button_round_grey);
+                        mPhoneUser.setText(mPhone);
                     }else{
                         mTakeTask.setText(R.string.TakeTask);
                         mCheck.setImageResource(R.drawable.baseline_lock_open_24px);
@@ -163,12 +191,14 @@ public class OpenTaskFragment extends Fragment{
 
                         }else if(taskLoader.getUserTakeUID().equals(user.getUid())){
                             mTakeTask.setText(R.string.Taken);
-                            mPhoneUser.setText(dataSnapshot.child("Users").child(taskLoader.getUserUID()).child("phone").getValue() + "");
+                            mPhoneUser.setText(mPhone);
                             mCheck.setImageResource(R.drawable.baseline_done_24px);
+                            mCall.setVisibility(View.VISIBLE);
                         }else if(taskLoader.getUserUID().equals(user.getUid())){
                             mTakeTask.setText(R.string.Finish);
                             mCheck.setImageResource(R.drawable.baseline_done_24px);
-                            mPhoneUser.setText(dataSnapshot.child("Users").child(taskLoader.getUserUID()).child("phone").getValue() + "");
+                            mPhoneUser.setText(mPhone);
+                            mCall.setVisibility(View.VISIBLE);
                         }
                     }
                 }catch (Exception e){
@@ -228,7 +258,7 @@ public class OpenTaskFragment extends Fragment{
                     }else if(photo.equals("velp")){
                         mPhoto.setImageResource(R.drawable.ic_launcher_round);                    }
                 }catch (Exception e){
-                    mPhoto.setImageResource(R.drawable.ic_launcher_round);
+
                 }
 
 
@@ -352,28 +382,34 @@ public class OpenTaskFragment extends Fragment{
 
 //                 // add to user ochivments
 
+
+                        float help_1_people = Float.parseFloat(ratingData.get(0).getValueRating());
+                        if (help_1_people < 100) {
+                            mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(0).getKey()).child("valueRating").setValue(100.0 + "");
+                        }
+
                         float help_10_people = Float.parseFloat(ratingData.get(0).getValueRating());
-                        if (help_10_people <= 100) {
+                        if (help_10_people < 100) {
                             help_10_people += 10;
-                            mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(0).getKey()).child("valueRating").setValue(help_10_people + "");
+                            mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(1).getKey()).child("valueRating").setValue(help_10_people + "");
                         }
 
 
                         float help_100_people = Float.parseFloat(ratingData.get(1).getValueRating());
-                        if (help_100_people <= 100) {
+                        if (help_100_people < 100) {
                             help_100_people += 1;
-                            mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(1).getKey()).child("valueRating").setValue(help_100_people + "");
+                            mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(2).getKey()).child("valueRating").setValue(help_100_people + "");
                         }
 
 
                         float help_1000_people = Float.parseFloat(ratingData.get(2).getValueRating());
-                        if (help_1000_people <= 100) {
+                        if (help_1000_people < 100) {
                             help_1000_people += 0.1;
-                            mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(2).getKey()).child("valueRating").setValue(help_1000_people + "");
+                            mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(3).getKey()).child("valueRating").setValue(help_1000_people + "");
                         }
 
 
-                        mDatabase.child("Task").child(KEY_Task).child("done").setValue(user.getUid() + "");
+                        mDatabase.child("Task").child(KEY_Task).child("done").setValue(taskLoader.getUserTakeUID() + "");
                         mDatabase.child("Task").child(KEY_Task).child("accepted").setValue("end");
 
 

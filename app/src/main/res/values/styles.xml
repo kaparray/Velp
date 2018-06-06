@@ -5,7 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/JordyBlue</item>
         <item name="colorPrimaryDark">#6638F0</item>
-        <item name="colorAccent">#30B4C2</item>
+        <item name="colorAccent">@color/BlueDeFrance</item>
 
         <item name="actionBarTheme">@style/ActionBar</item>
     </style>

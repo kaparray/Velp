@@ -117,6 +117,8 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
             Log.d("0000", "WTF");
         }
 
+
+
         //Butter Knife
         ButterKnife.bind(this);
 

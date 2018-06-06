@@ -172,5 +172,8 @@
     <string name="My">My</string>
     <string name="Done">Done</string>
 
+    <string name="Mark">❗Password must be longer than 6 characters</string>
+
+
 
 </resources>

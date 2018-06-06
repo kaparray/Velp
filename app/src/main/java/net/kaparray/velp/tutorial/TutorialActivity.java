@@ -116,11 +116,9 @@ public class TutorialActivity extends AppCompatActivity {
 
         private static final String ARG_SECTION_NUMBER = "section_number";
 
-        private int pageNumber;
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            pageNumber = getArguments() != null ? getArguments().getInt("num") : 1;
         }
 
 

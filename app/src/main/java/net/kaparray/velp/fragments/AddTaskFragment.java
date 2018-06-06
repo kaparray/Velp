@@ -274,7 +274,7 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
                            if (hasConnection(getContext())) {
                                taskFragment = new TaskFragment();
 
-                               DatabaseReference mUserAccount = myRef.push();
+                               final DatabaseReference mUserAccount = myRef.push();
                                mUserAccount.child("key").setValue(mUserAccount.toString()
                                        .replace("https://velp-1544e.firebaseio.com/Task/", ""));
 
@@ -289,6 +289,15 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
                                // Add data about taken user
                                mUserAccount.child("accepted").setValue("false");
                                mUserAccount.child("userTakeUID").setValue("none");
+                               mUserAccount.child("photo").setValue(photo);
+                               mUserAccount.child("done").setValue("false");
+
+
+                               //Date and time
+                               @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd\n HH:mm");
+                               String currentDateandTime = sdf.format(new Date());
+
+                               mUserAccount.child("time").setValue(currentDateandTime + "");
 
 
                                ValueEventListener postListener = new ValueEventListener() {

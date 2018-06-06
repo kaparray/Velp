@@ -165,6 +165,13 @@
     <string name="changeName">Edit name</string>
     <string name="Text_AlretDialogEmailChange">Sorry, you can\'t change your email.\nYour email:</string>
     <string name="Title_AlretDialogEmailChange">Change email</string>
+    <string name="AcceptedTaskTitle">Accepted Task</string>
+    <string name="title_activity_registration">RegistrationActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="further">further</string>
 
+    <string name="Workkk">We are working on it</string>
+
+    <string name="Mark">❗Password must be longer than 6 characters</string>
 
 </resources>

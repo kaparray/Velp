@@ -101,7 +101,7 @@ public class AcceptedTaskFragment extends Fragment{
 
         final View rootView = inflater.inflate(R.layout.fr_for_task, container, false);
         // Add title
-        ((MainActivity) getActivity()).setTitle(getString(R.string.TaskTitle));
+        ((MainActivity) getActivity()).setTitle(getString(R.string.AcceptedTaskTitle));
 
 
         //Butter Knife
@@ -222,7 +222,6 @@ public class AcceptedTaskFragment extends Fragment{
                                                 for (DataSnapshot appleSnapshot : dataSnapshot.getChildren()) {
                                                     appleSnapshot.getRef().removeValue();
                                                     loderer.remove(position); // remove form array list
-                                                    Toast.makeText(getActivity(), "pos : " + position, Toast.LENGTH_LONG).show();
                                                 }
                                             }
 

@@ -104,7 +104,11 @@ public class  AuthActivity extends ProgressDialogActivity implements
         mGoogleAuth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signIn();
+
+                Toast.makeText(AuthActivity.this, getResources().getString(R.string.Workkk), Toast.LENGTH_SHORT).show();
+
+                // Thanks to Roskomnadzor
+//                   signIn();
 
             }
         });
