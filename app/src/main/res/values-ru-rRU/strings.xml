@@ -163,6 +163,13 @@
     <string name="changeName">Редактировать имя</string>
     <string name="Text_AlretDialogEmailChange">Извените но вы не можите поменять email.\nВаш email:</string>
     <string name="Title_AlretDialogEmailChange">Изменить email</string>
+    <string name="changeAgeDescription">Вы хотите поменять данные о возрасте. Это может привести к некоторым изменениям связанных с вашими достижениями.</string>
+    <string name="changeCityDescription">Вы хотите поменять данные о своём месторасположении. При изменении месторасположения карта будет загркжаться с того места с которового вы указали.</string>
+    <string name="changeNameDescription">Вы хотите поменять имя? Изменение может привести к путанице пользователей.</string>
+    <string name="changePhoneDescription">Изменение телефона может привести к некоторой путанице пользователей. Это приводит к тому что с вами не смогут связаться. </string>
+    <string name="confirm">Подтвердить</string>
+
+
 
     <!-- Navigation -->
     <string name="Accepted">Взятые</string>
@@ -175,6 +182,7 @@
     <string name="Workkk">Мы работаем над этим </string>
 
     <string name="Mark">❗Пароль должен быть длиннее 6 символов</string>
+
 
 
 </resources>

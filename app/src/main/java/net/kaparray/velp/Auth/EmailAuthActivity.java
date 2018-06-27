@@ -138,6 +138,8 @@ public class EmailAuthActivity extends AppCompatActivity{
         });
 
 
+
+        // Forgot password
         mForgetPass = findViewById(R.id.tv_forgetPass);
         mForgetPass.setOnClickListener(new View.OnClickListener() {
             @Override

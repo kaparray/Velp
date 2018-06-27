@@ -182,7 +182,7 @@ public class RegistrationFragment3 extends android.support.v4.app.Fragment {
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                  
+
                 showProgressDialog();
 
                     mAuth.createUserWithEmailAndPassword(((RegistrationActivity) getActivity()).getEmail(), ((RegistrationActivity) getActivity()).getPassword())

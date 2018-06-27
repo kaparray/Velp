@@ -24,6 +24,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:textColor="@color/white"
         android:text="@string/changeUserData"
         android:layout_gravity="center"/>
 
@@ -36,6 +37,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:textColor="@color/white"
         android:text="@string/Logout"
         android:layout_gravity="center" />
 
@@ -48,6 +50,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:textColor="@color/white"
         android:text="@string/DellAcc"
         android:layout_gravity="center"/>
 

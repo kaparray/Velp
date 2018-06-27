@@ -243,27 +243,34 @@ public class ChangeDataOpenFragment extends Fragment{
         };
         mDatabase.addValueEventListener(postListener);
 
+        ///////////////////////////////
+        //  Output data in fragment  //
+        ///////////////////////////////
 
         if (type.equals("age")){
             ((MainActivity) getActivity()).setTitle(getString(R.string.AgeTitle));
             mChangeText.setInputType(InputType.TYPE_CLASS_TEXT |
                     InputType.TYPE_CLASS_NUMBER);
             mTextType.setText(getResources().getString(R.string.changeAge));
+            mTextDescription.setText(getResources().getString(R.string.changeAgeDescription));
         }else if(type.equals("city")){
             ((MainActivity) getActivity()).setTitle(getString(R.string.CityTitle));
             mChangeText.setInputType(InputType.TYPE_CLASS_TEXT |
                     InputType.TYPE_TEXT_VARIATION_POSTAL_ADDRESS);
             mTextType.setText(getResources().getString(R.string.changeCity));
+            mTextDescription.setText(getResources().getString(R.string.changeCityDescription));
         }else if(type.equals("name")){
             ((MainActivity) getActivity()).setTitle(getString(R.string.NameTitle));
             mChangeText.setInputType(InputType.TYPE_CLASS_TEXT |
                     InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
             mTextType.setText(getResources().getString(R.string.changeName));
+            mTextDescription.setText(getResources().getString(R.string.changeNameDescription));
         }else if(type.equals("number")){
             ((MainActivity) getActivity()).setTitle(getString(R.string.PhoneNamberTitle));
             mChangeText.setInputType(InputType.TYPE_CLASS_TEXT |
                     InputType.TYPE_CLASS_PHONE);
             mTextType.setText(getResources().getString(R.string.changePhone));
+            mTextDescription.setText(getResources().getString(R.string.changePhoneDescription));
         }
 
         return rootView;
