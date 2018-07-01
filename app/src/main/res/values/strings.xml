@@ -169,13 +169,6 @@
     <string name="title_activity_registration">RegistrationActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="further">further</string>
-    <string name="changeAgeDescription">You want to change your age information. This can lead to some changes related to your achievements.</string>
-    <string name="changeCityDescription">You want to change your location. If you change the location the map will sarcifice from the place from which you pointed out.</string>
-    <string name="changeNameDescription">Do you want to change your name? The change may cause confusion among users.</string>
-    <string name="changePhoneDescription">Changing the phone can cause some confusion among users. This leads to the fact that you will not be able to contact.</string>
-    <string name="confirm">confirm</string>
-
-
 
     <string name="Workkk">We are working on it</string>
 

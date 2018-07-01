@@ -176,6 +176,9 @@
     <string name="confirm">confirm</string>
 
 
+    <string name="Mark">❗Password must be longer than 6 characters</string>
+
+
 
     <string name="Workkk">We are working on it</string>
 

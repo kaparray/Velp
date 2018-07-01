@@ -1,11 +1,9 @@
 package net.kaparray.velp.Auth.Registration;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -27,7 +25,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import net.kaparray.velp.Auth.AuthActivity;
 import net.kaparray.velp.Auth.RegistrationActivity;
 import net.kaparray.velp.R;
-import net.kaparray.velp.utils.ProgressDialogActivity;
 
 public class RegistrationFragment3 extends android.support.v4.app.Fragment {
 
@@ -179,11 +176,10 @@ public class RegistrationFragment3 extends android.support.v4.app.Fragment {
 
 
 
+
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                showProgressDialog();
 
                     mAuth.createUserWithEmailAndPassword(((RegistrationActivity) getActivity()).getEmail(), ((RegistrationActivity) getActivity()).getPassword())
                             .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
@@ -244,8 +240,6 @@ public class RegistrationFragment3 extends android.support.v4.app.Fragment {
                                     }
                                 }
                             });
-
-                hideProgressDialog();
             }
 
         });
@@ -260,24 +254,7 @@ public class RegistrationFragment3 extends android.support.v4.app.Fragment {
 
 
 
-    @VisibleForTesting
-    public ProgressDialog mProgressDialog;
 
-    public void showProgressDialog() {
-        if (mProgressDialog == null) {
-            mProgressDialog = new ProgressDialog(getContext());
-            mProgressDialog.setMessage("Загрузка..");
-            mProgressDialog.setIndeterminate(true);
-        }
-
-        mProgressDialog.show();
-    }
-
-    public void hideProgressDialog() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.dismiss();
-        }
-    }
 
 
 
