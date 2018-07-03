@@ -16,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -78,6 +79,8 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
 
     //Fragment
     TaskFragment taskFragment;
+    BonusFragment bonusFragment;
+
 
     // Global variables
     String name;
@@ -132,6 +135,8 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
             mValueTask.setHintTextColor(getResources().getColor(R.color.soSoBlack));
             mPointsTask.setHintTextColor(getResources().getColor(R.color.soSoBlack));
         }
+
+
 
         counter = true;
         counterMin = true;
@@ -400,7 +405,15 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
                 freeBounuceAlertDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        // ToDo open free bonuce
+                        // open free points
+
+                        bonusFragment = new BonusFragment();
+
+                        getActivity().getSupportFragmentManager()
+                                .beginTransaction()
+                                .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                                .replace(R.id.container, bonusFragment)
+                                .commit();
 
                     }
                 });

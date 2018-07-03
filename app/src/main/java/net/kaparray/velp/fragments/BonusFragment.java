@@ -101,18 +101,6 @@ public class BonusFragment extends android.support.v4.app.Fragment {
 
         ButterKnife.bind(this, rootView);
 
-        AlertDialog.Builder bonusAlretDialog = new AlertDialog.Builder(getActivity());
-        bonusAlretDialog.setTitle(getString(R.string.Title_AlretDialogBonus));
-        bonusAlretDialog.setCancelable(false);
-        bonusAlretDialog.setIcon(R.drawable.ic_bonus);
-        bonusAlretDialog.setMessage(getString(R.string.Text_AlretDialogBonus));
-        bonusAlretDialog.setPositiveButton(R.string.Understood, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.cancel();
-            }
-        });
-        bonusAlretDialog.show();
 
 
 
