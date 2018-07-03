@@ -3,6 +3,7 @@ package net.kaparray.velp.fragments;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -14,6 +15,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -190,7 +192,8 @@ public class OpenTaskFragment extends Fragment{
                             mCheck.setImageResource(R.drawable.baseline_lock_24px);
 
                         }else if(taskLoader.getUserTakeUID().equals(user.getUid())){
-                            mTakeTask.setText(R.string.Taken);
+                            mTakeTask.setText(R.string.Refuse);
+                            mTakeTask.setBackgroundResource(R.drawable.button_round_ligt_red);
                             mPhoneUser.setText(mPhone);
                             mCheck.setImageResource(R.drawable.baseline_done_24px);
                             mCall.setVisibility(View.VISIBLE);
@@ -421,7 +424,32 @@ public class OpenTaskFragment extends Fragment{
 
 
                     } else if (clickCounter > 0 || taskLoader.getUserTakeUID().equals(user.getUid())) { // Не кликай много раз
-                        Toast.makeText(getActivity(), R.string.Taken, Toast.LENGTH_LONG).show();
+                        /* Refuse task */
+                        // if you click in db margin acepted and userTakeUID set to null
+
+                        AlertDialog.Builder freeBounuceAlertDialog = new AlertDialog.Builder(getActivity());
+                        freeBounuceAlertDialog.setTitle(getString(R.string.Title_AlretDialogRefuse));
+                        freeBounuceAlertDialog.setMessage(getString(R.string.Text_AlretDialogFreeRefuse));
+                        freeBounuceAlertDialog.setCancelable(false);
+                        freeBounuceAlertDialog.setIcon(R.drawable.ic_refuse);
+                        // if set location in the task
+                        freeBounuceAlertDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                mDatabase.child("Task").child(KEY_Task).child("accepted").setValue("false");
+                                mDatabase.child("Task").child(KEY_Task).child("userTakeUID").setValue("none");
+                                mTakeTask.setBackgroundResource(R.drawable.button_round);
+
+                            }
+                        });
+                        freeBounuceAlertDialog.setNegativeButton(R.string.no, new  DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });
+                        freeBounuceAlertDialog.show();
+
                         mDatabase.child("Task").child(KEY_Task).child("userTakeUID").setValue(user.getUid());
 
                     } else if (taskLoader.getAccepted().equals("end")) {  // Задача законченна

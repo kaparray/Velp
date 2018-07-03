@@ -19,7 +19,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
@@ -58,6 +60,9 @@ public class  AuthActivity extends ProgressDialogActivity implements
     // Button's
     private Button mEmailAuth;
     private Button mGoogleAuth;
+
+    //creating a GoogleSignInClient object
+    GoogleSignInClient mGoogleSignInClient;
 
 
 
@@ -99,6 +104,23 @@ public class  AuthActivity extends ProgressDialogActivity implements
         imageView =  findViewById(R.id.iv_ic_app);
         anim = AnimationUtils.loadAnimation(this, R.anim.rotate_animaton);
 
+        //Then we need a GoogleSignInOptions object
+        //And we need to build it as below
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        //Then we will get the GoogleSignInClient object from GoogleSignIn class
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+
+
 
         mGoogleAuth = findViewById(R.id.btn_GoogleAuth);
         mGoogleAuth.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +130,8 @@ public class  AuthActivity extends ProgressDialogActivity implements
                 Toast.makeText(AuthActivity.this, getResources().getString(R.string.Workkk), Toast.LENGTH_SHORT).show();
 
                 // Thanks to Roskomnadzor
-//                   signIn();
+                //   signIn();
+
 
             }
         });
@@ -125,15 +148,6 @@ public class  AuthActivity extends ProgressDialogActivity implements
         });
 
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this, this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
 
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -206,7 +220,11 @@ public class  AuthActivity extends ProgressDialogActivity implements
     }
 
     private void signIn() {
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+
+        //getting the google signin intent
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+
+        //starting the activity for result
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 

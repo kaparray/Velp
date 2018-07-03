@@ -2,7 +2,7 @@
 <resources>
 
     <color name="colorAccent">#DE478C</color>
-
+    <color name="lightRed">#ff5983</color>
 
 
     <!-- White color -->

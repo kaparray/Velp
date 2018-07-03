@@ -99,6 +99,7 @@
     <string name="TakeTask">Get task</string>
     <string name="AlreadyTaken">Somebody has taken this task</string>
     <string name="Taken">You took this task</string>
+    <string name="Refuse">Refuse</string>
     <string name="FinishTask">Complete the task</string>
     <string name="AlreadyFinished">This task has been already completed</string>
     <string name="Own">you cannot get your own tasks</string>
@@ -173,5 +174,9 @@
     <string name="Workkk">We are working on it</string>
 
     <string name="Mark">❗Password must be longer than 6 characters</string>
+    <string name="Text_AlretDialogFreePoints">You do not have enough points to add a task. Want to get free points?</string>
+    <string name="Title_AlretDialogFreePoints">You have no points :(</string>
+    <string name="Title_AlretDialogRefuse">Abandon the task?</string>
+    <string name="Text_AlretDialogFreeRefuse">Do you want to abandon the task to abandon the task?</string>
 
 </resources>
