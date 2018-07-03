@@ -3,10 +3,12 @@ package net.kaparray.velp;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -36,6 +38,7 @@ import net.kaparray.velp.fragments.MapFragment;
 import net.kaparray.velp.fragments.ProfileFragment;
 import net.kaparray.velp.fragments.RatingFragment;
 import net.kaparray.velp.fragments.SettingsFragment;
+import net.kaparray.velp.fragments.ShareFragment;
 import net.kaparray.velp.fragments.TaskFragment;
 import net.kaparray.velp.fragments.chandeDataUser.ChangeDataFragment;
 import net.kaparray.velp.utils.FirebaseIntegration;
@@ -60,6 +63,7 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
     EventsFragments eventsFragment;
     RatingFragment ratingFragment;
     MapFragment mapFragment;
+    ShareFragment shareFragment;
     ChangeDataFragment changeDataFragment;
     View mNavHeader;
 
@@ -152,6 +156,7 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
         eventsFragment = new EventsFragments();
         ratingFragment = new RatingFragment();
         mapFragment = new MapFragment();
+        shareFragment = new ShareFragment();
 
 
         // Set Fragment
@@ -329,8 +334,20 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
 
         } else if (id == R.id.nav_share){
             // Share
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN )
+                    .replace(R.id.container, shareFragment)
+                    .commit();
+            mapCard = false;
         } else if (id == R.id.nav_send) {
             // Send
+            final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+            try {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+            } catch (android.content.ActivityNotFoundException anfe) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+            }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

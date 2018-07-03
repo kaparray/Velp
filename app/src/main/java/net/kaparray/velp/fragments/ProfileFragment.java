@@ -4,6 +4,7 @@ package net.kaparray.velp.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,24 +24,35 @@ import com.google.firebase.database.ValueEventListener;
 import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ProfileFragment extends Fragment{
 
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     public FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-    TextView mUserPoints;
-    TextView mUserHelped;
-    TextView mUserName;
-    TextView mUserLevel;
-    TextView mUserPhone;
+    // View in fragment
+    @BindView(R.id.tv_profilePoints) TextView mUserPoints;
+    @BindView(R.id.tv_profileHelped) TextView mUserHelped;
+    @BindView(R.id.tv_profileName) TextView mUserName;
+    @BindView(R.id.tv_profileLevel) TextView mUserLevel;
+    @BindView(R.id.iv_profilePhoto) ImageView mPhotoUser;
+    @BindView(R.id.btn_ProfileCall) CardView mCall;
+    @BindView(R.id.btn_ProfileMessage) CardView mMessage;
+
+
+    View rootView;
+
+    // Variables
+    boolean usver = false;
+    String userUID;
     String name;
     String level;
     String helped;
     String points;
     String photo;
     String phone;
-    LinearLayout mLL;
-    ImageView mPhotoUser;
     public static final String TAG = "Points";
 
 
@@ -48,33 +60,51 @@ public class ProfileFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        final View rootView = inflater.inflate(R.layout.fr_profile, container, false);
-// Add title
-        ((MainActivity) getActivity()).setTitle(getString(R.string.ProfileTitle));
+        rootView = inflater.inflate(R.layout.fr_profile, container, false);
 
+        ((MainActivity) getActivity()).setTitle(getString(R.string.ProfileTitle)); // Add title
+
+        ButterKnife.bind(this, rootView);
+
+
+
+
+        // Check data in bundle
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            usver = true;
+            userUID = bundle.getString("UserUID");
+        }
+
+
+        if(!usver){
+            getAndSetUserData(user.getUid());
+        }else{
+            getAndSetUserData(userUID);
+        }
+
+        return rootView;
+    }
+
+
+
+
+    void getAndSetUserData(final String userUid){
         ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get user data in Firebase
-                name = (String) dataSnapshot.child("Users").child(user.getUid()).child("name").getValue();
-                phone = (String) dataSnapshot.child("Users").child(user.getUid()).child("phone").getValue();
-                level = (String) dataSnapshot.child("Users").child(user.getUid()).child("level").getValue() + "";
-                helped = (String) dataSnapshot.child("Users").child(user.getUid()).child("helped").getValue() + "";
-                points = (String) dataSnapshot.child("Users").child(user.getUid()).child("points").getValue() + "";
-                photo = (String) dataSnapshot.child("Users").child(user.getUid()).child("photo").getValue() + "";
-
-
-                // Find all view in fragment
-                mLL = rootView.findViewById(R.id.LL_profileBackground);
-                mUserName = (TextView) rootView.findViewById(R.id.tv_profileName);
-                mUserPhone = (TextView) rootView.findViewById(R.id.tv_profilePhone);
-                mUserHelped = (TextView) rootView.findViewById(R.id.tv_profileHelped);
-                mUserLevel = (TextView) rootView.findViewById(R.id.tv_profileLevel);
-                mUserPoints = (TextView) rootView.findViewById(R.id.tv_profilePoints);
-                mPhotoUser = rootView.findViewById(R.id.iv_profilePhoto);
+                name = (String) dataSnapshot.child("Users").child(userUid).child("name").getValue();
+                phone = (String) dataSnapshot.child("Users").child(userUid).child("phone").getValue();
+                level = (String) dataSnapshot.child("Users").child(userUid).child("level").getValue() + "";
+                helped = (String) dataSnapshot.child("Users").child(userUid).child("helped").getValue() + "";
+                points = (String) dataSnapshot.child("Users").child(userUid).child("points").getValue() + "";
+                photo = (String) dataSnapshot.child("Users").child(userUid).child("photo").getValue() + "";
 
 
 
+
+                // Set photo user
                 try {
                     if (photo.equals("ic_boy")) {
                         mPhotoUser.setImageDrawable(getResources().getDrawable(R.drawable.ic_boy));
@@ -101,16 +131,11 @@ public class ProfileFragment extends Fragment{
                     }
 
                 }
-
-
-
+                // Set data to user
                 mUserName.setText(name);
-                mUserPhone.setText(phone);
                 mUserHelped.setText(helped);
                 mUserLevel.setText(level);
                 mUserPoints.setText(points);
-
-
 
             }
 
@@ -120,8 +145,6 @@ public class ProfileFragment extends Fragment{
             }
         };
         mDatabase.addValueEventListener(postListener);
-
-        return rootView;
     }
 
 }

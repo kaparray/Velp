@@ -72,7 +72,7 @@
     <string name="About">About app</string>
     <string name="Feedback">Contact</string>
     <string name="Share">Share</string>
-    <string name="Send">Post a review</string>
+    <string name="Send">Rate the app</string>
     <string name="Profile">Profile</string>
 
     <!-- AddTask Fragment  -->
@@ -187,5 +187,8 @@
     <string name="Get">Get</string>
     <string name="littleTime">Too little time has passed</string>
     <string name="manyPoints">More than 10 points</string>
+    <string name="textShare">You can share our app with your friends and acquaintances. Help us help others.</string>
+    <string name="call">  call  </string>
+    <string name="message">message</string>
 
 </resources>

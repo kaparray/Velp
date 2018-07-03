@@ -14,6 +14,7 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -100,6 +101,27 @@ public class OpenTaskFragment extends Fragment{
     int helped;
     String name;
 
+
+    // Fragments
+    ProfileFragment profileFragment;
+
+
+    @OnClick(R.id.iv_photoTask)
+    public void openProfile(){
+
+        profileFragment = new ProfileFragment();
+
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .replace(R.id.container, profileFragment)
+                .commit();
+
+        // This is magic bundle. I transit data in DB to OpenTaskFragment
+        Bundle bundle = new Bundle();
+        bundle.putString("UserUID", taskLoader.getUserUID());
+        profileFragment.setArguments(bundle);
+    }
 
     @OnClick(R.id.fab_call)
     public void submit() {
