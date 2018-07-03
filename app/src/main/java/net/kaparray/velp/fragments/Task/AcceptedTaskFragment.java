@@ -293,7 +293,12 @@ public class AcceptedTaskFragment extends Fragment{
             name.setText(title);
 
             try {
-                name.setText(title);
+                if(title.length() < 28){
+                    name.setText(title);
+                }else{
+                    name.setText(title.substring(0, 25) + "...");
+                }
+
             } catch (NullPointerException e){
                 name.setText("Error");
             }
@@ -302,8 +307,13 @@ public class AcceptedTaskFragment extends Fragment{
         // This method return text for value task
         public void setValue(String value) {
             TextView val = mView.findViewById(R.id.tv_nameValue);
+
             try {
-                val.setText(value);
+                if(value.length() < 30){
+                    val.setText(value);
+                }else{
+                    val.setText(value.substring(0, 27) + "...");
+                }
             } catch (NullPointerException e){
                 val.setText("Error");
             }

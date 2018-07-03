@@ -6,7 +6,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -83,6 +86,9 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
     boolean counter;
     boolean counterMin;
     int pointUser;
+
+    LatLng myLocation = new LatLng(0,0);
+    Marker markerLocation;
 
 
     @Override
@@ -168,21 +174,55 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
                 googleMap.getUiSettings().setZoomControlsEnabled(true);
 
 
+
+                LocationManager locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+                Criteria criteria = new Criteria();
+
+                Location location = locationManager.getLastKnownLocation(locationManager
+                        .getBestProvider(criteria, false));
+                double latitude = location.getLatitude();
+                double longitude = location.getLongitude();
+
+
+
+
+                markerLocation = googleMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(latitude, longitude))
+                        .title("set marker for task" + latitude + "  " + longitude));
+
+                markerLocation.setDraggable(true);
+
+
+                googleMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
+                    @Override
+                    public void onMarkerDragStart(Marker marker) {
+
+                    }
+
+                    @Override
+                    public void onMarkerDrag(Marker marker) {
+
+                    }
+
+                    @Override
+                    public void onMarkerDragEnd(Marker marker) {
+                        markerLocation.setPosition(new LatLng(marker.getPosition().latitude, marker.getPosition().longitude));
+                    }
+                });
+
                 googleMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
                     @Override
                     public void onMyLocationChange(Location location) {
                         // For dropping a marker at a point on the Map
-                        LatLng myLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                        myLocation = new LatLng(location.getLatitude(), location.getLongitude());
 
                         // For zooming automatically to the location of the marker
                         CameraPosition cameraPosition = new CameraPosition.Builder().target(myLocation).zoom(12).build();
                         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
                     }
                 });
-
             }
         });
-
 
 
 
@@ -192,7 +232,9 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
            @Override
            public void onClick(View v) {
 
-            if(pointUser > 0 && pointUser > Integer.parseInt(mPointsTask.getText().toString())) {
+            if(pointUser > 0 && pointUser > Integer.parseInt(mPointsTask.getText().toString()) &&
+                    Integer.parseInt(mPointsTask.getText().toString()) >= 0 && Integer.parseInt(mPointsTask.getText().toString()) <= 50000) {
+
                 if (!mPointsTask.getText().toString().equals("") && !mTask.getText().toString().equals("") &&
                         !mValueTask.getText().toString().equals("")) {
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -240,22 +282,8 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
 
                                 mUserAccount.child("time").setValue(currentDateandTime + "");
 
-                                // Location
-                                googleMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
-
-                                    @Override
-                                    public void onMyLocationChange(Location location) {
-                                        if (counter) {
-                                            Marker marker = googleMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).title("It's Me!"));
-                                            marker.isVisible();
-                                            mUserAccount.child("locationLatitude").setValue(location.getLatitude());
-                                            mUserAccount.child("locationLongitude").setValue(location.getLongitude());
-                                            counter = false;
-                                        }
-
-                                    }
-                                });
-
+                                mUserAccount.child("locationLatitude").setValue(markerLocation.getPosition().latitude);
+                                mUserAccount.child("locationLongitude").setValue(markerLocation.getPosition().longitude);
 
                                 ValueEventListener postListener = new ValueEventListener() {
                                     @Override
@@ -384,6 +412,10 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
                 });
                 freeBounuceAlertDialog.show();
 
+            }else if(Integer.parseInt(mPointsTask.getText().toString()) <= 0){
+                Toast.makeText(getActivity(), getString(R.string.remunerationLower), Toast.LENGTH_SHORT).show();
+            }else if(Integer.parseInt(mPointsTask.getText().toString()) >= 50000){
+                Toast.makeText(getActivity(), getString(R.string.remunerationBiger), Toast.LENGTH_SHORT).show();
             }
                
                ((MainActivity) getActivity()).setAddTask(true);
@@ -422,4 +454,6 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
         }
         return false;
     }
+
+
 }

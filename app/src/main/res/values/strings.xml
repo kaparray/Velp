@@ -178,5 +178,14 @@
     <string name="Title_AlretDialogFreePoints">You have no points :(</string>
     <string name="Title_AlretDialogRefuse">Abandon the task?</string>
     <string name="Text_AlretDialogFreeRefuse">Do you want to abandon the task to abandon the task?</string>
+    <string name="remunerationLower">Make the reward greater than zero</string>
+    <string name="remunerationBiger">Make the reward less. A maximum of 50,000</string>
+    <string name="Title_AlretDialogTip">Tip</string>
+    <string name="Text_AlretDialogTipMapMarker">To specify a different location, hold the marker and drag it to the desired location.</string>
+    <string name="ok">ok</string>
+    <string name="freePoints">You can get free 10 points every day.</string>
+    <string name="Get">Get</string>
+    <string name="littleTime">Too little time has passed</string>
+    <string name="manyPoints">More than 10 points</string>
 
 </resources>

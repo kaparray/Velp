@@ -114,8 +114,6 @@ public class OpenTaskFragment extends Fragment{
             intent.setData(Uri.parse("tel:" + mPhone));
             startActivity(intent);
         }
-
-
     }
 
     @Nullable
