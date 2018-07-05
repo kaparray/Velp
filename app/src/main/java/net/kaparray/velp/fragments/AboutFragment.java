@@ -33,6 +33,9 @@ public class AboutFragment extends android.support.v4.app.Fragment{
         mTutorial = rootView.findViewById(R.id.btn_tutorial);
         mWork = rootView.findViewById(R.id.btn_work);
 
+        // Back stack
+        ((MainActivity) getActivity()).setAddTask(false);
+
     // Add title
         ((MainActivity) getActivity()).setTitle(getString(R.string.AboutTitle));
 

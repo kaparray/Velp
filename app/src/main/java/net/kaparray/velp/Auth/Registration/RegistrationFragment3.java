@@ -34,11 +34,9 @@ public class RegistrationFragment3 extends android.support.v4.app.Fragment {
     ImageView mPhoto1;
     ImageView mPhoto2;
     ImageView mPhoto3;
-    ImageView mPhoto4;
     ImageView mPhoto5;
     ImageView mPhoto6;
     ImageView mPhoto7;
-    ImageView mPhoto8;
 
     View rootView;
 
@@ -78,6 +76,7 @@ public class RegistrationFragment3 extends android.support.v4.app.Fragment {
 
 
 
+        // set for normal position
         mPhoto1.setImageDrawable(getResources().getDrawable(R.drawable.ic_boy));
         mPhoto2.setImageDrawable(getResources().getDrawable(R.drawable.ic_boy1));
         mPhoto3.setImageDrawable(getResources().getDrawable(R.drawable.ic_girl));
@@ -85,6 +84,19 @@ public class RegistrationFragment3 extends android.support.v4.app.Fragment {
         mPhoto5.setImageDrawable(getResources().getDrawable(R.drawable.ic_man4));
         mPhoto6.setImageDrawable(getResources().getDrawable(R.drawable.ic_man1));
 
+        mPhoto1.setImageDrawable(null);
+        mPhoto2.setImageDrawable(null);
+        mPhoto3.setImageDrawable(null);
+        mPhoto7.setImageDrawable(null);
+        mPhoto5.setImageDrawable(null);
+        mPhoto6.setImageDrawable(null);
+
+        mPhoto1.setImageDrawable(getResources().getDrawable(R.drawable.ic_boy));
+        mPhoto2.setImageDrawable(getResources().getDrawable(R.drawable.ic_boy1));
+        mPhoto3.setImageDrawable(getResources().getDrawable(R.drawable.ic_girl));
+        mPhoto7.setImageDrawable(getResources().getDrawable(R.drawable.ic_girl1));
+        mPhoto5.setImageDrawable(getResources().getDrawable(R.drawable.ic_man4));
+        mPhoto6.setImageDrawable(getResources().getDrawable(R.drawable.ic_man1));
 
 
         mPhoto1.setOnClickListener(new View.OnClickListener() {
@@ -181,79 +193,74 @@ public class RegistrationFragment3 extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View v) {
 
-                    mAuth.createUserWithEmailAndPassword(((RegistrationActivity) getActivity()).getEmail(), ((RegistrationActivity) getActivity()).getPassword())
-                            .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful() ) {
+                mAuth.createUserWithEmailAndPassword(((RegistrationActivity) getActivity()).getEmail(), ((RegistrationActivity) getActivity()).getPassword())
+                        .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) { if (task.isSuccessful() ) {
 
-                                        if(!photo.equals("")) {
-                                            // Sign in success, update UI with the signed-in user's information
-                                            FirebaseUser user = mAuth.getCurrentUser();
-                                            DatabaseReference mUserAccount = myRef.child(user.getUid());
-                                            mUserAccount.child("email").setValue(((RegistrationActivity) getActivity()).getEmail());
-                                            mUserAccount.child("password").setValue(((RegistrationActivity) getActivity()).getPassword());
-                                            mUserAccount.child("name").setValue(((RegistrationActivity) getActivity()).getName());
-                                            mUserAccount.child("phone").setValue(((RegistrationActivity) getActivity()).getPhone());
-                                            mUserAccount.child("age").setValue(((RegistrationActivity) getActivity()).getAge());
-                                            mUserAccount.child("city").setValue(((RegistrationActivity) getActivity()).getCity());
-                                            mUserAccount.child("points").setValue("100");
-                                            mUserAccount.child("helped").setValue("0");     // Сколько людям помог
-                                            mUserAccount.child("failedTheAssignment").setValue("0");      // Сколько проволил заданий
-                                            mUserAccount.child("rating").setValue("0");   //Рейтинг
-                                            mUserAccount.child("level").setValue("0");  // Уорвень
-                                            mUserAccount.child("status").setValue("user");
-                                            mUserAccount.child("photo").setValue(photo);
-
-
-                                            DatabaseReference rating0 = mUserAccount.child("rating").push();
-                                            rating0.child("nameRating").setValue("help_1_people");
-                                            rating0.child("valueRating").setValue("0");
-                                            rating0.child("key").setValue(rating0.getKey());
-
-                                            DatabaseReference rating1 = mUserAccount.child("rating").push();
-                                            rating1.child("nameRating").setValue("help_10_people");
-                                            rating1.child("valueRating").setValue("0");
-                                            rating1.child("key").setValue(rating1.getKey());
+                                if(!photo.equals("")) {
+                                    // Sign in success, update UI with the signed-in user's information
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    DatabaseReference mUserAccount = myRef.child(user.getUid());
+                                    mUserAccount.child("email").setValue(((RegistrationActivity) getActivity()).getEmail()); // email
+                                    mUserAccount.child("password").setValue(((RegistrationActivity) getActivity()).getPassword()); // password
+                                    mUserAccount.child("name").setValue(((RegistrationActivity) getActivity()).getName());  // name
+                                    mUserAccount.child("phone").setValue(((RegistrationActivity) getActivity()).getPhone()); // phone
+                                    mUserAccount.child("age").setValue(((RegistrationActivity) getActivity()).getAge()); // age
+                                    mUserAccount.child("locationLongitude").setValue(((RegistrationActivity) getActivity()).getLocationLongitude()); // Longitude user
+                                    mUserAccount.child("locationLatitude").setValue(((RegistrationActivity) getActivity()).getLocationLatitude()); // Latitude user
+                                    mUserAccount.child("points").setValue("100"); // points
+                                    mUserAccount.child("helped").setValue("0");     // how many people helped
+                                    mUserAccount.child("failedTheAssignment").setValue("0");      // Сколько проволил заданий
+                                    mUserAccount.child("rating").setValue("0");   //Рейтинг
+                                    mUserAccount.child("level").setValue("0");  // Уорвень
+                                    mUserAccount.child("status").setValue("user"); // status of  user
+                                    mUserAccount.child("photo").setValue(photo);    // set photo
+                                    mUserAccount.child("lastFreePoints").setValue("0");     // time for free points
 
 
-                                            DatabaseReference rating2 = mUserAccount.child("rating").push();
-                                            rating2.child("nameRating").setValue("help_100_people");
-                                            rating2.child("valueRating").setValue("0");
-                                            rating2.child("key").setValue(rating2.getKey());
+                                    // rating 1
+                                    DatabaseReference rating0 = mUserAccount.child("rating").push();
+                                    rating0.child("nameRating").setValue("help_1_people");
+                                    rating0.child("valueRating").setValue("0");
+                                    rating0.child("key").setValue(rating0.getKey());
 
-                                            DatabaseReference rating3 = mUserAccount.child("rating").push();
-                                            rating3.child("nameRating").setValue("help_1000_people");
-                                            rating3.child("valueRating").setValue("0");
-                                            rating3.child("key").setValue(rating3.getKey());
+                                    // rating 2
+                                    DatabaseReference rating1 = mUserAccount.child("rating").push();
+                                    rating1.child("nameRating").setValue("help_10_people");
+                                    rating1.child("valueRating").setValue("0");
+                                    rating1.child("key").setValue(rating1.getKey());
+
+                                    // rating 3
+                                    DatabaseReference rating2 = mUserAccount.child("rating").push();
+                                    rating2.child("nameRating").setValue("help_100_people");
+                                    rating2.child("valueRating").setValue("0");
+                                    rating2.child("key").setValue(rating2.getKey());
+
+                                    // rating 4
+                                    DatabaseReference rating3 = mUserAccount.child("rating").push();
+                                    rating3.child("nameRating").setValue("help_1000_people");
+                                    rating3.child("valueRating").setValue("0");
+                                    rating3.child("key").setValue(rating3.getKey());
 
 
-                                            UserProfileChangeRequest profileUpdatesName = new UserProfileChangeRequest.Builder()
-                                                    .setDisplayName(((RegistrationActivity) getActivity()).getName()).build();
-                                            user.updateProfile(profileUpdatesName);
-                                            toSignIn();
+                                    UserProfileChangeRequest profileUpdatesName = new UserProfileChangeRequest.Builder()
+                                            .setDisplayName(((RegistrationActivity) getActivity()).getName()).build();
+                                    user.updateProfile(profileUpdatesName);
+                                    toSignIn();
 
-                                        }
-
-                                    } else {
-                                        Toast.makeText(getActivity(), "You have not filled in the data", Toast.LENGTH_SHORT).show();
                                     }
+                                } else {
+                                    Toast.makeText(getActivity(), "You have not filled in the data", Toast.LENGTH_SHORT).show();
                                 }
-                            });
+                            }
+                        });
             }
-
         });
-
-
-
-
 
 
         return rootView;
     }
-
-
-
 
 
 

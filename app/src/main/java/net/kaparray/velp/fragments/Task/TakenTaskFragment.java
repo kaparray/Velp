@@ -275,7 +275,7 @@ public class TakenTaskFragment extends Fragment{
         }else{
             progressBar.setVisibility(View.GONE);
             mTextNoInternet.setVisibility(View.VISIBLE);
-            mTextNoInternet.setText(getString(R.string.noInternet));
+            mTextNoInternet.setText(getResources().getString(R.string.noInternet));
             mTextNoInternet.setTextSize(0, 50);
         }
 

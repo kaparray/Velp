@@ -99,6 +99,9 @@ public class BonusFragment extends android.support.v4.app.Fragment {
         ((MainActivity) getActivity()).setTitle(getString(R.string.BonusTitle));
 
 
+        // Back stack
+        ((MainActivity) getActivity()).setAddTask(false);
+
         ButterKnife.bind(this, rootView);
 
 

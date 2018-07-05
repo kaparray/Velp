@@ -35,6 +35,9 @@ public class EventsFragments extends Fragment{
         final View rootView = inflater.inflate(R.layout.fr_event, container, false);
         ((MainActivity) getActivity()).setTitle(getString(R.string.EventTitle));
 
+        // Back stack
+        ((MainActivity) getActivity()).setAddTask(false);
+
         mRecyclerView = rootView.findViewById(R.id.rvEvent);
         // Find branch in firebase
         FirebaseDatabase database = FirebaseDatabase.getInstance();

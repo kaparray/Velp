@@ -144,6 +144,7 @@ public class OpenTaskFragment extends Fragment{
         rootView = inflater.inflate(R.layout.fr_opentask, container, false);
 
 
+        // Back stack
         ((MainActivity) getActivity()).setAddTask(false);
 
         ButterKnife.bind(this, rootView);

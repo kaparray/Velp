@@ -125,6 +125,9 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
         ((MainActivity) getActivity()).setTitle(getString(R.string.AddTaskTitle));
 
 
+        // Back stack
+        ((MainActivity) getActivity()).setAddTask(false);
+
         //Butter Knife
         ButterKnife.bind(this, rootView);
 

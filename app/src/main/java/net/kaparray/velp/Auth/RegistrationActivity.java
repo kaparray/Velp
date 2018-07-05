@@ -53,14 +53,32 @@ public class RegistrationActivity extends AppCompatActivity {
     String name;
     String password;
     String passwordAg;
-    String city;
     String age;
     String phone;
     String email;
+    String locationLatitude;
+    String locationLongitude;
+
 
     String photo = "";
 
     RegistrationFragment1 registrationFragment1;
+
+    public String getLocationLatitude() {
+        return locationLatitude;
+    }
+
+    public void setLocationLatitude(String locationLatitude) {
+        this.locationLatitude = locationLatitude;
+    }
+
+    public String getLocationLongitude() {
+        return locationLongitude;
+    }
+
+    public void setLocationLongitude(String locationLongitude) {
+        this.locationLongitude = locationLongitude;
+    }
 
     public String getName() {
         return name;
@@ -86,13 +104,7 @@ public class RegistrationActivity extends AppCompatActivity {
         this.passwordAg = passwordAg;
     }
 
-    public String getCity() {
-        return city;
-    }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
 
     public String getAge() {
         return age;

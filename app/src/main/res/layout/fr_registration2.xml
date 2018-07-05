@@ -57,22 +57,7 @@
         app:layout_constraintTop_toBottomOf="@+id/et_phone" />
 
 
-    <EditText
-        android:id="@+id/et_city"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/text_round"
-        android:ems="10"
-        android:hint="@string/City"
-        android:inputType="textPostalAddress"
-        android:textColor="@color/Danude"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_age" />
+
 
     <ImageView
         android:id="@+id/imageView"

@@ -33,6 +33,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.maps.android.clustering.ClusterItem;
 import com.google.maps.android.clustering.ClusterManager;
 
@@ -44,6 +45,8 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static net.kaparray.velp.fragments.ProfileFragment.TAG;
 
 public class MapFragment extends Fragment {
 
@@ -85,6 +88,9 @@ public class MapFragment extends Fragment {
 
     String KEY;
 
+    String lat;
+    String log;
+
     View rootView;
 
 
@@ -92,8 +98,25 @@ public class MapFragment extends Fragment {
     private ClusterManager<MyItem> mClusterManager;
 
     private void setUpClusterer(final GoogleMap map) {
-        // Position the map.
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(55.716911, 37.610526), 10));
+
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get user data in Firebase
+                lat = (String) dataSnapshot.child("Users").child(user.getUid()).child("locationLatitude").getValue();
+                log = (String) dataSnapshot.child("Users").child(user.getUid()).child("locationLongitude").getValue();
+
+                // Position the map.
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Double.parseDouble(lat), Double.parseDouble(log)), 10));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+            }
+        };
+        mDatabase.addValueEventListener(postListener);
+
 
         // Initialize the manager with the context and the map.
         // (Activity extends context, so we can pass 'this' in the constructor.)
@@ -198,6 +221,9 @@ public class MapFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fr_map, container, false);
 
         ButterKnife.bind(this, rootView);
+
+        // Back stack
+        ((MainActivity) getActivity()).setAddTask(false);
 
         mMapView = (MapView) rootView.findViewById(R.id.map);
         ((MainActivity) getActivity()).setTitle(getString(R.string.MapTitle));

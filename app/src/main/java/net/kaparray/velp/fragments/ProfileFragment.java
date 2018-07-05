@@ -1,9 +1,15 @@
 package net.kaparray.velp.fragments;
 
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,6 +32,7 @@ import net.kaparray.velp.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ProfileFragment extends Fragment{
 
@@ -41,7 +48,6 @@ public class ProfileFragment extends Fragment{
     @BindView(R.id.btn_ProfileCall) CardView mCall;
     @BindView(R.id.btn_ProfileMessage) CardView mMessage;
 
-
     View rootView;
 
     // Variables
@@ -56,6 +62,28 @@ public class ProfileFragment extends Fragment{
     public static final String TAG = "Points";
 
 
+    @OnClick(R.id.btn_ProfileCall)
+    void call(){
+
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CALL_PHONE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CALL_PHONE},24);
+            Log.d("0000", "WTF");
+
+        }else{
+            Intent intent = new Intent(Intent.ACTION_CALL);
+            intent.setData(Uri.parse("tel:" + phone));
+            startActivity(intent);
+        }
+    }
+
+
+    @OnClick(R.id.btn_ProfileMessage)
+    void message(){
+        // ToDo open message fragmet and open chat with this man
+    }
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -66,6 +94,7 @@ public class ProfileFragment extends Fragment{
 
         ButterKnife.bind(this, rootView);
 
+        ((MainActivity) getActivity()).setAddTask(false);
 
 
 

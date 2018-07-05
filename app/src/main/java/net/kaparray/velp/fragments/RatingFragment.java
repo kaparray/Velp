@@ -66,6 +66,9 @@ public class RatingFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fr_rating, container, false);
         ((MainActivity) getActivity()).setTitle(getString(R.string.RatingTitle));
 
+        // Back stack
+        ((MainActivity) getActivity()).setAddTask(false);
+
         drawable = getResources();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();

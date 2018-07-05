@@ -18,10 +18,10 @@ import android.view.ViewGroup;
 
 import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
-import net.kaparray.velp.fragments.Task.AcceptedTaskFragment;
 import net.kaparray.velp.fragments.Task.NotAcceptedTaskFragment;
 import net.kaparray.velp.fragments.Task.EndTaskFragment;
 import net.kaparray.velp.fragments.Task.MyTaskFragment;
+import net.kaparray.velp.fragments.Task.SearchTaskFragment;
 import net.kaparray.velp.fragments.Task.TakenTaskFragment;
 
 import java.lang.reflect.Field;
@@ -38,7 +38,7 @@ public class TaskFragment extends Fragment{
     @BindView(R.id.navigationView) BottomNavigationView navigation;
 
 
-    private AcceptedTaskFragment acceptedTaskFragment;
+    private SearchTaskFragment acceptedTaskFragment;
     private MyTaskFragment myTaskFragment;
     private EndTaskFragment endTaskFragment;
     private AddTaskFragment addTaskFragment;
@@ -55,7 +55,7 @@ public class TaskFragment extends Fragment{
 
             switch (item.getItemId()) {
                 case R.id.navigation_accepted:
-                    acceptedTaskFragment = new AcceptedTaskFragment();
+                    acceptedTaskFragment = new SearchTaskFragment();
                     getActivity().getSupportFragmentManager()
                             .beginTransaction()
                             .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
@@ -145,7 +145,7 @@ public class TaskFragment extends Fragment{
         super.onStart();
 
 
-        acceptedTaskFragment = new AcceptedTaskFragment();
+        acceptedTaskFragment = new SearchTaskFragment();
 
 
         getActivity().getSupportFragmentManager()

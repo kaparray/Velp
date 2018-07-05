@@ -4,8 +4,8 @@
 
     <item
         android:id="@+id/navigation_accepted"
-        android:icon="@drawable/ic_baseline_assignment_24px"
-        android:title="Accepted"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="Search"
         app:showAsAction="always|withText" />
 
     <item

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
 
 import butterknife.BindView;
@@ -39,6 +40,9 @@ public class ShareFragment extends Fragment{
         View rootView = inflater.inflate(R.layout.fr_share, container,false);
 
         ButterKnife.bind(this, rootView);
+
+        // Back stack
+        ((MainActivity) getActivity()).setAddTask(false);
 
         return rootView;
     }

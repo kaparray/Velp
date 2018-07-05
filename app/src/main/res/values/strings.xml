@@ -190,5 +190,9 @@
     <string name="textShare">You can share our app with your friends and acquaintances. Help us help others.</string>
     <string name="call">  call  </string>
     <string name="message">message</string>
+    <string name="noResults">No results</string>
+
+    <string name="noInternet">No internet</string>
+
 
 </resources>

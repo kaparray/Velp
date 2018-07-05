@@ -35,6 +35,7 @@ import net.kaparray.velp.fragments.BonusFragment;
 import net.kaparray.velp.fragments.ChatFragment;
 import net.kaparray.velp.fragments.EventsFragments;
 import net.kaparray.velp.fragments.MapFragment;
+import net.kaparray.velp.fragments.MessageFragment;
 import net.kaparray.velp.fragments.ProfileFragment;
 import net.kaparray.velp.fragments.RatingFragment;
 import net.kaparray.velp.fragments.SettingsFragment;
@@ -64,6 +65,7 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
     RatingFragment ratingFragment;
     MapFragment mapFragment;
     ShareFragment shareFragment;
+    MessageFragment messageFragment;
     ChangeDataFragment changeDataFragment;
     View mNavHeader;
 
@@ -157,6 +159,7 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
         ratingFragment = new RatingFragment();
         mapFragment = new MapFragment();
         shareFragment = new ShareFragment();
+        messageFragment = new MessageFragment();
 
 
         // Set Fragment
@@ -189,40 +192,42 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
         
     }
 
+
+    // Back button algorithm
     @Override
     public void onBackPressed() {
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-
-        if(mapCard) {
-            CardView mCardInfo = findViewById(R.id.cv_TaskMap);
-            anim = AnimationUtils.loadAnimation(this,R.anim.animate_top_bottom);
-            mCardInfo.startAnimation(anim);
-
-            mCardInfo.setVisibility(View.GONE);
-
-            mapCard = false;
+        if(drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawers();
         }else{
+            if (mapCard) {
+                CardView mCardInfo = findViewById(R.id.cv_TaskMap);
+                anim = AnimationUtils.loadAnimation(this, R.anim.animate_top_bottom);
+                mCardInfo.startAnimation(anim);
 
-            if(!addTask){
+                mCardInfo.setVisibility(View.GONE);
 
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .replace(R.id.container, taskFragment)
-                        .commit();
-
-
-                addTask = true;
+                mapCard = false;
             } else {
-                super.onBackPressed();
+
+                if (!addTask) {
+
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                            .replace(R.id.container, taskFragment)
+                            .commit();
+
+
+                    addTask = true;
+                } else {
+                    super.onBackPressed();
+                }
             }
         }
-
-
-
 
     }
 
@@ -348,6 +353,8 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
             } catch (android.content.ActivityNotFoundException anfe) {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
             }
+            mapCard = false;
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

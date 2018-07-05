@@ -6,38 +6,12 @@
     android:orientation="vertical">
 
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewChat"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"/>
 
 
-        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/card_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:clickable="true"
-            card_view:cardBackgroundColor="@color/Malibu"
-            card_view:cardCornerRadius="15dp"
-            card_view:cardElevation="15dp"
-            card_view:contentPadding="0dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="25dp"
-                android:gravity="center"
-                android:text="@string/coming_soon"
-                android:textColor="@color/white"
-                android:textSize="24sp" />
-
-
-        </android.support.v7.widget.CardView>
-
-
-    </RelativeLayout>
 
 </LinearLayout>

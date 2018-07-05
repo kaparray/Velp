@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +13,14 @@ import android.widget.Button;
 import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
 
+import butterknife.BindView;
 
-public class ChatFragment extends android.support.v4.app.Fragment {
 
-    Button mTutorial;
+ public class ChatFragment extends android.support.v4.app.Fragment {
 
+
+
+    @BindView(R.id.recyclerViewChat) RecyclerView mRecycler;
 
     @Nullable
     @Override

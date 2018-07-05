@@ -25,27 +25,25 @@ public class RegistrationFragment2 extends android.support.v4.app.Fragment {
     EditText mName;
     EditText mPhone;
     EditText mAge;
-    EditText mCity;
 
 
 
     @OnClick(R.id.btn_done2)
     public void submit2() {
 
-        if(!mName.getText().toString().equals("") && !mPhone.getText().toString().equals("") && !mAge.getText().toString().equals("") && !mCity.getText().toString().equals("")) {
-            RegistrationFragment3 registrationFragment3 = new RegistrationFragment3();
+        if(!mName.getText().toString().equals("") && !mPhone.getText().toString().equals("") && !mAge.getText().toString().equals("")) {
+            RegistrationFragment4 registrationFragment4 = new RegistrationFragment4();
 
             getActivity().getSupportFragmentManager()
                     .beginTransaction()
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                    .replace(R.id.main_content, registrationFragment3)
+                    .replace(R.id.main_content, registrationFragment4)
                     .addToBackStack(null)
                     .commit();
 
             ((RegistrationActivity) getActivity()).setName(mName.getText().toString());
             ((RegistrationActivity) getActivity()).setPhone(mPhone.getText().toString());
             ((RegistrationActivity) getActivity()).setAge(mAge.getText().toString());
-            ((RegistrationActivity) getActivity()).setCity(mCity.getText().toString());
 
         }else{
             Toast.makeText(getActivity(), "You have not filled in the data", Toast.LENGTH_SHORT).show();
@@ -67,7 +65,6 @@ public class RegistrationFragment2 extends android.support.v4.app.Fragment {
         mName = rootView.findViewById(R.id.et_name);
         mPhone = rootView.findViewById(R.id.et_phone);
         mAge = rootView.findViewById(R.id.et_age);
-        mCity = rootView.findViewById(R.id.et_city);
 
 
 

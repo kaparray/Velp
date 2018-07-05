@@ -39,6 +39,8 @@ public class WorkFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fr_work, container, false);
         ((MainActivity) getActivity()).setTitle(getString(R.string.title_work));
 
+        // Back stack
+        ((MainActivity) getActivity()).setAddTask(false);
 
         mEmail = rootView.findViewById(R.id.et_emailWork);
         mName = rootView.findViewById(R.id.et_nameWork);

@@ -60,6 +60,9 @@ public class SettingsFragment extends Fragment{
         // Add title
         ((MainActivity) getActivity()).setTitle(getString(R.string.SettingsTitle));
 
+        // Back stack
+        ((MainActivity) getActivity()).setAddTask(false);
+
         // Butter Knife
         ButterKnife.bind(this, rootView);
 
