@@ -195,6 +195,14 @@
     <string name="noInternet">No internet</string>
     <string name="SearchTaskTitle">Search Task</string>
     <string name="smsText">Hello i am from Velp app. I help you!</string>
+    <string name="Search">search</string>
+    <string name="GamesTitle">Games</string>
+    <string name="Upload">upload</string>
+    <string name="Error">error</string>
+    <string name="Complete">complete</string>
+    <string name="gameText">We decided to introduce something cool! It\'s games. Hmm. Weird? We don\'t.  There will be various challenges with a high coefficient. Performing them you will also get ranking points that can be obtained only during this challenge. Participate and win!</string>
+    <string name="gameTextTitle">In this week x2 points</string>
+    <string name="point">points</string>
 
 
 </resources>

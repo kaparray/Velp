@@ -52,7 +52,7 @@ public class TakenTaskFragment extends Fragment{
     private static final String TAG = "All right";
 
     // Util for check click
-    private EndTaskFragment.TaskViewHolder.ClickListener mClickListener;
+    private TakenTaskFragment.TaskViewHolder.ClickListener mClickListener;
 
     // Fragment
     private OpenTaskFragment openTaskFragment;

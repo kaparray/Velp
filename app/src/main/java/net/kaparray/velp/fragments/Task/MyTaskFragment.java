@@ -66,7 +66,7 @@ public class MyTaskFragment extends Fragment{
     private static final String TAG = "All right";
 
     // Util for check click
-    private EndTaskFragment.TaskViewHolder.ClickListener mClickListener;
+    private MyTaskFragment.TaskViewHolder.ClickListener mClickListener;
 
     // Fragment
     private OpenTaskFragment openTaskFragment;

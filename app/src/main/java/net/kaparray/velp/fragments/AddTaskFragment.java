@@ -290,6 +290,9 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
                                        mUserAccount.child("photo").setValue(photo);
                                        mUserAccount.child("done").setValue("false");
 
+                                       mUserAccount.child("doublePoints").setValue("false");     // double pints
+
+
 
                                        //Date and time
                                        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd\n HH:mm");

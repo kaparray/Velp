@@ -20,9 +20,10 @@ public class TaskLoader {
     private String photo;
     private String done;
     private String helped;
+    private String doublePoints;
 
 
-    public TaskLoader(String taskName, String taskValue, String userUID, String key, String nameUser, String uniqueIdentificator, String points, String userTakeUID, String accepted, double locationLatitude, double locationLongitude, String time, String photo, String helped, String done) {
+    public TaskLoader(String taskName, String taskValue, String userUID, String key, String nameUser, String uniqueIdentificator, String points, String userTakeUID, String accepted, double locationLatitude, double locationLongitude, String time, String photo, String helped, String done, String doublePoints) {
         this.nameTask = taskName;
         this.valueTask = taskValue;
         this.userUID = userUID;
@@ -38,6 +39,7 @@ public class TaskLoader {
         this.photo = photo;
         this.helped = helped;
         this.done = done;
+        this.doublePoints = doublePoints;
     }
 
     // For firebase! Without an empty constructor does not work :)
@@ -57,6 +59,15 @@ public class TaskLoader {
         this.time = time;
         this.photo = photo;
         this.key = key;
+    }
+
+
+    public String getDoublePoints() {
+        return doublePoints;
+    }
+
+    public void setDoublePoints(String doublePoints) {
+        this.doublePoints = doublePoints;
     }
 
 

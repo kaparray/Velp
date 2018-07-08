@@ -16,12 +16,14 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 
 import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
+import net.kaparray.velp.fragments.Task.GamesTaskFragment;
 import net.kaparray.velp.fragments.Task.NotAcceptedTaskFragment;
-import net.kaparray.velp.fragments.Task.EndTaskFragment;
 import net.kaparray.velp.fragments.Task.MyTaskFragment;
 import net.kaparray.velp.fragments.Task.SearchTaskFragment;
 import net.kaparray.velp.fragments.Task.TakenTaskFragment;
@@ -43,12 +45,17 @@ public class TaskFragment extends Fragment{
 
     private SearchTaskFragment acceptedTaskFragment;
     private MyTaskFragment myTaskFragment;
-    private EndTaskFragment endTaskFragment;
+    private GamesTaskFragment gamesTaskFragment;
     private AddTaskFragment addTaskFragment;
     private TakenTaskFragment takenTaskFragment;
     private NotAcceptedTaskFragment notAcceptedTaskFragment;
 
     @BindView(R.id.fab) FloatingActionButton fab;
+
+    Animation animVisible;
+    Animation animGone;
+
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -58,6 +65,12 @@ public class TaskFragment extends Fragment{
 
             switch (item.getItemId()) {
                 case R.id.navigation_accepted:
+
+
+                    if(fab.getVisibility() == View.GONE) {
+                        fab.setVisibility(View.VISIBLE);
+                        fab.startAnimation(animVisible);
+                    }
                     acceptedTaskFragment = new SearchTaskFragment();
                     getActivity().getSupportFragmentManager()
                             .beginTransaction()
@@ -66,6 +79,11 @@ public class TaskFragment extends Fragment{
                             .commit();
                     return true;
                 case R.id.navigation_my:
+                    if(fab.getVisibility() == View.GONE) {
+                        fab.setVisibility(View.VISIBLE);
+                        fab.startAnimation(animVisible);
+                    }
+
                     myTaskFragment = new MyTaskFragment();
                     getActivity().getSupportFragmentManager()
                             .beginTransaction()
@@ -75,14 +93,24 @@ public class TaskFragment extends Fragment{
 
                     return true;
                 case R.id.navigation_end:
-                    endTaskFragment = new EndTaskFragment();
+                    if(fab.getVisibility() == View.VISIBLE) {
+                        fab.setVisibility(View.GONE);
+                        fab.startAnimation(animGone);
+                    }
+
+                    gamesTaskFragment = new GamesTaskFragment();
                     getActivity().getSupportFragmentManager()
                             .beginTransaction()
                             .setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                            .replace(R.id.task, endTaskFragment)
+                            .replace(R.id.task, gamesTaskFragment)
                             .commit();
                     return true;
                 case R.id.navigation_not_accepted:
+
+                    if(fab.getVisibility() == View.GONE) {
+                        fab.setVisibility(View.VISIBLE);
+                        fab.startAnimation(animVisible);
+                    }
                     notAcceptedTaskFragment = new NotAcceptedTaskFragment();
                     getActivity().getSupportFragmentManager()
                             .beginTransaction()
@@ -91,6 +119,10 @@ public class TaskFragment extends Fragment{
                             .commit();
                     return true;
                 case R.id.navigation_taken:
+                    if(fab.getVisibility() == View.GONE) {
+                        fab.setVisibility(View.VISIBLE);
+                        fab.startAnimation(animVisible);
+                    }
                     takenTaskFragment = new TakenTaskFragment();
                     getActivity().getSupportFragmentManager()
                             .beginTransaction()
@@ -155,6 +187,13 @@ public class TaskFragment extends Fragment{
     public void onStart() {
         super.onStart();
 
+        animVisible = AnimationUtils.loadAnimation(getContext(),R.anim.fab_anim);
+        animGone = AnimationUtils.loadAnimation(getContext(),R.anim.fab_anim_gone);
+
+
+
+        fab.startAnimation(animVisible);
+
 
         acceptedTaskFragment = new SearchTaskFragment();
 
@@ -168,10 +207,9 @@ public class TaskFragment extends Fragment{
 
 
     }
-
-
-
 }
+
+
 
 
 class BottomNavigationViewHelper {

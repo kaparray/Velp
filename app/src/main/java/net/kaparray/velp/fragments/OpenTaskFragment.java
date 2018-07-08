@@ -229,7 +229,7 @@ public class OpenTaskFragment extends Fragment{
                         }
                     }
                 }catch (Exception e){
-                    Toast.makeText(getContext(), "Hold on", Toast.LENGTH_LONG).show();
+                    Log.d("Error", "Status not set");
                 }
 
 
@@ -297,39 +297,42 @@ public class OpenTaskFragment extends Fragment{
 
 
 
+                try {
+                    Query myTopPostsQuery = mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").orderByChild("key");
+                    myTopPostsQuery.addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-                Query myTopPostsQuery = mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").orderByChild("key");
-                myTopPostsQuery.addChildEventListener(new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
+                            ratingData.add(new RatingData(dataSnapshot.child("nameRating").getValue() + "",
+                                    dataSnapshot.child("valueRating").getValue() + "",
+                                    dataSnapshot.child("key").getValue() + ""));
 
-                        ratingData.add(new RatingData(dataSnapshot.child("nameRating").getValue() + "",
-                                dataSnapshot.child("valueRating").getValue() + "",
-                                dataSnapshot.child("key").getValue() + ""));
+                        }
 
-                    }
+                        @Override
+                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-                    @Override
-                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                        }
 
-                    }
+                        @Override
+                        public void onChildRemoved(DataSnapshot dataSnapshot) {
 
-                    @Override
-                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+                        }
 
-                    }
+                        @Override
+                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
-                    @Override
-                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                        }
 
-                    }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
+                        }
+                    });
+                }catch (Exception e){
+                    Log.d("Error", "Open task Fragment" + e);
+                }
 
             }
 
@@ -395,7 +398,13 @@ public class OpenTaskFragment extends Fragment{
                         mCheck.setImageResource(R.drawable.baseline_query_builder_24px);
                     } else if (taskLoader.getUserUID().equals(user.getUid()) && taskLoader.getAccepted().equals("true")) { // Закончить задачц
                         // End task
-                        point += Integer.parseInt(taskLoader.getPoints());
+
+                        if(taskLoader.getDoublePoints().equals("true")){
+                            point += (Integer.parseInt(taskLoader.getPoints()) * 2);
+
+                        }else{
+                            point += Integer.parseInt(taskLoader.getPoints());
+                        }
                         mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("points").setValue(point + "");
                         mTakeTask.setBackgroundResource(R.drawable.button_round_green);
                         mCheck.setImageResource(R.drawable.baseline_done_all_24px);
