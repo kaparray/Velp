@@ -1,6 +1,7 @@
 package net.kaparray.velp.fragments;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
@@ -25,6 +27,7 @@ import net.kaparray.velp.fragments.Task.SearchTaskFragment;
 import net.kaparray.velp.fragments.Task.TakenTaskFragment;
 
 import java.lang.reflect.Field;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -123,6 +126,14 @@ public class TaskFragment extends Fragment{
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
+                        // Check if no view has focus:
+                        View vieww = Objects.requireNonNull(getActivity()).getCurrentFocus();
+                        if (vieww != null) {
+                            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.hideSoftInputFromWindow(vieww.getWindowToken(), 0);
+                        }
+
                         // Add fragment for add task
                         addTaskFragment = new AddTaskFragment();
 

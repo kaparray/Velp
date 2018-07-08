@@ -1,9 +1,13 @@
 package net.kaparray.velp.Auth;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -147,14 +151,16 @@ public class RegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.ac_registration);
 
 
+            registrationFragment1 = new RegistrationFragment1();
 
-        registrationFragment1 = new RegistrationFragment1();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .replace(R.id.main_content, registrationFragment1)
+                    .commit();
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .replace(R.id.main_content, registrationFragment1)
-                .commit();
+
+
 
     }
 

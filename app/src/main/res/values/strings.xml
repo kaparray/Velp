@@ -193,6 +193,8 @@
     <string name="noResults">No results</string>
 
     <string name="noInternet">No internet</string>
+    <string name="SearchTaskTitle">Search Task</string>
+    <string name="smsText">Hello i am from Velp app. I help you!</string>
 
 
 </resources>

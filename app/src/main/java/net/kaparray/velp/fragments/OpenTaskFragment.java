@@ -182,8 +182,11 @@ public class OpenTaskFragment extends Fragment{
                     Log.d("Error", e+"");
                 }
 
+                try {
+                    mPhone = dataSnapshot.child("Users").child(taskLoader.getUserUID()).child("phone").getValue() + "";
+                }catch (Exception e){
 
-                mPhone = dataSnapshot.child("Users").child(taskLoader.getUserUID()).child("phone").getValue() + "";
+                }
 
                 try {
                     if(!taskLoader.getUserTakeUID().equals("none")){
@@ -444,7 +447,7 @@ public class OpenTaskFragment extends Fragment{
                         clickCounter++;
 
 
-                    } else if (clickCounter > 0 || taskLoader.getUserTakeUID().equals(user.getUid())) { // Не кликай много раз
+                    } else if (clickCounter > 0 || taskLoader.getUserTakeUID().equals(user.getUid()) && taskLoader.getDone().equals("false") ) { // Не кликай много раз
                         /* Refuse task */
                         // if you click in db margin acepted and userTakeUID set to null
 

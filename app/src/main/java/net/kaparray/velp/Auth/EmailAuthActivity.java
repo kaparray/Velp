@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -31,12 +32,17 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import net.kaparray.velp.Auth.Registration.RegistrationFragment1;
 import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
+
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 
 public class EmailAuthActivity extends AppCompatActivity{
 
+
+    public int PERMISSION_ACCESS_COARSE_LOCATION = 100;
     private FirebaseAuth mAuth;
     EditText mPassword;
     EditText mEmail;
@@ -131,11 +137,20 @@ public class EmailAuthActivity extends AppCompatActivity{
         mRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EmailAuthActivity.this, RegistrationActivity.class);
-                startActivity(intent);
-                finish();
+                if (ContextCompat.checkSelfPermission(EmailAuthActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(EmailAuthActivity.this, new String[] { Manifest.permission.ACCESS_COARSE_LOCATION },
+                            PERMISSION_ACCESS_COARSE_LOCATION);
+                }else{
+                    ActivityCompat.requestPermissions(EmailAuthActivity.this, new String[] { Manifest.permission.ACCESS_COARSE_LOCATION },
+                            PERMISSION_ACCESS_COARSE_LOCATION);
+                }
+
+
             }
         });
+
+
 
 
 
@@ -173,6 +188,24 @@ public class EmailAuthActivity extends AppCompatActivity{
         });
 
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case 100:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // All good!
+
+                    Intent intent = new Intent(this, RegistrationActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(this, "Need your location!", Toast.LENGTH_SHORT).show();
+                }
+
+                break;
+        }
+    }
+
 
     public void MainPage(){
         Intent intent = new Intent(this, MainActivity.class);

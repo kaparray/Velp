@@ -201,6 +201,8 @@ public class MyTaskFragment extends Fragment{
                     viewHolder.setValue(model.getValueTask());
                     viewHolder.setUser(model.getNameUser());
                     viewHolder.setPhoto(model.getPhoto(), getResources());
+                    viewHolder.setStatus(model.getAccepted(), model.getDone(), model.getUserTakeUID(), getContext());
+
 
 
                     loderer.add(model);
@@ -431,6 +433,28 @@ public class MyTaskFragment extends Fragment{
                 }
             }catch (NullPointerException e){
                 ph.setImageDrawable(resources.getDrawable(R.drawable.ic_launcher_round));
+            }
+        }
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        public void setStatus(String status, String statusDone, String userTakeUID,  Context context){
+            ImageView ph = mView.findViewById(R.id.iv_status);
+
+            if(statusDone.equals("true") && userTakeUID.equals(user.getUid())){
+                ph.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_done_all_24px));
+            }else if(statusDone.equals("true") && !userTakeUID.equals(user.getUid())){
+                ph.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_done_all_24px));
+            }else if(statusDone.equals("false")){
+                if(status.equals("false")){
+                    ph.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_lock_open_24px));
+                }else if(status.equals("true") && userTakeUID.equals(user.getUid())){
+                    ph.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_done_24px));
+                }else if(status.equals("true")){
+                    ph.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_lock_24px));
+                }
+            }else if(statusDone.equals(user.getUid()) && status.equals("end")){
+                ph.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_done_all_24px));
             }
         }
 

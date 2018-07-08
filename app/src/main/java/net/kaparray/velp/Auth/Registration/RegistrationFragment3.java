@@ -2,6 +2,8 @@ package net.kaparray.velp.Auth.Registration;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -11,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,6 +30,13 @@ import net.kaparray.velp.Auth.AuthActivity;
 import net.kaparray.velp.Auth.RegistrationActivity;
 import net.kaparray.velp.R;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class RegistrationFragment3 extends android.support.v4.app.Fragment {
 
 
@@ -37,6 +48,10 @@ public class RegistrationFragment3 extends android.support.v4.app.Fragment {
     ImageView mPhoto5;
     ImageView mPhoto6;
     ImageView mPhoto7;
+
+    @BindView(R.id.pb_reg) ProgressBar mPB;
+    @BindView(R.id.tv_choose)
+    TextView mTextChoose;
 
     View rootView;
 
@@ -61,6 +76,9 @@ public class RegistrationFragment3 extends android.support.v4.app.Fragment {
 
         rootView = inflater.inflate(R.layout.fr_registration3, container, false);
 
+        ButterKnife.bind(this, rootView);
+
+        mPB.setVisibility(View.GONE);
 
         mRegister = rootView.findViewById(R.id.btn_finishReg);
 
@@ -193,10 +211,20 @@ public class RegistrationFragment3 extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View v) {
 
+                mPhoto1.setVisibility(View.GONE);
+                mPhoto2.setVisibility(View.GONE);
+                mPhoto3.setVisibility(View.GONE);
+                mPhoto7.setVisibility(View.GONE);
+                mPhoto5.setVisibility(View.GONE);
+                mPhoto6.setVisibility(View.GONE);
+                mTextChoose.setVisibility(View.GONE);
+                mPB.setVisibility(View.VISIBLE);
+
                 mAuth.createUserWithEmailAndPassword(((RegistrationActivity) getActivity()).getEmail(), ((RegistrationActivity) getActivity()).getPassword())
                         .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) { if (task.isSuccessful() ) {
+
 
                                 if(!photo.equals("")) {
                                     // Sign in success, update UI with the signed-in user's information
@@ -217,6 +245,36 @@ public class RegistrationFragment3 extends android.support.v4.app.Fragment {
                                     mUserAccount.child("status").setValue("user"); // status of  user
                                     mUserAccount.child("photo").setValue(photo);    // set photo
                                     mUserAccount.child("lastFreePoints").setValue("0");     // time for free points
+
+
+                                    Geocoder geocoder;
+                                    List<Address> addresses = null;
+                                    geocoder = new Geocoder(getContext(), Locale.getDefault());
+
+                                    try {
+                                        addresses = geocoder.getFromLocation(Double.parseDouble(((RegistrationActivity) getActivity()).getLocationLatitude()), Double.parseDouble(((RegistrationActivity) getActivity()).getLocationLongitude()), 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                                    String city = addresses.get(0).getLocality();
+                                    String state = addresses.get(0).getAdminArea();
+                                    String country = addresses.get(0).getCountryName();
+                                    String postalCode = addresses.get(0).getPostalCode();
+                                    String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
+
+                                    mUserAccount.child("address").setValue(address);     // address
+                                    mUserAccount.child("city").setValue(city);     // city
+                                    mUserAccount.child("state").setValue(state);     // state
+                                    mUserAccount.child("country").setValue(country);     // country
+                                    mUserAccount.child("postalCode").setValue(postalCode);     // postalCode
+                                    mUserAccount.child("knownName").setValue(knownName);     // knownName
+
+
+
+
+
 
 
                                     // rating 1
@@ -255,6 +313,8 @@ public class RegistrationFragment3 extends android.support.v4.app.Fragment {
                                 }
                             }
                         });
+                mPB.setVisibility(View.GONE);
+
             }
         });
 

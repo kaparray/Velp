@@ -2,6 +2,8 @@ package net.kaparray.velp.fragments.Task;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -10,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -23,6 +26,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -44,6 +48,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class SearchTaskFragment extends Fragment{
 
@@ -73,7 +79,7 @@ public class SearchTaskFragment extends Fragment{
         rootView = inflater.inflate(R.layout.fr_search, container, false);
 
         // Add title
-        ((MainActivity) getActivity()).setTitle(getString(R.string.AcceptedTaskTitle));
+        ((MainActivity) getActivity()).setTitle(getString(R.string.SearchTaskTitle));
 
 
         //Butter Knife
@@ -119,7 +125,7 @@ public class SearchTaskFragment extends Fragment{
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-                    if(dataSnapshot.child("nameTask").getValue().toString().toLowerCase().contains(text)) {
+                    if((dataSnapshot.child("nameTask").getValue()+"").toLowerCase().contains(text)) {
                         loderer.add(dataSnapshot.getValue(TaskLoader.class));
                     }
 
@@ -152,10 +158,67 @@ public class SearchTaskFragment extends Fragment{
                             }
 
                             @Override
-                            public void onItemLongClick(int position, View v) {
+                            public void onItemLongClick(final int position, View v) {
                                 Log.d(TAG, "onItemLongClick pos = " + position);
+
+                                if (user != null && loderer.get(position).getUserUID().equals(user.getUid())) {
+                                    AlertDialog.Builder AlretDialog = new AlertDialog.Builder(getActivity());
+                                    AlretDialog.setTitle(getString(R.string.Title_AlretDialogDeleteTask));
+                                    AlretDialog.setCancelable(false);
+                                    // Set Theme
+                                    SharedPreferences preferences = getActivity().getSharedPreferences("theme",MODE_PRIVATE);
+                                    String theme = preferences.getString("THEME"," ");
+
+                                    if (theme.equals("dark")){
+                                        AlretDialog.setIcon(R.drawable.ic_delete_white); // add delete icon
+                                    } else if (theme.equals("light")){
+                                        AlretDialog.setIcon(R.drawable.ic_delete_black_24dp); // add delete icon
+                                    }
+
+                                    AlretDialog.setMessage(getString(R.string.Text_AlretDialogDeleteTask));
+                                    AlretDialog.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            dialogInterface.cancel();
+                                        }
+                                    });
+                                    AlretDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            Query applesQuery = mDatabase.child("Task").orderByChild("uniqueIdentificator").equalTo(loderer.get(position).getUniqueIdentificator());
+
+                                            applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                                    for (DataSnapshot appleSnapshot : dataSnapshot.getChildren()) {
+                                                        appleSnapshot.getRef().removeValue();
+                                                        loderer.remove(position); // remove form array list
+
+                                                        adapter.notifyItemRemoved(position);
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onCancelled(DatabaseError databaseError) {
+                                                    Log.e(TAG, "onCancelled", databaseError.toException());
+                                                    Toast.makeText(getActivity(), "Ooops! Error database",
+                                                            Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                            dialogInterface.cancel();
+                                        }
+                                    });
+                                    AlretDialog.show();
+
+                                } else {
+                                    Toast.makeText(getActivity(), R.string.noRootForChange, Toast.LENGTH_SHORT).show();
+                                }
+
                             }
                         });
+
+
+
 
                         mRecyclerView.setVisibility(View.VISIBLE);
                         mTextNoInternetSearch.setVisibility(View.GONE);
@@ -322,6 +385,31 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 ph.setImageDrawable(resources.getDrawable(R.drawable.ic_launcher_round));
             }
         }
+
+        public FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+
+        public void setStatus(String status, String statusDone, String userTakeUID){
+            ImageView ph = mView.findViewById(R.id.iv_status);
+
+
+
+            if(statusDone.equals("true") && userTakeUID.equals(user.getUid())){
+                ph.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_done_all_24px));
+            }else if(statusDone.equals("true") && !userTakeUID.equals(user.getUid())){
+                ph.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_done_all_24px));
+            }else if(statusDone.equals("false")){
+                if(status.equals("false")){
+                    ph.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_lock_open_24px));
+                }else if(status.equals("true") && userTakeUID.equals(user.getUid())){
+                    ph.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_done_24px));
+                }else if(status.equals("true")){
+                    ph.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_lock_24px));
+                }
+            }else if(statusDone.equals(user.getUid()) && status.equals("end")){
+                ph.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_done_all_24px));
+            }
+        }
     }
 
 
@@ -363,6 +451,7 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.setTitleName(loaders.get(position).getNameTask());
         holder.setValue(loaders.get(position).getValueTask());
         holder.setPhoto(loaders.get(position).getPhoto(), contextT.getResources());
+        holder.setStatus(loaders.get(position).getAccepted(), loaders.get(position).getDone(), loaders.get(position).getUserTakeUID());
 
     }
 

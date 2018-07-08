@@ -20,7 +20,6 @@ import butterknife.BindView;
 
 
 
-    @BindView(R.id.recyclerViewChat) RecyclerView mRecycler;
 
     @Nullable
     @Override

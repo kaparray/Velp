@@ -221,6 +221,7 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
                             .replace(R.id.container, taskFragment)
                             .commit();
 
+                    navigationView.setCheckedItem(R.id.nav_task);
 
                     addTask = true;
                 } else {

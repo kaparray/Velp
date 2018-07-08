@@ -33,7 +33,8 @@ public class RegistrationFragment1 extends android.support.v4.app.Fragment {
     @OnClick(R.id.btn_done1)
     public void submit() {
 
-        if(mPassword1.getText().toString().equals(mPassword2.getText().toString()) && isEmailValid() && isPasswordsValid()) {
+        if(mPassword1.getText().toString().equals(mPassword2.getText().toString()) && isEmailValid() && isPasswordsValid()
+                && mPassword1.length() >= 6) {
             RegistrationFragment2 registrationFragment2 = new RegistrationFragment2();
 
             getActivity().getSupportFragmentManager()

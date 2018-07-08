@@ -26,6 +26,7 @@
         android:layout_marginRight="25dp"
         android:background="@drawable/enter_text"
         android:ems="10"
+        android:windowSoftInputMode="stateHidden"
         android:imeOptions="actionSearch"
         android:inputType="textPersonName"
         android:textColor="@color/BlueDeFrance"

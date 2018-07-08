@@ -24,47 +24,63 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:src="@drawable/ic_man1"
             card_view:layout_constraintBottom_toBottomOf="parent"
-            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent" />
 
 
         <TextView
             android:id="@+id/tv_nameTask"
-            android:layout_width="238dp"
-            android:layout_height="21dp"
-            android:layout_margin="10dp"
-            android:layout_marginTop="8dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:text="@string/task_name"
-            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintEnd_toStartOf="@+id/iv_status"
+            card_view:layout_constraintStart_toEndOf="@+id/iv_photoTask"
             card_view:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_nameValue"
-            android:layout_width="240dp"
-            android:layout_height="22dp"
-            android:layout_margin="10dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="@string/value_task"
-            card_view:layout_constraintBottom_toTopOf="@+id/tv_userTask"
-            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toEndOf="@+id/iv_photoTask"
             card_view:layout_constraintTop_toBottomOf="@+id/tv_nameTask"
             tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/tv_userTask"
-            android:layout_width="242dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginBottom="8dp"
+            android:layout_margin="8dp"
+            android:layout_marginBottom="44dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:text="@string/value_task"
             card_view:layout_constraintBottom_toBottomOf="parent"
-            card_view:layout_constraintStart_toStartOf="parent" />
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toEndOf="@+id/iv_photoTask"
+            card_view:layout_constraintTop_toBottomOf="@+id/tv_nameValue" />
+
+        <ImageView
+            android:id="@+id/iv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent"
+            card_view:srcCompat="@drawable/baseline_done_24px" />
 
     </android.support.constraint.ConstraintLayout>
 

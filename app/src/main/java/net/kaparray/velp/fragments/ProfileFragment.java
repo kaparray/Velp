@@ -80,7 +80,12 @@ public class ProfileFragment extends Fragment{
 
     @OnClick(R.id.btn_ProfileMessage)
     void message(){
-        // ToDo open message fragmet and open chat with this man
+        // Open message fragmet and open chat with this man
+
+        Intent smsMsgAppVar = new Intent(Intent.ACTION_VIEW);
+        smsMsgAppVar.setData(Uri.parse("sms:" +  phone));
+        smsMsgAppVar.putExtra("sms_body", getResources().getString(R.string.smsText));
+        startActivity(smsMsgAppVar);
     }
 
 
