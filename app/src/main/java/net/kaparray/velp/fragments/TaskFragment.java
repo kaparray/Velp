@@ -2,15 +2,21 @@ package net.kaparray.velp.fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -19,6 +25,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 
 import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
@@ -33,7 +40,9 @@ import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
+import static android.content.Context.MODE_PRIVATE;
 import static net.kaparray.velp.R.layout.fr_task;
 
 
@@ -51,10 +60,30 @@ public class TaskFragment extends Fragment{
     private NotAcceptedTaskFragment notAcceptedTaskFragment;
 
     @BindView(R.id.fab) FloatingActionButton fab;
+    @BindView(R.id.cv_TutorialIcon) CardView cvTutorial;
+    @BindView(R.id.btn_okTutorial) Button mOkTutorial;
 
     Animation animVisible;
     Animation animGone;
 
+    Animation animVisibleCard;
+    Animation animGoneCard;
+
+
+
+
+    @OnClick(R.id.btn_okTutorial)
+    void clickTutorialOk(){
+        cvTutorial.startAnimation(animGoneCard);
+
+        // For settings
+        SharedPreferences preferences = getActivity().getSharedPreferences("AlertTaskIcon", MODE_PRIVATE);
+        SharedPreferences.Editor editorView = preferences.edit();
+        editorView.putString("AlertTaskIcon", "true");
+        editorView.apply();
+
+        cvTutorial.setVisibility(View.GONE);
+    }
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -152,6 +181,13 @@ public class TaskFragment extends Fragment{
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         BottomNavigationViewHelper.removeShiftMode(navigation);
 
+        // Animation
+        animVisible = AnimationUtils.loadAnimation(getContext(),R.anim.fab_anim);
+        animGone = AnimationUtils.loadAnimation(getContext(),R.anim.fab_anim_gone);
+        animVisibleCard = AnimationUtils.loadAnimation(getContext(),R.anim.beta_animation_games);
+        animGoneCard = AnimationUtils.loadAnimation(getContext(),R.anim.beta_animation_back);
+
+
 
 
         fab.setOnClickListener(
@@ -187,16 +223,20 @@ public class TaskFragment extends Fragment{
     public void onStart() {
         super.onStart();
 
-        animVisible = AnimationUtils.loadAnimation(getContext(),R.anim.fab_anim);
-        animGone = AnimationUtils.loadAnimation(getContext(),R.anim.fab_anim_gone);
-
-
-
         fab.startAnimation(animVisible);
 
 
         acceptedTaskFragment = new SearchTaskFragment();
 
+        // Alert Close Tutorial
+        SharedPreferences preferencesIcon = Objects.requireNonNull(getActivity()).getSharedPreferences("AlertTaskIcon",MODE_PRIVATE);
+        String alertTaskIcon = preferencesIcon.getString("AlertTaskIcon","false");
+
+
+        if(alertTaskIcon.equals("false")) {
+            cvTutorial.setVisibility(View.VISIBLE);
+            cvTutorial.startAnimation(animVisibleCard);
+        }
 
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
@@ -204,9 +244,9 @@ public class TaskFragment extends Fragment{
                 .replace(R.id.task, acceptedTaskFragment)
                 .commit();
 
-
-
     }
+
+
 }
 
 

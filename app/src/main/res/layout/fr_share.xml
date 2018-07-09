@@ -63,7 +63,6 @@
                 android:id="@+id/btn_share"
                 android:layout_width="match_parent"
                 android:layout_height="51dp"
-                android:layout_alignParentBottom="true"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/button_round_green"
                 android:text="Поделиться"

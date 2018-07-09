@@ -180,6 +180,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/gameTextTitle"
         android:textSize="34sp"
+        android:textColor="@color/BlueDeFrance"
         android:background="@drawable/text_round"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

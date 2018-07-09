@@ -102,8 +102,6 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
         super.onCreate(savedInstanceState);
 
 
-
-
         // Set Theme
         SharedPreferences preferences = getSharedPreferences("theme",MODE_PRIVATE);
         String theme = preferences.getString("THEME"," ");

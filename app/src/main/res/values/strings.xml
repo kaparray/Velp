@@ -203,6 +203,22 @@
     <string name="gameText">We decided to introduce something cool! It\'s games. Hmm. Weird? We don\'t.  There will be various challenges with a high coefficient. Performing them you will also get ranking points that can be obtained only during this challenge. Participate and win!</string>
     <string name="gameTextTitle">In this week x2 points</string>
     <string name="point">points</string>
+    <string name="Text_AlretDialog">Get directions</string>
+    <string name="Title_AlretDialogGetDirections">Get directions</string>
+    <string name="Title_AlretDialogIconClose">These are tasks that someone is already doing</string>
+    <string name="Text_AlretDialogClose">These are tasks that someone is already doing</string>
+    <string name="Title_AlretDialogIconTutorial">Icon Tutorial</string>
+    <string name="TutorialIconClock">These are tasks that someone is already doing</string>
+    <string name="TutorialIconOpen">You can perform these tasks</string>
+    <string name="TutorialIconDone">These tasks you perform</string>
+    <string name="TutorialIconDoneAll">You have completed these tasks</string>
+    <string name="TutorialIconTitle">Learning: meaning of icons</string>
+    <string name="TutorialGetDirections">Learning: the directions</string>
+    <string name="TutorialGetDirectionsText">To build a route, click on the marker. Two menus appear on the map. Choose the left!</string>
+    <string name="TutorialMapTitle">Learning: map</string>
+    <string name="TutorialMapText">Here you can choose a task on the map. Just click on the marker. After that, a window will appear which briefly describes the job.  Click on it and find out more information.</string>
+    <string name="messageMe">Writing to yourself is stupid :)</string>
+    <string name="callMe">Calling yourself stupid :)</string>
 
 
 </resources>

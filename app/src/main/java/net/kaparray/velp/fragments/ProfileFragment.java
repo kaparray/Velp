@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -64,28 +65,36 @@ public class ProfileFragment extends Fragment{
 
     @OnClick(R.id.btn_ProfileCall)
     void call(){
+        if((user.getUid()+"").equals(userUID)) {
+            Toast.makeText(this.getActivity(), getResources().getString(R.string.callMe), Toast.LENGTH_SHORT).show();
+        }else {
+            if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CALL_PHONE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CALL_PHONE}, 24);
+                Log.d("0000", "WTF");
 
-        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CALL_PHONE)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CALL_PHONE},24);
-            Log.d("0000", "WTF");
-
-        }else{
-            Intent intent = new Intent(Intent.ACTION_CALL);
-            intent.setData(Uri.parse("tel:" + phone));
-            startActivity(intent);
+            } else {
+                Intent intent = new Intent(Intent.ACTION_CALL);
+                intent.setData(Uri.parse("tel:" + phone));
+                startActivity(intent);
+            }
         }
+
     }
 
 
     @OnClick(R.id.btn_ProfileMessage)
     void message(){
-        // Open message fragmet and open chat with this man
+        if((user.getUid()+"").equals(userUID)) {
+            Toast.makeText(this.getActivity(), getResources().getString(R.string.messageMe), Toast.LENGTH_SHORT).show();
+        }else{
+            // Open message fragmet and open chat with this man
 
-        Intent smsMsgAppVar = new Intent(Intent.ACTION_VIEW);
-        smsMsgAppVar.setData(Uri.parse("sms:" +  phone));
-        smsMsgAppVar.putExtra("sms_body", getResources().getString(R.string.smsText));
-        startActivity(smsMsgAppVar);
+            Intent smsMsgAppVar = new Intent(Intent.ACTION_VIEW);
+            smsMsgAppVar.setData(Uri.parse("sms:" + phone));
+            smsMsgAppVar.putExtra("sms_body", getResources().getString(R.string.smsText));
+            startActivity(smsMsgAppVar);
+        }
     }
 
 
@@ -113,6 +122,7 @@ public class ProfileFragment extends Fragment{
 
         if(!usver){
             getAndSetUserData(user.getUid());
+            userUID = user.getUid();
         }else{
             getAndSetUserData(userUID);
         }

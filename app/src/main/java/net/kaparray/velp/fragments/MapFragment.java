@@ -1,6 +1,7 @@
 package net.kaparray.velp.fragments;
 
 import android.Manifest;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -42,10 +44,13 @@ import net.kaparray.velp.R;
 import net.kaparray.velp.classes_for_data.TaskLoader;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
+import static android.content.Context.MODE_PRIVATE;
 import static net.kaparray.velp.fragments.ProfileFragment.TAG;
 
 public class MapFragment extends Fragment {
@@ -84,6 +89,11 @@ public class MapFragment extends Fragment {
     TextView mTime;
     @BindView(R.id.iv_photoTaskMap)
     ImageView mPhotoUser;
+    @BindView(R.id.cv_mapTutorial)
+    CardView mTutorial;
+    @BindView(R.id.btn_okTutorialMap)
+    Button mOkTurorial;
+
     Animation anim;
 
     String KEY;
@@ -92,6 +102,10 @@ public class MapFragment extends Fragment {
     String log;
 
     View rootView;
+
+    //Animation
+    Animation animVisibleCard;
+    Animation animGoneCard;
 
 
     // Declare a variable for the cluster manager.
@@ -122,7 +136,7 @@ public class MapFragment extends Fragment {
         // (Activity extends context, so we can pass 'this' in the constructor.)
         try {
             mClusterManager = new ClusterManager<MyItem>(getContext(), map);
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 
@@ -134,7 +148,7 @@ public class MapFragment extends Fragment {
         // Add cluster items (markers) to the cluster manager.
         try {
             addItems();
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 
@@ -235,6 +249,10 @@ public class MapFragment extends Fragment {
         mProgressBar = rootView.findViewById(R.id.progressBarInMap);
         mProgressBar.setVisibility(View.VISIBLE);
 
+
+        // Animation
+        animVisibleCard = AnimationUtils.loadAnimation(getContext(), R.anim.beta_animation_games);
+        animGoneCard = AnimationUtils.loadAnimation(getContext(), R.anim.beta_animation_back);
 
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
@@ -355,9 +373,34 @@ public class MapFragment extends Fragment {
         mMapView.onLowMemory();
     }
 
+    @OnClick(R.id.btn_okTutorialMap)
+    void tutorial(){
+        mTutorial.startAnimation(animGoneCard);
 
+        // For settings
+        SharedPreferences preferences = getActivity().getSharedPreferences("AlertMap", MODE_PRIVATE);
+        SharedPreferences.Editor editorView = preferences.edit();
+        editorView.putString("AlertMap", "true");
+        editorView.apply();
+
+        mTutorial.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // Custom Tutorial
+        SharedPreferences preferencesIcon = Objects.requireNonNull(getActivity()).getSharedPreferences("AlertMap", MODE_PRIVATE);
+        String alertTaskIcon = preferencesIcon.getString("AlertMap", "false");
+
+
+        if (alertTaskIcon.equals("false")) {
+            mTutorial.setVisibility(View.VISIBLE);
+            mTutorial.startAnimation(animVisibleCard);
+        }
+    }
 }
-
 
 class MyItem implements ClusterItem {
     private final LatLng mPosition;

@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
@@ -17,10 +18,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -51,10 +55,13 @@ import net.kaparray.velp.classes_for_data.TaskLoader;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class OpenTaskFragment extends Fragment{
@@ -77,11 +84,16 @@ public class OpenTaskFragment extends Fragment{
     @BindView(R.id.iv_photoTask) ImageView mPhoto;
     @BindView(R.id.iv_check) ImageView mCheck;
     @BindView(R.id.fab_call) FloatingActionButton mCall;
+    @BindView(R.id.cv_TutorialDirections) CardView mCardTutorial;
 
     // String variable
     String KEY_Task;
     String photo;
     String mPhone;
+
+    //Animation
+    Animation animVisibleCard;
+    Animation animGoneCard;
 
 
     // Task Loader Fragment
@@ -138,6 +150,20 @@ public class OpenTaskFragment extends Fragment{
         }
     }
 
+
+    @OnClick(R.id.btn_okTutorialDirections)
+    void tutorial(){
+        mCardTutorial.startAnimation(animGoneCard);
+
+        // For settings
+        SharedPreferences preferences = getActivity().getSharedPreferences("AlertTaskDirections", MODE_PRIVATE);
+        SharedPreferences.Editor editorView = preferences.edit();
+        editorView.putString("AlertTaskDirections", "true");
+        editorView.apply();
+
+        mCardTutorial.setVisibility(View.GONE);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -149,6 +175,10 @@ public class OpenTaskFragment extends Fragment{
 
         ButterKnife.bind(this, rootView);
 
+
+        // Animation
+        animVisibleCard = AnimationUtils.loadAnimation(getContext(),R.anim.beta_animation_games);
+        animGoneCard = AnimationUtils.loadAnimation(getContext(),R.anim.beta_animation_back);
 
         mCall.setVisibility(View.GONE);
         mTakeTask.isClickable();
@@ -504,7 +534,24 @@ public class OpenTaskFragment extends Fragment{
     }
 
 
+    @Override
+    public void onStart() {
+        super.onStart();
 
+        // Custom Tutorial
+        SharedPreferences preferencesIcon = Objects.requireNonNull(getActivity()).getSharedPreferences("AlertTaskDirections",MODE_PRIVATE);
+        String alertTaskIcon = preferencesIcon.getString("AlertTaskDirections","false");
+
+
+        if(alertTaskIcon.equals("false")) {
+            mCardTutorial.setVisibility(View.VISIBLE);
+            mCardTutorial.startAnimation(animVisibleCard);
+        }
+
+
+
+
+    }
 
     @Override
     public void onDestroyView() {

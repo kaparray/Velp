@@ -8,17 +8,27 @@ public class EventLoader{
     private String valueEvent;
     private String organizerEvent;
     private String photoLoad;
+    private String linkEvent;
 
 
 
-    public EventLoader(String nameEvent, String valueEvent, String organizerEvent, String photoLoad) {
+    public EventLoader(String nameEvent, String valueEvent, String organizerEvent, String photoLoad, String linkEvent) {
         this.nameEvent = nameEvent;
         this.valueEvent = valueEvent;
         this.organizerEvent = organizerEvent;
         this.photoLoad = photoLoad;
+        this.linkEvent = linkEvent;
     }
 
     public EventLoader() {
+    }
+
+    public String getLinkEvent() {
+        return linkEvent;
+    }
+
+    public void setLinkEvent(String linkEvent) {
+        this.linkEvent = linkEvent;
     }
 
     public String getNameEvent() {
