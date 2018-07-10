@@ -71,7 +71,6 @@ public class RegistrationFragment4 extends android.support.v4.app.Fragment {
 
 
 
-    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

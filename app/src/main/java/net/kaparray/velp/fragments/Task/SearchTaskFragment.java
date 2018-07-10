@@ -45,6 +45,7 @@ import net.kaparray.velp.fragments.OpenTaskFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -72,6 +73,8 @@ public class SearchTaskFragment extends Fragment{
     MyAdapter adapter;
 
     View rootView;
+
+    int counter = 0;
 
 
     @Override
@@ -102,7 +105,7 @@ public class SearchTaskFragment extends Fragment{
         ButterKnife.bind(this, rootView);
 
         loderer = new ArrayList<TaskLoader>();
-        search(" ");
+        search("");
 
 
         // onClick Search in keyboard
@@ -141,110 +144,118 @@ public class SearchTaskFragment extends Fragment{
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-                    if((dataSnapshot.child("nameTask").getValue()+"").toLowerCase().contains(text)) {
+                    // Custom Tutorial
+                    SharedPreferences preferencesUserDemo = Objects.requireNonNull(getActivity()).getSharedPreferences("DemoUser", MODE_PRIVATE);
+                    String userDemo = preferencesUserDemo.getString("DemoUser", "false");
+
+
+
+                    if ((dataSnapshot.child("nameTask").getValue() + "").toLowerCase().contains(text)) {
                         loderer.add(dataSnapshot.getValue(TaskLoader.class));
                     }
 
-                    if(loderer.size() > 0) {
-                        //Set adapter
-                        adapter = new MyAdapter(loderer, getContext());
-                        mRecyclerView.setAdapter(adapter);
+
+                            if (loderer.size() > 0) {
+                            //Set adapter
 
 
-                        adapter.setOnItemClickListener(new MyAdapter.ClickListener() {
-                            public static final String TAG = "fb";
-
-                            @Override
-                            public void onItemClick(int position, View v) {
-                                Log.d(TAG, "onItemClick position: " + position);
-
-                                openTaskFragment = new OpenTaskFragment();
-
-                                getActivity().getSupportFragmentManager()
-                                        .beginTransaction()
-                                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                                        .replace(R.id.container, openTaskFragment)
-                                        .commit();
+                            adapter = new MyAdapter(loderer, getContext());
+                            mRecyclerView.setAdapter(adapter);
 
 
-                                // This is magic bundle. I transit data in DB to OpenTaskFragment
-                                Bundle bundle = new Bundle();
-                                bundle.putString("TaskKey", loderer.get(position).getKey());
-                                openTaskFragment.setArguments(bundle);
-                            }
+                            adapter.setOnItemClickListener(new MyAdapter.ClickListener() {
+                                public static final String TAG = "fb";
 
-                            @Override
-                            public void onItemLongClick(final int position, View v) {
-                                Log.d(TAG, "onItemLongClick pos = " + position);
+                                @Override
+                                public void onItemClick(int position, View v) {
+                                    Log.d(TAG, "onItemClick position: " + position);
 
-                                if (user != null && loderer.get(position).getUserUID().equals(user.getUid())) {
-                                    AlertDialog.Builder AlretDialog = new AlertDialog.Builder(getActivity());
-                                    AlretDialog.setTitle(getString(R.string.Title_AlretDialogDeleteTask));
-                                    AlretDialog.setCancelable(false);
-                                    // Set Theme
-                                    SharedPreferences preferences = getActivity().getSharedPreferences("theme",MODE_PRIVATE);
-                                    String theme = preferences.getString("THEME"," ");
+                                    openTaskFragment = new OpenTaskFragment();
 
-                                    if (theme.equals("dark")){
-                                        AlretDialog.setIcon(R.drawable.ic_delete_white); // add delete icon
-                                    } else if (theme.equals("light")){
-                                        AlretDialog.setIcon(R.drawable.ic_delete_black_24dp); // add delete icon
-                                    }
+                                    getActivity().getSupportFragmentManager()
+                                            .beginTransaction()
+                                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                                            .replace(R.id.container, openTaskFragment)
+                                            .commit();
 
-                                    AlretDialog.setMessage(getString(R.string.Text_AlretDialogDeleteTask));
-                                    AlretDialog.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialogInterface, int i) {
-                                            dialogInterface.cancel();
-                                        }
-                                    });
-                                    AlretDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialogInterface, int i) {
-                                            Query applesQuery = mDatabase.child("Task").orderByChild("uniqueIdentificator").equalTo(loderer.get(position).getUniqueIdentificator());
 
-                                            applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                @Override
-                                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                                    for (DataSnapshot appleSnapshot : dataSnapshot.getChildren()) {
-                                                        appleSnapshot.getRef().removeValue();
-                                                        loderer.remove(position); // remove form array list
-
-                                                        adapter.notifyItemRemoved(position);
-                                                    }
-                                                }
-
-                                                @Override
-                                                public void onCancelled(DatabaseError databaseError) {
-                                                    Log.e(TAG, "onCancelled", databaseError.toException());
-                                                    Toast.makeText(getActivity(), "Ooops! Error database",
-                                                            Toast.LENGTH_SHORT).show();
-                                                }
-                                            });
-                                            dialogInterface.cancel();
-                                        }
-                                    });
-                                    AlretDialog.show();
-
-                                } else {
-                                    Toast.makeText(getActivity(), R.string.noRootForChange, Toast.LENGTH_SHORT).show();
+                                    // This is magic bundle. I transit data in DB to OpenTaskFragment
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("TaskKey", loderer.get(position).getKey());
+                                    openTaskFragment.setArguments(bundle);
                                 }
 
-                            }
-                        });
+                                @Override
+                                public void onItemLongClick(final int position, View v) {
+                                    Log.d(TAG, "onItemLongClick pos = " + position);
+
+                                    if (user != null && loderer.get(position).getUserUID().equals(user.getUid())) {
+                                        AlertDialog.Builder AlretDialog = new AlertDialog.Builder(getActivity());
+                                        AlretDialog.setTitle(getString(R.string.Title_AlretDialogDeleteTask));
+                                        AlretDialog.setCancelable(false);
+                                        // Set Theme
+                                        SharedPreferences preferences = getActivity().getSharedPreferences("theme", MODE_PRIVATE);
+                                        String theme = preferences.getString("THEME", " ");
+
+                                        if (theme.equals("dark")) {
+                                            AlretDialog.setIcon(R.drawable.ic_delete_white); // add delete icon
+                                        } else if (theme.equals("light")) {
+                                            AlretDialog.setIcon(R.drawable.ic_delete_black_24dp); // add delete icon
+                                        }
+
+                                        AlretDialog.setMessage(getString(R.string.Text_AlretDialogDeleteTask));
+                                        AlretDialog.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                dialogInterface.cancel();
+                                            }
+                                        });
+                                        AlretDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                Query applesQuery = mDatabase.child("Task").orderByChild("uniqueIdentificator").equalTo(loderer.get(position).getUniqueIdentificator());
+
+                                                applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                                        for (DataSnapshot appleSnapshot : dataSnapshot.getChildren()) {
+                                                            appleSnapshot.getRef().removeValue();
+                                                            loderer.remove(position); // remove form array list
+
+                                                            adapter.notifyItemRemoved(position);
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(DatabaseError databaseError) {
+                                                        Log.e(TAG, "onCancelled", databaseError.toException());
+                                                        Toast.makeText(getActivity(), "Ooops! Error database",
+                                                                Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+                                                dialogInterface.cancel();
+                                            }
+                                        });
+                                        AlretDialog.show();
+
+                                    } else {
+                                        Toast.makeText(getActivity(), R.string.noRootForChange, Toast.LENGTH_SHORT).show();
+                                    }
+
+                                }
+                            });
 
 
+                            mRecyclerView.setVisibility(View.VISIBLE);
+                            mTextNoInternetSearch.setVisibility(View.GONE);
+                            progressBar.setVisibility(View.GONE);
 
+                        } else {
+                            mRecyclerView.setVisibility(View.GONE);
+                            mTextNoInternetSearch.setVisibility(View.VISIBLE);
+                            mTextNoInternetSearch.setText(getResources().getString(R.string.noResults));
+                        }
 
-                        mRecyclerView.setVisibility(View.VISIBLE);
-                        mTextNoInternetSearch.setVisibility(View.GONE);
-                        progressBar.setVisibility(View.GONE);
-
-                    }else{
-                        mRecyclerView.setVisibility(View.GONE);
-                        mTextNoInternetSearch.setVisibility(View.VISIBLE);
-                        mTextNoInternetSearch.setText(getResources().getString(R.string.noResults));
-                    }
 
 
                 }
@@ -275,7 +286,17 @@ public class SearchTaskFragment extends Fragment{
             mTextNoInternetSearch.setText(getResources().getString(R.string.noInternet));
         }
 
+
+
+        if(loderer.size() < 0){
+            mRecyclerView.setVisibility(View.GONE);
+            mTextNoInternetSearch.setVisibility(View.VISIBLE);
+            mTextNoInternetSearch.setText(getResources().getString(R.string.noResults));
+        }
+
     }
+
+
 
 
     // Enternet connection
@@ -396,6 +417,8 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                     ph.setImageDrawable(resources.getDrawable(R.drawable.ic_man3));
                 } else if (photo.equals("ic_man4")) {
                     ph.setImageDrawable(resources.getDrawable(R.drawable.ic_man4));
+                } else if(photo.equals("demo")){
+                    ph.setImageDrawable(resources.getDrawable(R.drawable.ic_image2vector));
                 }
             }catch (NullPointerException e){
                 ph.setImageDrawable(resources.getDrawable(R.drawable.ic_launcher_round));

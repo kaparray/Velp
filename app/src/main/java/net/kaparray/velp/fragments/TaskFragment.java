@@ -63,6 +63,8 @@ public class TaskFragment extends Fragment{
     @BindView(R.id.cv_TutorialIcon) CardView cvTutorial;
     @BindView(R.id.btn_okTutorial) Button mOkTutorial;
 
+    @BindView(R.id.cv_TutorialDemo) CardView mCardDemoTask;
+
     Animation animVisible;
     Animation animGone;
 
@@ -70,6 +72,18 @@ public class TaskFragment extends Fragment{
     Animation animGoneCard;
 
 
+    @OnClick(R.id.btn_okTutorialDemo)
+    void tutorialDemo(){
+        mCardDemoTask.startAnimation(animGoneCard);
+
+        // For settings
+        SharedPreferences preferences = getActivity().getSharedPreferences("DemoAnim", MODE_PRIVATE);
+        SharedPreferences.Editor editorView = preferences.edit();
+        editorView.putString("DemoAnim", "true");
+        editorView.apply();
+
+        mCardDemoTask.setVisibility(View.GONE);
+    }
 
 
     @OnClick(R.id.btn_okTutorial)
@@ -232,8 +246,14 @@ public class TaskFragment extends Fragment{
         SharedPreferences preferencesIcon = Objects.requireNonNull(getActivity()).getSharedPreferences("AlertTaskIcon",MODE_PRIVATE);
         String alertTaskIcon = preferencesIcon.getString("AlertTaskIcon","false");
 
+        // Alert Close Tutorial
+        SharedPreferences preferencesDemo = Objects.requireNonNull(getActivity()).getSharedPreferences("DemoAnim",MODE_PRIVATE);
+        String alertTaskDemo = preferencesDemo.getString("DemoAnim","false");
 
-        if(alertTaskIcon.equals("false")) {
+        if(alertTaskDemo.equals("false")) {
+            mCardDemoTask.setVisibility(View.VISIBLE);
+            mCardDemoTask.startAnimation(animVisibleCard);
+        }else if(alertTaskIcon.equals("false")){
             cvTutorial.setVisibility(View.VISIBLE);
             cvTutorial.startAnimation(animVisibleCard);
         }

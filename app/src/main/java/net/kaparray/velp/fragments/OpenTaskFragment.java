@@ -57,6 +57,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -85,6 +86,8 @@ public class OpenTaskFragment extends Fragment{
     @BindView(R.id.iv_check) ImageView mCheck;
     @BindView(R.id.fab_call) FloatingActionButton mCall;
     @BindView(R.id.cv_TutorialDirections) CardView mCardTutorial;
+    @BindView(R.id.cv_TutorialGetTask) CardView mCardGetTask;
+    @BindView(R.id.tv_textGetTask) TextView mTextGetTask;
 
     // String variable
     String KEY_Task;
@@ -118,6 +121,20 @@ public class OpenTaskFragment extends Fragment{
     ProfileFragment profileFragment;
 
 
+    @OnClick(R.id.btn_okTutorialGetTask)
+    void getTaskTut(){
+        mCardGetTask.startAnimation(animGoneCard);
+
+        // For settings
+        SharedPreferences preferences = getActivity().getSharedPreferences("TutorialGetTask", MODE_PRIVATE);
+        SharedPreferences.Editor editorView = preferences.edit();
+        editorView.putString("TutorialGetTask", "true");
+        editorView.apply();
+
+        mCardGetTask.setVisibility(View.GONE);
+    }
+
+
     @OnClick(R.id.iv_photoTask)
     public void openProfile(){
 
@@ -141,9 +158,41 @@ public class OpenTaskFragment extends Fragment{
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CALL_PHONE)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CALL_PHONE},24);
-            Log.d("0000", "WTF");
+
+            mTextGetTask.setText(getResources().getString(R.string.callDemoAgein));
+            mCardGetTask.setVisibility(View.VISIBLE);
+            mCardGetTask.startAnimation(animVisibleCard);
 
         }else{
+
+            // Custom Tutorial
+            SharedPreferences preferencesUserDemo = Objects.requireNonNull(getActivity()).getSharedPreferences("DemoUser", MODE_PRIVATE);
+            String userDemo = preferencesUserDemo.getString("DemoUser", "false");
+
+
+            if(userDemo.equals("false")) {
+                if(taskLoader.getDone().equals("demo") && taskLoader.getAccepted().equals("demo")
+                        && taskLoader.getUserTakeUID().equals("demo")){
+                    // End Demo task
+
+                    point += Integer.parseInt(taskLoader.getPoints());
+
+                    mDatabase.child("Users").child(user.getUid()).child("points").setValue(point + "");
+                    mTakeTask.setBackgroundResource(R.drawable.button_round_green);
+                    mCheck.setImageResource(R.drawable.baseline_done_all_24px);
+                    mTakeTask.setText(R.string.Finished);
+
+
+                    // For settings
+                    SharedPreferences preferences = getActivity().getSharedPreferences("DemoUser", MODE_PRIVATE);
+                    SharedPreferences.Editor editorView = preferences.edit();
+                    editorView.putString("DemoUser", "true");
+                    editorView.apply();
+                }
+            }
+
+
+
             Intent intent = new Intent(Intent.ACTION_CALL);
             intent.setData(Uri.parse("tel:" + mPhone));
             startActivity(intent);
@@ -219,45 +268,60 @@ public class OpenTaskFragment extends Fragment{
                 }
 
                 try {
-                    if(!taskLoader.getUserTakeUID().equals("none")){
+                    if(taskLoader.getDone().equals("demo") && taskLoader.getAccepted().equals("demo")
+                            && taskLoader.getUserTakeUID().equals("demo")){
+                        point = Integer.parseInt(dataSnapshot.child("Users").child(user.getUid()).child("points").getValue()+"");
+                    } else if(!taskLoader.getUserTakeUID().equals("none")){
                         point = Integer.parseInt(dataSnapshot.child("Users").child(taskLoader.getUserTakeUID()).child("points").getValue()+"");
                     }
 
-                    if(taskLoader.getAccepted().equals("end")){
+                    if(taskLoader.getDone().equals("demo") && taskLoader.getAccepted().equals("demo")
+                            && taskLoader.getUserTakeUID().equals("demo")) {
+
                         mPhoneUser.setText(mPhone);
-                        mTakeTask.setBackgroundResource(R.drawable.button_round_green);
-                        mTakeTask.setText(R.string.Finished);
+                        mTakeTask.setBackgroundResource(R.drawable.button_round);
+                        mTakeTask.setText(R.string.TakeTask);
                         mCheck.setImageResource(R.drawable.baseline_done_all_24px);
                         mCall.setVisibility(View.VISIBLE);
-                    }else if(taskLoader.getUserUID().equals(user.getUid()) && taskLoader.getAccepted().equals("false")){
-                        mTakeTask.setText(R.string.NotGot);
-                        mCheck.setImageResource(R.drawable.baseline_query_builder_24px);
-                        mTakeTask.setBackgroundResource(R.drawable.button_round_grey);
-                        mPhoneUser.setText(mPhone);
+
                     }else{
-                        mTakeTask.setText(R.string.TakeTask);
-                        mCheck.setImageResource(R.drawable.baseline_lock_open_24px);
-
-                    }
-
-                    if(taskLoader.getAccepted().equals("true")){
-                        if(!taskLoader.getUserUID().equals(user.getUid()) && !taskLoader.getUserTakeUID().equals(user.getUid())){
-                            mTakeTask.setText(R.string.AlreadyTaken);
-                            mCheck.setImageResource(R.drawable.baseline_lock_24px);
-
-                        }else if(taskLoader.getUserTakeUID().equals(user.getUid())){
-                            mTakeTask.setText(R.string.Refuse);
-                            mTakeTask.setBackgroundResource(R.drawable.button_round_ligt_red);
+                        if (taskLoader.getAccepted().equals("end")) {
                             mPhoneUser.setText(mPhone);
-                            mCheck.setImageResource(R.drawable.baseline_done_24px);
+                            mTakeTask.setBackgroundResource(R.drawable.button_round_green);
+                            mTakeTask.setText(R.string.Finished);
+                            mCheck.setImageResource(R.drawable.baseline_done_all_24px);
                             mCall.setVisibility(View.VISIBLE);
-                        }else if(taskLoader.getUserUID().equals(user.getUid())){
-                            mTakeTask.setText(R.string.Finish);
-                            mCheck.setImageResource(R.drawable.baseline_done_24px);
+                        } else if (taskLoader.getUserUID().equals(user.getUid()) && taskLoader.getAccepted().equals("false")) {
+                            mTakeTask.setText(R.string.NotGot);
+                            mCheck.setImageResource(R.drawable.baseline_query_builder_24px);
+                            mTakeTask.setBackgroundResource(R.drawable.button_round_grey);
                             mPhoneUser.setText(mPhone);
-                            mCall.setVisibility(View.VISIBLE);
+                        } else {
+                            mTakeTask.setText(R.string.TakeTask);
+                            mCheck.setImageResource(R.drawable.baseline_lock_open_24px);
+
+                        }
+
+                        if (taskLoader.getAccepted().equals("true")) {
+                            if (!taskLoader.getUserUID().equals(user.getUid()) && !taskLoader.getUserTakeUID().equals(user.getUid())) {
+                                mTakeTask.setText(R.string.AlreadyTaken);
+                                mCheck.setImageResource(R.drawable.baseline_lock_24px);
+
+                            } else if (taskLoader.getUserTakeUID().equals(user.getUid())) {
+                                mTakeTask.setText(R.string.Refuse);
+                                mTakeTask.setBackgroundResource(R.drawable.button_round_ligt_red);
+                                mPhoneUser.setText(mPhone);
+                                mCheck.setImageResource(R.drawable.baseline_done_24px);
+                                mCall.setVisibility(View.VISIBLE);
+                            } else if (taskLoader.getUserUID().equals(user.getUid())) {
+                                mTakeTask.setText(R.string.Finish);
+                                mCheck.setImageResource(R.drawable.baseline_done_24px);
+                                mPhoneUser.setText(mPhone);
+                                mCall.setVisibility(View.VISIBLE);
+                            }
                         }
                     }
+
                 }catch (Exception e){
                     Log.d("Error", "Status not set");
                 }
@@ -276,51 +340,62 @@ public class OpenTaskFragment extends Fragment{
                         try {
                             mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_boy));
                         }catch (Exception e){
-                            mPhoto.setImageResource(R.drawable.ic_launcher_round);                        }
+                            mPhoto.setImageResource(R.drawable.ic_launcher_round);
+                        }
                     } else if(photo.equals("ic_boy1")){
                         try {
                             mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_boy1));
                         }catch (Exception e){
-                            mPhoto.setImageResource(R.drawable.ic_launcher_round);                        }
+                            mPhoto.setImageResource(R.drawable.ic_launcher_round);
+                        }
                     }else if(photo.equals("ic_girl")){
                         try {
                             mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_girl));
                         }catch (Exception e){
-                            mPhoto.setImageResource(R.drawable.ic_launcher_round);                        }
+                            mPhoto.setImageResource(R.drawable.ic_launcher_round);
+                        }
                     }else if(photo.equals("ic_girl1")){
                         try {
                             mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_girl1));
                         }catch (Exception e){
-                            mPhoto.setImageResource(R.drawable.ic_launcher_round);                        }
+                            mPhoto.setImageResource(R.drawable.ic_launcher_round);
+                        }
                     }else if(photo.equals("ic_man1")){
                         try {
                             mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_man1));
                         }catch (Exception e){
-                            mPhoto.setImageResource(R.drawable.ic_launcher_round);                        }
+                            mPhoto.setImageResource(R.drawable.ic_launcher_round);
+                        }
                     }else if(photo.equals("ic_man2")){
                         try {
                             mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_man2));
                         }catch (Exception e){
-                            mPhoto.setImageResource(R.drawable.ic_launcher_round);                        }
+                            mPhoto.setImageResource(R.drawable.ic_launcher_round);
+                        }
                     }else if(photo.equals("ic_man3")){
                         try {
                             mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_man3));
                         }catch (Exception e){
-                            mPhoto.setImageResource(R.drawable.ic_launcher_round);                        }
+                            mPhoto.setImageResource(R.drawable.ic_launcher_round);
+                        }
                     }else if(photo.equals("ic_man4")){
                         try {
                             mPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_man4));
                         }catch (Exception e){
-                            mPhoto.setImageResource(R.drawable.ic_launcher_round);                        }
+                            mPhoto.setImageResource(R.drawable.ic_launcher_round);
+                        }
                     }else if(photo.equals("velp")){
-                        mPhoto.setImageResource(R.drawable.ic_launcher_round);                    }
+                        mPhoto.setImageResource(R.drawable.ic_launcher_round);
+                    }else if(photo.equals("demo")){
+                        mPhoto.setImageResource(R.drawable.ic_image2vector);
+                    }
                 }catch (Exception e){
 
                 }
 
 
                 try {
-                    helped = Integer.parseInt(dataSnapshot.child("Users").child(taskLoader.getUserTakeUID()).child("helped").getValue() + "");
+                        helped = Integer.parseInt(dataSnapshot.child("Users").child(taskLoader.getUserTakeUID()).child("helped").getValue() + "");
                 }catch (Exception e){
 
                 }
@@ -422,106 +497,131 @@ public class OpenTaskFragment extends Fragment{
             public void onClick(View v) {
                 try {
 
-                    if (taskLoader.getUserUID().equals(user.getUid()) && taskLoader.getAccepted().equals("false")) { // Нельзя юоать свои
-                        Toast.makeText(getActivity(), R.string.Own, Toast.LENGTH_LONG).show();
-                        mDatabase.child("Task").child(KEY_Task).child("userTakeUID").setValue(user.getUid());
-                        mCheck.setImageResource(R.drawable.baseline_query_builder_24px);
-                    } else if (taskLoader.getUserUID().equals(user.getUid()) && taskLoader.getAccepted().equals("true")) { // Закончить задачц
-                        // End task
+                    // Custom Tutorial
+                    SharedPreferences preferencesUserDemo = Objects.requireNonNull(getActivity()).getSharedPreferences("DemoUser", MODE_PRIVATE);
+                    String userDemo = preferencesUserDemo.getString("DemoUser", "false");
 
-                        if(taskLoader.getDoublePoints().equals("true")){
-                            point += (Integer.parseInt(taskLoader.getPoints()) * 2);
 
-                        }else{
-                            point += Integer.parseInt(taskLoader.getPoints());
+                    if(userDemo.equals("false")){
+
+                        if(taskLoader.getDone().equals("demo") && taskLoader.getAccepted().equals("demo")
+                                && taskLoader.getUserTakeUID().equals("demo")){
+                            // End Demo task
+                            mTakeTask.setBackgroundResource(R.drawable.button_round_ligt_red);
+                            mCheck.setImageResource(R.drawable.baseline_done_all_24px);
+                            mTakeTask.setText(R.string.Refuse);
+
+                            mTextGetTask.setText(getResources().getString(R.string.callDemo));
+                            mCardGetTask.setVisibility(View.VISIBLE);
+                            mCardGetTask.startAnimation(animVisibleCard);
                         }
-                        mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("points").setValue(point + "");
-                        mTakeTask.setBackgroundResource(R.drawable.button_round_green);
-                        mCheck.setImageResource(R.drawable.baseline_done_all_24px);
-                        mTakeTask.setText(R.string.Finished);
-
-
-                        helped++;
-
-                        mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("helped").setValue(helped + "");
-
-
-//                 // add to user ochivments
-
-
-                        float help_1_people = Float.parseFloat(ratingData.get(0).getValueRating());
-                        if (help_1_people < 100) {
-                            mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(0).getKey()).child("valueRating").setValue(100.0 + "");
-                        }
-
-                        float help_10_people = Float.parseFloat(ratingData.get(0).getValueRating());
-                        if (help_10_people < 100) {
-                            help_10_people += 10;
-                            mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(1).getKey()).child("valueRating").setValue(help_10_people + "");
-                        }
-
-
-                        float help_100_people = Float.parseFloat(ratingData.get(1).getValueRating());
-                        if (help_100_people < 100) {
-                            help_100_people += 1;
-                            mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(2).getKey()).child("valueRating").setValue(help_100_people + "");
-                        }
-
-
-                        float help_1000_people = Float.parseFloat(ratingData.get(2).getValueRating());
-                        if (help_1000_people < 100) {
-                            help_1000_people += 0.1;
-                            mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(3).getKey()).child("valueRating").setValue(help_1000_people + "");
-                        }
-
-
-                        mDatabase.child("Task").child(KEY_Task).child("done").setValue(taskLoader.getUserTakeUID() + "");
-                        mDatabase.child("Task").child(KEY_Task).child("accepted").setValue("end");
-
-
-                    } else if (!taskLoader.getUserUID().equals(user.getUid()) && taskLoader.getAccepted().equals("false")) { // пользователь взял задачу
-                        Toast.makeText(getActivity(), R.string.Taken, Toast.LENGTH_LONG).show();
-                        mDatabase.child("Task").child(KEY_Task).child("accepted").setValue("true");
-                        mDatabase.child("Task").child(KEY_Task).child("userTakeUID").setValue(user.getUid());
-                        clickCounter++;
-
-
-                    } else if (clickCounter > 0 || taskLoader.getUserTakeUID().equals(user.getUid()) && taskLoader.getDone().equals("false") ) { // Не кликай много раз
-                        /* Refuse task */
-                        // if you click in db margin acepted and userTakeUID set to null
-
-                        AlertDialog.Builder freeBounuceAlertDialog = new AlertDialog.Builder(getActivity());
-                        freeBounuceAlertDialog.setTitle(getString(R.string.Title_AlretDialogRefuse));
-                        freeBounuceAlertDialog.setMessage(getString(R.string.Text_AlretDialogFreeRefuse));
-                        freeBounuceAlertDialog.setCancelable(false);
-                        freeBounuceAlertDialog.setIcon(R.drawable.ic_refuse);
-                        // if set location in the task
-                        freeBounuceAlertDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                mDatabase.child("Task").child(KEY_Task).child("accepted").setValue("false");
-                                mDatabase.child("Task").child(KEY_Task).child("userTakeUID").setValue("none");
-                                mTakeTask.setBackgroundResource(R.drawable.button_round);
-
-                            }
-                        });
-                        freeBounuceAlertDialog.setNegativeButton(R.string.no, new  DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-
-                            }
-                        });
-                        freeBounuceAlertDialog.show();
-
-                        mDatabase.child("Task").child(KEY_Task).child("userTakeUID").setValue(user.getUid());
-
-                    } else if (taskLoader.getAccepted().equals("end")) {  // Задача законченна
-                        Toast.makeText(getActivity(), R.string.AlreadyFinished, Toast.LENGTH_LONG).show();
-                        mCheck.setImageResource(R.drawable.baseline_lock_24px);
-                    } else if (taskLoader.getAccepted().equals("true")) { // Эту задачу кто-то взял
-                        Toast.makeText(getActivity(), R.string.AlreadyTaken, Toast.LENGTH_LONG).show();
-                        mCheck.setImageResource(R.drawable.baseline_lock_24px);
+                    }else{
+                        Toast.makeText(getContext(),getResources().getString(R.string.youCompleteDemo), Toast.LENGTH_SHORT).show();
                     }
+
+
+
+                        if (taskLoader.getUserUID().equals(user.getUid()) && taskLoader.getAccepted().equals("false")) { // Нельзя юоать свои
+                            Toast.makeText(getActivity(), R.string.Own, Toast.LENGTH_LONG).show();
+                            mDatabase.child("Task").child(KEY_Task).child("userTakeUID").setValue(user.getUid());
+                            mCheck.setImageResource(R.drawable.baseline_query_builder_24px);
+                        } else if (taskLoader.getUserUID().equals(user.getUid()) && taskLoader.getAccepted().equals("true")) { // Закончить задачц
+                            // End task
+
+                            if(taskLoader.getDoublePoints().equals("true")){
+                                point += (Integer.parseInt(taskLoader.getPoints()) * 2);
+
+                            }else{
+                                point += Integer.parseInt(taskLoader.getPoints());
+                            }
+                            mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("points").setValue(point + "");
+                            mTakeTask.setBackgroundResource(R.drawable.button_round_green);
+                            mCheck.setImageResource(R.drawable.baseline_done_all_24px);
+                            mTakeTask.setText(R.string.Finished);
+
+
+                            helped++;
+
+                            mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("helped").setValue(helped + "");
+
+
+    //                 // add to user ochivments
+
+
+                            float help_1_people = Float.parseFloat(ratingData.get(0).getValueRating());
+                            if (help_1_people < 100) {
+                                mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(0).getKey()).child("valueRating").setValue(100.0 + "");
+                            }
+
+                            float help_10_people = Float.parseFloat(ratingData.get(0).getValueRating());
+                            if (help_10_people < 100) {
+                                help_10_people += 10;
+                                mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(1).getKey()).child("valueRating").setValue(help_10_people + "");
+                            }
+
+
+                            float help_100_people = Float.parseFloat(ratingData.get(1).getValueRating());
+                            if (help_100_people < 100) {
+                                help_100_people += 1;
+                                mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(2).getKey()).child("valueRating").setValue(help_100_people + "");
+                            }
+
+
+                            float help_1000_people = Float.parseFloat(ratingData.get(2).getValueRating());
+                            if (help_1000_people < 100) {
+                                help_1000_people += 0.1;
+                                mDatabase.child("Users").child(taskLoader.getUserTakeUID()).child("rating").child(ratingData.get(3).getKey()).child("valueRating").setValue(help_1000_people + "");
+                            }
+
+
+                            mDatabase.child("Task").child(KEY_Task).child("done").setValue(taskLoader.getUserTakeUID() + "");
+                            mDatabase.child("Task").child(KEY_Task).child("accepted").setValue("end");
+
+
+                        } else if (!taskLoader.getUserUID().equals(user.getUid()) && taskLoader.getAccepted().equals("false")) { // пользователь взял задачу
+                            Toast.makeText(getActivity(), R.string.Taken, Toast.LENGTH_LONG).show();
+                            mDatabase.child("Task").child(KEY_Task).child("accepted").setValue("true");
+                            mDatabase.child("Task").child(KEY_Task).child("userTakeUID").setValue(user.getUid());
+                            clickCounter++;
+
+
+                        } else if (clickCounter > 0 || taskLoader.getUserTakeUID().equals(user.getUid()) && taskLoader.getDone().equals("false") ) { // Не кликай много раз
+                            /* Refuse task */
+                            // if you click in db margin acepted and userTakeUID set to null
+
+                            AlertDialog.Builder freeBounuceAlertDialog = new AlertDialog.Builder(getActivity());
+                            freeBounuceAlertDialog.setTitle(getString(R.string.Title_AlretDialogRefuse));
+                            freeBounuceAlertDialog.setMessage(getString(R.string.Text_AlretDialogFreeRefuse));
+                            freeBounuceAlertDialog.setCancelable(false);
+                            freeBounuceAlertDialog.setIcon(R.drawable.ic_refuse);
+                            // if set location in the task
+                            freeBounuceAlertDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    mDatabase.child("Task").child(KEY_Task).child("accepted").setValue("false");
+                                    mDatabase.child("Task").child(KEY_Task).child("userTakeUID").setValue("none");
+                                    mTakeTask.setBackgroundResource(R.drawable.button_round);
+
+                                }
+                            });
+                            freeBounuceAlertDialog.setNegativeButton(R.string.no, new  DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+
+                                }
+                            });
+                            freeBounuceAlertDialog.show();
+
+                            mDatabase.child("Task").child(KEY_Task).child("userTakeUID").setValue(user.getUid());
+
+                        } else if (taskLoader.getAccepted().equals("end")) {  // Задача законченна
+                            Toast.makeText(getActivity(), R.string.AlreadyFinished, Toast.LENGTH_LONG).show();
+                            mCheck.setImageResource(R.drawable.baseline_lock_24px);
+                        } else if (taskLoader.getAccepted().equals("true")) { // Эту задачу кто-то взял
+                            Toast.makeText(getActivity(), R.string.AlreadyTaken, Toast.LENGTH_LONG).show();
+                            mCheck.setImageResource(R.drawable.baseline_lock_24px);
+                        }
+
                 }catch (Exception e){
                 Toast.makeText(getContext(), "Hold on", Toast.LENGTH_LONG).show();
             }
@@ -543,14 +643,20 @@ public class OpenTaskFragment extends Fragment{
         String alertTaskIcon = preferencesIcon.getString("AlertTaskDirections","false");
 
 
-        if(alertTaskIcon.equals("false")) {
-            mCardTutorial.setVisibility(View.VISIBLE);
-            mCardTutorial.startAnimation(animVisibleCard);
+        // Custom Tutorial
+        SharedPreferences preferencesGetTask = Objects.requireNonNull(getActivity()).getSharedPreferences("TutorialGetTask",MODE_PRIVATE);
+        String alertTaskGet = preferencesGetTask.getString("TutorialGetTask","false");
+
+
+        if(alertTaskGet.equals("false")){
+            mCardGetTask.setVisibility(View.VISIBLE);
+            mCardGetTask.startAnimation(animVisibleCard);
+        }else{
+            if(alertTaskGet.equals("false")) {
+                mCardTutorial.setVisibility(View.VISIBLE);
+                mCardTutorial.startAnimation(animVisibleCard);
+            }
         }
-
-
-
-
     }
 
     @Override

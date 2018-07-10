@@ -221,4 +221,12 @@
     <string name="callMe">Calling yourself stupid :)</string>
 
 
+    <string name="TutorialDemoTitle">Learning: Demo task</string>
+    <string name="TutorialDemoText">Choose a demo task! Well tell you how it works here!</string>
+    <string name="youCompleteDemo">You have completed the demo task</string>
+    <string name="TutorialClickGetTask">Click get tasks. After that, you will need to call the user. Given task you will get 10 points.</string>
+    <string name="callDemo">Great! Now call the man and offer him your help.</string>
+    <string name="callDemoAgein">You gave me permission to call from the app, right? If so, great! Now call again. :)</string>
+    <string name="TutorialIconDemo">This is a demo of the task!</string>
+
 </resources>

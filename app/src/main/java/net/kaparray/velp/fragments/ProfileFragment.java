@@ -166,6 +166,8 @@ public class ProfileFragment extends Fragment{
                         mPhotoUser.setImageDrawable(getResources().getDrawable(R.drawable.ic_man3));
                     } else if (photo.equals("ic_man4")) {
                         mPhotoUser.setImageDrawable(getResources().getDrawable(R.drawable.ic_man4));
+                    }else if(photo.equals("demo")){
+                        mPhotoUser.setImageDrawable(getResources().getDrawable(R.drawable.ic_image2vector));
                     }
                 }catch (Exception w){
                     try {

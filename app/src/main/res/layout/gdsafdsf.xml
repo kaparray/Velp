@@ -1,137 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/task">
-
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/navigationView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.977"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/ic_add_button"
-        tools:ignore="VectorDrawableCompat" />
-
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigationView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="0dp"
-        android:layout_marginStart="0dp"
-        android:background="?android:attr/windowBackground"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:itemIconTint="@color/BlueDeFrance"
-        app:itemTextColor="@color/BlueDeFrance"
-        app:menu="@menu/navigation"/>
-
-    <android.support.v7.widget.CardView
-        android:id="@+id/cv_TutorialDemo"
-        android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="@color/PictonBlue"
-        android:visibility="gone"
-        app:cardCornerRadius="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.389"
-        tools:ignore="MissingConstraints">
-
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="220dp">
-
-
-            <TextView
-                android:id="@+id/textView00"
-                android:layout_width="287dp"
-                android:layout_height="40dp"
-                android:layout_margin="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:gravity="center"
-                android:text="@string/TutorialDemoTitle"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/imageView104"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="56dp"
-                android:src="@drawable/ic_image2vector"
-                app:layout_constraintBottom_toTopOf="@+id/btn_okTutorialDemo"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
-
-            <TextView
-                android:id="@+id/textView134"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_margin="8dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:gravity="center"
-                android:lines="4"
-                android:text="@string/TutorialDemoText"
-                android:textColor="@color/white"
-                app:layout_constraintBottom_toTopOf="@+id/btn_okTutorialDemo"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView104"
-                app:layout_constraintTop_toBottomOf="@+id/textView00"
-                tools:ignore="MissingConstraints" />
-
-
-            <Button
-                android:id="@+id/btn_okTutorialDemo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="116dp"
-                android:background="@drawable/button_round_green"
-                android:text="@string/ok"
-                android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView00"
-                tools:ignore="MissingConstraints" />
-
-        </android.support.constraint.ConstraintLayout>
-    </android.support.v7.widget.CardView>
-
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <android.support.v7.widget.CardView
@@ -143,7 +15,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:backgroundTint="@color/PictonBlue"
-        android:visibility="gone"
+        android:visibility="visible"
         app:cardCornerRadius="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -286,11 +158,10 @@
                 android:id="@+id/imageView1354"
                 android:layout_width="40dp"
                 android:layout_height="39dp"
-                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:src="@drawable/megaphone"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView13" />
+                app:layout_constraintTop_toBottomOf="@+id/imageView13"
+                tools:layout_editor_absoluteX="8dp" />
 
             <TextView
                 android:id="@+id/textView78"
@@ -331,5 +202,4 @@
     </android.support.v7.widget.CardView>
 
 
-
-</android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>
