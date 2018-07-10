@@ -48,8 +48,9 @@ public class RegistrationFragment3 extends android.support.v4.app.Fragment {
     ImageView mPhoto5;
     ImageView mPhoto6;
     ImageView mPhoto7;
+    ImageView Maaan;
 
-    @BindView(R.id.pb_reg) ProgressBar mPB;
+    ProgressBar mPB;
     @BindView(R.id.tv_choose)
     TextView mTextChoose;
 
@@ -78,7 +79,7 @@ public class RegistrationFragment3 extends android.support.v4.app.Fragment {
 
         ButterKnife.bind(this, rootView);
 
-        mPB.setVisibility(View.GONE);
+        mPB = rootView.findViewById(R.id.progressBarRegFin);
 
         mRegister = rootView.findViewById(R.id.btn_finishReg);
 
@@ -211,6 +212,7 @@ public class RegistrationFragment3 extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View v) {
 
+                mPB.setVisibility(View.VISIBLE);
                 mPhoto1.setVisibility(View.GONE);
                 mPhoto2.setVisibility(View.GONE);
                 mPhoto3.setVisibility(View.GONE);
@@ -218,7 +220,6 @@ public class RegistrationFragment3 extends android.support.v4.app.Fragment {
                 mPhoto5.setVisibility(View.GONE);
                 mPhoto6.setVisibility(View.GONE);
                 mTextChoose.setVisibility(View.GONE);
-                mPB.setVisibility(View.VISIBLE);
 
                 mAuth.createUserWithEmailAndPassword(((RegistrationActivity) getActivity()).getEmail(), ((RegistrationActivity) getActivity()).getPassword())
                         .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
@@ -308,13 +309,11 @@ public class RegistrationFragment3 extends android.support.v4.app.Fragment {
                                     toSignIn();
 
                                     }
-                                } else {
+                            } else {
                                     Toast.makeText(getActivity(), "You have not filled in the data", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
-                mPB.setVisibility(View.GONE);
-
             }
         });
 

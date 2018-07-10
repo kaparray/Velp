@@ -228,5 +228,11 @@
     <string name="callDemo">Great! Now call the man and offer him your help.</string>
     <string name="callDemoAgein">You gave me permission to call from the app, right? If so, great! Now call again. :)</string>
     <string name="TutorialIconDemo">This is a demo of the task!</string>
+    <string name="coolTutorial">Cool, hold ten points! They will be useful to you :)</string>
+    <string name="TutorialEvents">Learning: Events</string>
+    <string name="TutorialEventsText">In events you can help immediately large number of people! Just click on this event in which you want to help :)</string>
+    <string name="TutorialRegMapText">Move the marker on the map, so you can specify your location</string>
+    <string name="TutorialRegMap">Learning: Map registration</string>
+
 
 </resources>

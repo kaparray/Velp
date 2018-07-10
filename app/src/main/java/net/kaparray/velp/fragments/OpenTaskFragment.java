@@ -163,23 +163,27 @@ public class OpenTaskFragment extends Fragment{
             mCardGetTask.setVisibility(View.VISIBLE);
             mCardGetTask.startAnimation(animVisibleCard);
 
-        }else{
+        }else {
 
             // Custom Tutorial
             SharedPreferences preferencesUserDemo = Objects.requireNonNull(getActivity()).getSharedPreferences("DemoUser", MODE_PRIVATE);
             String userDemo = preferencesUserDemo.getString("DemoUser", "false");
 
 
-            if(userDemo.equals("false")) {
-                if(taskLoader.getDone().equals("demo") && taskLoader.getAccepted().equals("demo")
-                        && taskLoader.getUserTakeUID().equals("demo")){
+            Intent intent = new Intent(Intent.ACTION_CALL);
+            intent.setData(Uri.parse("tel:" + mPhone));
+            startActivity(intent);
+
+            if (userDemo.equals("false")) {
+                if (taskLoader.getDone().equals("demo") && taskLoader.getAccepted().equals("demo")
+                        && taskLoader.getUserTakeUID().equals("demo")) {
                     // End Demo task
 
                     point += Integer.parseInt(taskLoader.getPoints());
 
                     mDatabase.child("Users").child(user.getUid()).child("points").setValue(point + "");
                     mTakeTask.setBackgroundResource(R.drawable.button_round_green);
-                    mCheck.setImageResource(R.drawable.baseline_done_all_24px);
+                    mCheck.setImageResource(R.drawable.ic_demo_24dp);
                     mTakeTask.setText(R.string.Finished);
 
 
@@ -188,14 +192,19 @@ public class OpenTaskFragment extends Fragment{
                     SharedPreferences.Editor editorView = preferences.edit();
                     editorView.putString("DemoUser", "true");
                     editorView.apply();
+
+                    mTakeTask.setBackgroundResource(R.drawable.button_round_grey);
+                    mCheck.setImageResource(R.drawable.baseline_done_all_24px);
+                    mTakeTask.setText(R.string.Complete);
+
+                    mTextGetTask.setText(getResources().getString(R.string.coolTutorial));
+                    mCardGetTask.setVisibility(View.VISIBLE);
+                    mCardGetTask.startAnimation(animVisibleCard);
+
                 }
             }
 
 
-
-            Intent intent = new Intent(Intent.ACTION_CALL);
-            intent.setData(Uri.parse("tel:" + mPhone));
-            startActivity(intent);
         }
     }
 

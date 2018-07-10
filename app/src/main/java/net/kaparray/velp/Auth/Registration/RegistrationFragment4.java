@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -11,10 +12,13 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -35,9 +39,13 @@ import net.kaparray.velp.Auth.RegistrationActivity;
 import net.kaparray.velp.R;
 import net.kaparray.velp.classes_for_data.TaskLoader;
 
+import java.util.Objects;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class RegistrationFragment4 extends android.support.v4.app.Fragment {
 
@@ -45,18 +53,24 @@ public class RegistrationFragment4 extends android.support.v4.app.Fragment {
     private GoogleMap googleMap;
     @BindView(R.id.mapView_Register)
     MapView mapView;
+    @BindView(R.id.cv_TutorialRegMap)
+    CardView mCardTutorialRegMap;
 
     Marker markerLocation;
     LatLng myLocation;
 
+    Animation animVisibleCard;
+    Animation animGoneCard;
 
+
+    @OnClick(R.id.btn_okTutorialRegMap)
+    void tutorialRegMap(){
+        mCardTutorialRegMap.startAnimation(animGoneCard);
+        mCardTutorialRegMap.setVisibility(View.GONE);
+    }
 
     @OnClick(R.id.btn_done4)
     public void submit4() {
-
-
-
-
         RegistrationFragment3 registrationFragment3 = new RegistrationFragment3();
 
         getActivity().getSupportFragmentManager()
@@ -70,6 +84,17 @@ public class RegistrationFragment4 extends android.support.v4.app.Fragment {
     }
 
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+
+
+        mCardTutorialRegMap.setVisibility(View.VISIBLE);
+        mCardTutorialRegMap.startAnimation(animVisibleCard);
+
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,6 +103,10 @@ public class RegistrationFragment4 extends android.support.v4.app.Fragment {
         View rootView = inflater.inflate(R.layout.fr_registration4, container, false);
 
         ButterKnife.bind(this, rootView);
+
+        // Animation
+        animVisibleCard = AnimationUtils.loadAnimation(getContext(),R.anim.beta_animation_games);
+        animGoneCard = AnimationUtils.loadAnimation(getContext(),R.anim.beta_animation_back);
 
 
         mapView.onCreate(savedInstanceState);

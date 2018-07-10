@@ -10,12 +10,15 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -36,6 +39,11 @@ import net.kaparray.velp.classes_for_data.TaskLoader;
 import net.kaparray.velp.fragments.Task.MyTaskFragment;
 
 import java.util.ArrayList;
+import java.util.Objects;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -47,6 +55,26 @@ public class EventsFragments extends Fragment{
     private DatabaseReference mFirebaseRef;
 
     ArrayList<EventLoader> loderer; // so funny name for variable
+
+    @BindView(R.id.cv_TutorialEvents) CardView mTutorialEvents;
+
+    Animation animVisibleCard;
+    Animation animGoneCard;
+
+
+
+    @OnClick(R.id.btn_okTutorialEvents)
+    void tutorial(){
+        mTutorialEvents.startAnimation(animGoneCard);
+
+        // For settings
+        SharedPreferences preferences = getActivity().getSharedPreferences("AlertTaskEvents", MODE_PRIVATE);
+        SharedPreferences.Editor editorView = preferences.edit();
+        editorView.putString("AlertTaskEvents", "true");
+        editorView.apply();
+
+        mTutorialEvents.setVisibility(View.GONE);
+    }
 
 
     @Nullable
@@ -60,11 +88,19 @@ public class EventsFragments extends Fragment{
 
         loderer = new ArrayList<EventLoader>();
 
+        //Butter knife
+        ButterKnife.bind(this, rootView);
 
         mRecyclerView = rootView.findViewById(R.id.rvEvent);
         // Find branch in firebase
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         mFirebaseRef = database.getReference("Event");
+
+
+        // Animation
+        animVisibleCard = AnimationUtils.loadAnimation(getContext(),R.anim.beta_animation_games);
+        animGoneCard = AnimationUtils.loadAnimation(getContext(),R.anim.beta_animation_back);
+
 
         // Create llm
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mRecyclerView.getContext()));
@@ -76,6 +112,18 @@ public class EventsFragments extends Fragment{
     @Override
     public void onStart() {
         super.onStart();
+
+
+        // Custom Tutorial
+        SharedPreferences preferencesEvents = Objects.requireNonNull(getActivity()).getSharedPreferences("AlertTaskEvents",MODE_PRIVATE);
+        String alertEvents = preferencesEvents.getString("AlertTaskEvents","false");
+
+        if(alertEvents.equals("false")){
+            mTutorialEvents.setVisibility(View.VISIBLE);
+            mTutorialEvents.startAnimation(animVisibleCard);
+        }
+
+
 
         // Create FirebaseRecyclerAdapter for automatic work with FDB
         FirebaseRecyclerAdapter<EventLoader, EventsFragments.TaskViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<EventLoader, EventsFragments.TaskViewHolder>(

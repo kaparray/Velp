@@ -432,21 +432,24 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             ImageView ph = mView.findViewById(R.id.iv_status);
 
 
-
-            if(statusDone.equals("true") && userTakeUID.equals(user.getUid())){
-                ph.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_done_all_24px));
-            }else if(statusDone.equals("true") && !userTakeUID.equals(user.getUid())){
-                ph.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_done_all_24px));
-            }else if(statusDone.equals("false")){
-                if(status.equals("false")){
-                    ph.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_lock_open_24px));
-                }else if(status.equals("true") && userTakeUID.equals(user.getUid())){
-                    ph.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_done_24px));
-                }else if(status.equals("true")){
-                    ph.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_lock_24px));
+            try {
+                if (statusDone.equals("true") && userTakeUID.equals(user.getUid())) {
+                    ph.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_done_all_24px));
+                } else if (statusDone.equals("true") && !userTakeUID.equals(user.getUid())) {
+                    ph.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_done_all_24px));
+                } else if (statusDone.equals("false")) {
+                    if (status.equals("false")) {
+                        ph.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_lock_open_24px));
+                    } else if (status.equals("true") && userTakeUID.equals(user.getUid())) {
+                        ph.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_done_24px));
+                    } else if (status.equals("true")) {
+                        ph.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_lock_24px));
+                    }
+                } else if (statusDone.equals(user.getUid()) && status.equals("end")) {
+                    ph.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_done_all_24px));
                 }
-            }else if(statusDone.equals(user.getUid()) && status.equals("end")){
-                ph.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_done_all_24px));
+            }catch (Exception e){
+
             }
         }
     }
