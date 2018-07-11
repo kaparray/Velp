@@ -77,6 +77,7 @@
 
     <!-- AddTask Fragment  -->
     <string name="AddTaskTitle">Добавление задачи</string>
+    <string name="AddTask">Добавить задачу</string>
     <string name="Title_AlretDialogAddTask">Геоданные</string>
     <string name="Text_AlretDialogAddTask">Вы хотите прислать нам свои геоданные? Другим будет проще выполнить вашу просьбу!</string>
     <string name="TaskName">Название задачи</string>
@@ -189,7 +190,7 @@
     <string name="noInternet">Нет интернета</string>
     <string name="SearchTaskTitle">Поиск задач</string>
     <string name="smsText">Привет я из приложения Velp. Я тебе помогу!</string>
-    <string name="Search">поиск</string>
+    <string name="Search">Поиск</string>
     <string name="GamesTitle">Игры</string>
     <string name="Upload">загружать</string>
     <string name="Error">ошибка</string>
