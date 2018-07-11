@@ -77,7 +77,7 @@
         android:layout_marginEnd="28dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="28dp"
-        android:text="Enter email"
+        android:text="@string/email"
         android:textColor="@color/BlueDeFrance"
         android:textSize="38sp"
         app:layout_constraintEnd_toEndOf="parent"

@@ -131,7 +131,7 @@ public class GamesTaskFragment extends Fragment{
             mButtonRand.startAnimation(animButton);
 
             mCardInfoGames.setVisibility(View.VISIBLE);
-            mButtonRand.setText("all right");
+            mButtonRand.setText(getResources().getString(R.string.allRight));
 
         }else{
             mButtonRand.setText("none open task");

@@ -123,7 +123,6 @@ public class RegistrationFragment4 extends android.support.v4.app.Fragment {
                 if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                         == PackageManager.PERMISSION_GRANTED) {
                     mMap.setMyLocationEnabled(true);
-                    Log.d("0000", "WTF");
                 }
 
                 googleMap.getUiSettings().setZoomControlsEnabled(true);

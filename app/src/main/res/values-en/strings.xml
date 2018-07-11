@@ -72,7 +72,7 @@
     <string name="About">About app</string>
     <string name="Feedback">Contact</string>
     <string name="Share">Share</string>
-    <string name="Send">Post a review</string>
+    <string name="Send">Rate the app</string>
     <string name="Profile">Profile</string>
 
     <!-- AddTask Fragment  -->
@@ -99,6 +99,7 @@
     <string name="TakeTask">Get task</string>
     <string name="AlreadyTaken">Somebody has taken this task</string>
     <string name="Taken">You took this task</string>
+    <string name="Refuse">Refuse</string>
     <string name="FinishTask">Complete the task</string>
     <string name="AlreadyFinished">This task has been already completed</string>
     <string name="Own">you cannot get your own tasks</string>
@@ -169,16 +170,73 @@
     <string name="title_activity_registration">RegistrationActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="further">further</string>
-    <string name="changeAgeDescription">You want to change your age information. This can lead to some changes related to your achievements.</string>
-    <string name="changeCityDescription">You want to change your location. If you change the location the map will sarcifice from the place from which you pointed out.</string>
-    <string name="changeNameDescription">Do you want to change your name? The change may cause confusion among users.</string>
-    <string name="changePhoneDescription">Changing the phone can cause some confusion among users. This leads to the fact that you will not be able to contact.</string>
-    <string name="confirm">confirm</string>
-
-
-    <string name="Mark">❗Password must be longer than 6 characters</string>
 
     <string name="Workkk">We are working on it</string>
+
+    <string name="Mark">❗Password must be longer than 6 characters</string>
+    <string name="Text_AlretDialogFreePoints">You do not have enough points to add a task. Want to get free points?</string>
+    <string name="Title_AlretDialogFreePoints">You have no points :(</string>
+    <string name="Title_AlretDialogRefuse">Abandon the task?</string>
+    <string name="Text_AlretDialogFreeRefuse">Do you want to abandon the task to abandon the task?</string>
+    <string name="remunerationLower">Make the reward greater than zero</string>
+    <string name="remunerationBiger">Make the reward less. A maximum of 50,000</string>
+    <string name="Title_AlretDialogTip">Tip</string>
+    <string name="Text_AlretDialogTipMapMarker">To specify a different location, hold the marker and drag it to the desired location.</string>
+    <string name="ok">ok</string>
+    <string name="freePoints">You can get free 10 points every day.</string>
+    <string name="Get">Get</string>
+    <string name="littleTime">Too little time has passed</string>
+    <string name="manyPoints">More than 10 points</string>
+    <string name="textShare">You can share our app with your friends and acquaintances. Help us help others.</string>
+    <string name="call">  call  </string>
+    <string name="message">message</string>
+    <string name="noResults">No results</string>
+
+    <string name="noInternet">No internet</string>
+    <string name="SearchTaskTitle">Search Task</string>
+    <string name="smsText">Hello i am from Velp app. I help you!</string>
+    <string name="Search">search</string>
+    <string name="GamesTitle">Games</string>
+    <string name="Upload">upload</string>
+    <string name="Error">error</string>
+    <string name="Complete">complete</string>
+    <string name="gameText">We decided to introduce something cool! It\'s games. Hmm. Weird? We don\'t.  There will be various challenges with a high coefficient. Performing them you will also get ranking points that can be obtained only during this challenge. Participate and win!</string>
+    <string name="gameTextTitle">In this week x2 points</string>
+    <string name="point">points</string>
+    <string name="Text_AlretDialog">Get directions</string>
+    <string name="Title_AlretDialogGetDirections">Get directions</string>
+    <string name="Title_AlretDialogIconClose">These are tasks that someone is already doing</string>
+    <string name="Text_AlretDialogClose">These are tasks that someone is already doing</string>
+    <string name="Title_AlretDialogIconTutorial">Icon Tutorial</string>
+    <string name="TutorialIconClock">These are tasks that someone is already doing</string>
+    <string name="TutorialIconOpen">You can perform these tasks</string>
+    <string name="TutorialIconDone">These tasks you perform</string>
+    <string name="TutorialIconDoneAll">You have completed these tasks</string>
+    <string name="TutorialIconTitle">Learning: meaning of icons</string>
+    <string name="TutorialGetDirections">Learning: the directions</string>
+    <string name="TutorialGetDirectionsText">To build a route, click on the marker. Two menus appear on the map. Choose the left!</string>
+    <string name="TutorialMapTitle">Learning: map</string>
+    <string name="TutorialMapText">Here you can choose a task on the map. Just click on the marker. After that, a window will appear which briefly describes the job.  Click on it and find out more information.</string>
+    <string name="messageMe">Writing to yourself is stupid :)</string>
+    <string name="callMe">Calling yourself stupid :)</string>
+
+
+    <string name="TutorialDemoTitle">Learning: Demo task</string>
+    <string name="TutorialDemoText">Choose a demo task! Well tell you how it works here!</string>
+    <string name="youCompleteDemo">You have completed the demo task</string>
+    <string name="TutorialClickGetTask">Click get tasks. After that, you will need to call the user. Given task you will get 10 points.</string>
+    <string name="callDemo">Great! Now call the man and offer him your help.</string>
+    <string name="callDemoAgein">You gave me permission to call from the app, right? If so, great! Now call again. :)</string>
+    <string name="TutorialIconDemo">This is a demo of the task!</string>
+    <string name="coolTutorial">Cool, hold ten points! They will be useful to you :)</string>
+    <string name="TutorialEvents">Learning: Events</string>
+    <string name="TutorialEventsText">In events you can help immediately large number of people! Just click on this event in which you want to help :)</string>
+    <string name="TutorialRegMapText">Move the marker on the map, so you can specify your location</string>
+    <string name="TutorialRegMap">Learning: Map registration</string>
+    <string name="changeAgeDescription">Do you really want to change your age?</string>
+    <string name="changeCityDescription">Do you really want to change age?</string>
+    <string name="changeNameDescription">Do you really want to change your name?</string>
+    <string name="changePhoneDescription">Do you really want to change your phone?</string>
 
 
 </resources>

@@ -48,11 +48,11 @@ public class RegistrationFragment1 extends android.support.v4.app.Fragment {
             ((RegistrationActivity) getActivity()).setPassword(mPassword1.getText().toString());
             ((RegistrationActivity) getActivity()).setPasswordAg(mPassword2.getText().toString());
         }else if(!mPassword1.getText().toString().equals(mPassword2.getText().toString())){
-            Toast.makeText(getActivity(), "Passwords do not match", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getResources().getString(R.string.passDoNotMatch), Toast.LENGTH_SHORT).show();
         }else if(!isEmailValid()){
-            Toast.makeText(getActivity(), "Email is not valid", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getResources().getString(R.string.emailNotValid), Toast.LENGTH_SHORT).show();
         }else if (!isPasswordsValid()){
-            Toast.makeText(getActivity(), "Password is not valid", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getResources().getString(R.string.PasswordNotValid), Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -48,7 +48,6 @@ public class RegistrationFragment3 extends android.support.v4.app.Fragment {
     ImageView mPhoto5;
     ImageView mPhoto6;
     ImageView mPhoto7;
-    ImageView Maaan;
 
     ProgressBar mPB;
     @BindView(R.id.tv_choose)
@@ -310,7 +309,7 @@ public class RegistrationFragment3 extends android.support.v4.app.Fragment {
 
                                     }
                             } else {
-                                    Toast.makeText(getActivity(), "You have not filled in the data", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(), getResources().getString(R.string.dataF), Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });

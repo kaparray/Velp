@@ -158,7 +158,7 @@ public class ChangeDataFragment extends Fragment{
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(getActivity(), "Message send to your email", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), getResources().getString(R.string.messageSend), Toast.LENGTH_LONG).show();
                             Log.d(TAG, "Email sent.");
                         } else {
                             Toast.makeText(getActivity(), "Error message send", Toast.LENGTH_LONG).show();

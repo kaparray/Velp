@@ -277,8 +277,6 @@ public class  AuthActivity extends ProgressDialogActivity implements
 
             showMessage(R.string.allRight);
 
-            Log.d("Go to application","All rightt");
-
             Intent intent = new Intent(AuthActivity.this, MainActivity.class);
             startActivity(intent);
             finish();

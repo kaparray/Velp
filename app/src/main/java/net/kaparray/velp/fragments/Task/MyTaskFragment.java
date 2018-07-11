@@ -307,10 +307,8 @@ public class MyTaskFragment extends Fragment{
                 public void onTick(long millisUntilFinished) {
                     if(loderer.size() <= 0 ){
                         counrter = true;
-                        Log.d("lol", "loh");
                     }else {
                         counrter = false;
-                        Log.d("lol", "lol");
 
                     }
 
@@ -327,7 +325,6 @@ public class MyTaskFragment extends Fragment{
 
                     }
 
-                    Log.d("lol", "yes");
 
                 }
             }.start();

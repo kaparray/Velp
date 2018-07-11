@@ -165,7 +165,7 @@ public class EmailAuthActivity extends AppCompatActivity{
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(EmailAuthActivity.this, "Message send to your email", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(EmailAuthActivity.this, getResources().getString(R.string.messageSend), Toast.LENGTH_LONG).show();
                                         Log.d(TAG, "Email sent.");
                                     }else{
                                         Toast.makeText(EmailAuthActivity.this, "Error message send", Toast.LENGTH_LONG).show();
@@ -174,7 +174,7 @@ public class EmailAuthActivity extends AppCompatActivity{
                                 }
                             });
                 }else{
-                    Toast.makeText(EmailAuthActivity.this, "Enter email", Toast.LENGTH_LONG).show();
+                    Toast.makeText(EmailAuthActivity.this, getResources().getString(R.string.enterPass), Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -199,7 +199,7 @@ public class EmailAuthActivity extends AppCompatActivity{
                     Intent intent = new Intent(this, RegistrationActivity.class);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(this, "Need your location!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getResources().getString(R.string.needLoc), Toast.LENGTH_SHORT).show();
                 }
 
                 break;

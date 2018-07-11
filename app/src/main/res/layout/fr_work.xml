@@ -13,6 +13,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:textColor="@color/BlueDeFrance"
         android:text="@string/informationAboutYouForWork"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,6 +42,7 @@
             android:layout_marginBottom="7dp"
             android:background="@drawable/text_round"
             android:ems="10"
+            android:textColorHint="@color/BlueDeFrance"
             android:hint="@string/enterEmail"
             android:inputType="textEmailAddress" />
 
@@ -51,6 +54,7 @@
             android:textColor="@color/Danude"
             android:background="@drawable/text_round"
             android:ems="10"
+            android:textColorHint="@color/BlueDeFrance"
             android:hint="@string/enterName"
             android:inputType="textPersonName" />
 
@@ -63,6 +67,7 @@
             android:layout_marginBottom="7dp"
             android:background="@drawable/text_round"
             android:ems="10"
+            android:textColorHint="@color/BlueDeFrance"
             android:hint="@string/enterWorkExp"
             android:inputType="textMultiLine"
             android:lines="10" />
@@ -78,6 +83,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/send"
+        android:background="@drawable/button_round"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

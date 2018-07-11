@@ -17,7 +17,7 @@
         android:layout_marginStart="55dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/button_round"
-        android:text="rand task"
+        android:text="@string/random"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/cv_TaskGames"
         app:layout_constraintEnd_toEndOf="parent"

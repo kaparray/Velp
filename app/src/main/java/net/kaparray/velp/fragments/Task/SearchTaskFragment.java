@@ -81,15 +81,23 @@ public class SearchTaskFragment extends Fragment{
     public void onStart() {
         super.onStart();
 
-        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+        try {
+            InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+        }catch (Exception e){
+
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+        try {
+            InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+        }catch (Exception e){
+
+        }
     }
 
     @Nullable
@@ -105,20 +113,27 @@ public class SearchTaskFragment extends Fragment{
         ButterKnife.bind(this, rootView);
 
         loderer = new ArrayList<TaskLoader>();
-        search("");
+        try {
+            search("");
+        }catch (Exception e){
 
+        }
 
-        // onClick Search in keyboard
-        mTextSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    search(mTextSearch.getText().toString());
-                    return true;
+        try {
+            // onClick Search in keyboard
+            mTextSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                        search(mTextSearch.getText().toString());
+                        return true;
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
+        }catch (Exception e){
+
+        }
 
 
         mRecyclerView.setHasFixedSize(true);

@@ -1,44 +1,44 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Velp</string>
 
     <string name="action_settings">Настройки</string>
-    <string name="noInternet">Нет интернет соединения</string>
-    <string name="RatingTitle">Рейтинг</string>
+    <string name="RatingTitle">Достижения</string>
     <string name="Finish">Закончить</string>
     <string name="take">Взять</string>
     <string name="send">Отправить</string>
 
+
     <!-- NavDrawer -->
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">Открыть панель навигации</string>
+    <string name="navigation_drawer_close">Закрыть панель навигации</string>
 
     <!-- Registration Activity -->
-    <string name="email">Email</string>
+    <string name="email">Электронная почта</string>
     <string name="Password">Пароль</string>
-    <string name="PassAgain">Еще раз пароль</string>
+    <string name="PassAgain">Пароль заново</string>
     <string name="Name">Имя</string>
     <string name="Phone">Телефон</string>
+    <string name="Show">Это секрет</string>
     <string name="Age">Возраст</string>
     <string name="City">Город</string>
-    <string name="Register">Зарегистрироваться</string>
+    <string name="Register">Регистрация</string>
 
     <!-- SingIn Activity -->
     <string name="Type">Выберете тип входа:</string>
-    <string name="EmailAuth">Аутентификация по Email</string>
-    <string name="ToastInSingIn">Ой, произошла ошибка!</string>
-    <string name="registration">Регистрация</string>
-    <string name="login">Вход</string>
-    <string name="forgot_password">Забыл пароль?</string>
+    <string name="EmailAuth">Вход по почте</string>
+    <string name="ToastInSingIn">Упс, произошла ошибка!</string>
+    <string name="registration">зарегистрироваться</string>
+    <string name="login">Войти</string>
+    <string name="forgot_password">Забыли пароль?</string>
 
     <!-- Button tutorial text -->
-    <string name="swiping">Свайпните для продолжения →</string>
-    <string name="start">Начало</string>
+    <string name="swiping">Проведите пальцем, чтобы продолжить</string>
+    <string name="start">Начинать</string>
 
     <!-- Tutorial text -->
     <string name="Page">Страница № </string>
     <string name="Tutorial1">Velp: Проси. Помогай. Приложение для волонтеров.</string>
-    <string name="Tutorial2">Добавляй задания и челленджи с помощью одной кнопки.Выбирай просьбы, которые способен выполнить в разделе Задачи, нажимая на карточки с кратким описанием.</string>
+    <string name="Tutorial2">Добавляй задания и челленджи с помощью одной кнопки. Выбирай просьбы, которые способен выполнить в разделе Задачи, нажимая на карточки с кратким описанием.</string>
     <string name="Tutorial3">Следи за добровольческими мероприятиями в разделе События. Они представлены в виде карточек с описанием.</string>
     <string name="Tutorial4">Стань самым крутым волонтером, отслеживая свой статус в разделе Рейтинг. Там ты сможешь получить очивки, выполнив определенное количество заданий.</string>
     <string name="Tutorial5">А еще ты можешь менять тему приложения в настройках, всего одним нажатием на переключатель!</string>
@@ -65,7 +65,7 @@
     <!-- Menu drawer -->
     <string name="Task">Задачи</string>
     <string name="Map">Карта</string>
-    <string name="Rating">Рейтинг</string>
+    <string name="Rating">Достижения</string>
     <string name="Chat">Чат</string>
     <string name="Bonus">Бонусы</string>
     <string name="Settings">Настройки</string>
@@ -78,10 +78,9 @@
     <!-- AddTask Fragment  -->
     <string name="AddTaskTitle">Добавление задачи</string>
     <string name="Title_AlretDialogAddTask">Геоданные</string>
-    <string name="Text_AlretDialogAddTask">Вы хотите отправить свои геоданные?\nПо ним будет легче выполнить задание!</string>
+    <string name="Text_AlretDialogAddTask">Вы хотите прислать нам свои геоданные? Другим будет проще выполнить вашу просьбу!</string>
     <string name="TaskName">Название задачи</string>
     <string name="Fr_Task">Задача</string>
-    <string name="AddTask">Добавить задачу</string>
     <string name="Fill">Вы не заполнили все поля!</string>
 
     <!-- Profile Fragment -->
@@ -94,7 +93,7 @@
     <string name="TaskTitle">Задачи</string>
 
     <!-- OpenTask Fragment -->
-    <string name="Finished">Законченно</string>
+    <string name="Finished">Закончено</string>
     <string name="NotGot">Вашу задачу никто не подтвердил</string>
     <string name="TakeTask">Взять задачу</string>
     <string name="AlreadyTaken">Эту задачу кто-то взял</string>
@@ -137,44 +136,112 @@
     <string name="MapTitle">Карта</string>
 
     <!-- Views -->
-    <string name="TV">TextView</string>
-    <string name="value_task">value task</string>
-    <string name="task_name">Task Name</string>
-    <string name="task_phone">Phone</string>
-    <string name="time">time</string>
-    <string name="wiliam_snoe">Wiliam Snoe</string>
+    <string name="TV">Текст</string>
+    <string name="value_task">Значение задачи</string>
+    <string name="task_name">Название задачи</string>
+    <string name="task_phone">Телефон</string>
+    <string name="time">Время</string>
+    <string name="wiliam_snoe">Кирилл</string>
     <string name="Profile_Phone">Телефон</string>
-    <string name="DoneTitle">Мною закончанные задачи</string>
+    <string name="DoneTitle">Мною законченные задачи</string>
     <string name="MyTaskTitle">Мои задачи</string>
     <string name="TakenTaskTitle">Взятые задачи</string>
-    <string name="NotAcceptedTaskTitle">Не взятые задачи</string>
-    <string name="AgeTitle">Изменить возоаст</string>
-    <string name="CityTitle">Изменить горад</string>
+    <string name="NotAcceptedTaskTitle">Свободные задачи</string>
+    <string name="AgeTitle">Изменить возраст</string>
+    <string name="CityTitle">Изменить город</string>
     <string name="EmailTitle">Изменить email</string>
     <string name="NameTitle">Изменить имя</string>
     <string name="ChangeDataTitle">Изменить данные</string>
 
 
     <!-- Change Data -->
-    <string name="changeAge">Редактировать возраст</string>
-    <string name="changePhone">Редактировать номер мобильного телефона</string>
-    <string name="changeEmail">Редактировать адрес электорнной почты</string>
-    <string name="changeCity">Редактировать город</string>
-    <string name="changeName">Редактировать имя</string>
-    <string name="Text_AlretDialogEmailChange">Извените но вы не можите поменять email.\nВаш email:</string>
-    <string name="Title_AlretDialogEmailChange">Изменить email</string>
+    <string name="changeAge">Изменить возраст </string>
+    <string name="changePhone">Изменить номер мобильного телефона </string>
+    <string name="changeEmail">Изменить адрес электронной почты </string>
+    <string name="changeCity">Изменить город</string>
+    <string name="changeName">Изменить имя</string>
+    <string name="Text_AlretDialogEmailChange">Извините, вы не можете изменить свой адрес электронной почты.\n Ваша электронная почта:</string>
+    <string name="Title_AlretDialogEmailChange">Изменить адрес электронной почты</string>
+    <string name="AcceptedTaskTitle">Принятые задачи</string>
+    <string name="title_activity_registration">Регистрация</string>
+    <string name="further">Далее</string>
 
-    <!-- Navigation -->
-    <string name="Accepted">Взятые</string>
-    <string name="NotAccepted">Доступные</string>
-    <string name="My">Мои</string>
-    <string name="Done">Выполненные</string>
-
-
-    <string name="further">далее</string>
-    <string name="Workkk">Мы работаем над этим </string>
+    <string name="Workkk">Мы работаем над этим</string>
 
     <string name="Mark">❗Пароль должен быть длиннее 6 символов</string>
+    <string name="Text_AlretDialogFreePoints">У вас недостаточно очков, чтобы добавить задачу. Хотите получить бесплатные очки?</string>
+    <string name="Title_AlretDialogFreePoints">У вас нет очков :(</string>
+    <string name="Title_AlretDialogRefuse">Отказаться от задания?</string>
+    <string name="Text_AlretDialogFreeRefuse">Вы хотите отказаться от этой задачи?</string>
+    <string name="remunerationLower">Сделайте награду больше нуля</string>
+    <string name="remunerationBiger">Сделайте вознаграждение меньше. Максимум 50 000</string>
+    <string name="Text_AlretDialogTipMapMarker">Чтобы указать другое местоположение, удерживайте маркер и перетащите его в нужное место.</string>
+    <string name="ok">ок</string>
+    <string name="freePoints">Вы можете получить бесплатно 10 очков каждый день.</string>
+    <string name="Get">Дай</string>
+    <string name="littleTime">Прошло слишком мало времени</string>
+    <string name="manyPoints">У вас больше 10 баллов</string>
+    <string name="textShare">Вы можете поделиться нашим приложением со своими друзьями и знакомыми. Помогите нам помогать другим.</string>
+    <string name="call">позвонить</string>
+    <string name="message">написать</string>
+    <string name="noResults">Нет результат</string>
+
+    <string name="noInternet">Нет интернета</string>
+    <string name="SearchTaskTitle">Поиск задач</string>
+    <string name="smsText">Привет я из приложения Velp. Я тебе помогу!</string>
+    <string name="Search">поиск</string>
+    <string name="GamesTitle">Игры</string>
+    <string name="Upload">загружать</string>
+    <string name="Error">ошибка</string>
+    <string name="Complete">Завершить</string>
+    <string name="gameText">Мы решили представить нечто крутое! Это игры. Хм. Странно? Нам так не кажется. Будут различные задачи с высоким коэффициентом. Выполняя их вы также получите рейтинговые очки, которые можно получить только во время этого челенджа. Участвуйте и побеждайте!</string>
+    <string name="gameTextTitle">На этой неделе х2</string>
+    <string name="point">очки</string>
+    <string name="Text_AlretDialog">Проложить маршрут</string>
+    <string name="Title_AlretDialogGetDirections">Проложить маршрут</string>
+    <string name="Title_AlretDialogIconClose">Это задачи, которые кто-то уже делает</string>
+    <string name="Text_AlretDialogClose">Это задачи, которые кто-то уже делает</string>
+    <string name="TutorialIconClock">Это задачи, которые кто-то уже делает</string>
+    <string name="TutorialIconOpen">Эти задачи можно выполнить</string>
+    <string name="TutorialIconDone">Эти задачи вы выполняете</string>
+    <string name="TutorialIconDoneAll">Вы выполнили эти задачи</string>
+    <string name="TutorialIconTitle">Обучение: значение иконок</string>
+    <string name="TutorialGetDirections">Обучение: проложить маршрут</string>
+    <string name="TutorialGetDirectionsText">Чтобы построить маршрут, нажмите на маркер. На карте появятся два меню. Выберите левый!</string>
+    <string name="TutorialMapTitle">Обучение: карта</string>
+    <string name="TutorialMapText">Здесь вы можете выбрать задание на карте. Просто нажмите на маркер. После этого появится окно, в котором кратко описывается задание.  Нажмите на нее и узнайте больше информации.</string>
+    <string name="messageMe">Писать самому себе глупо :)</string>
+    <string name="callMe">Звонить самому себе глупо :)</string>
+
+
+    <string name="TutorialDemoTitle">Обучение: демо-задача</string>
+    <string name="TutorialDemoText">Выберите демо-задачу! Я расскажу, как здесь всё работает!</string>
+    <string name="youCompleteDemo">Вы выполнили демо-задачу</string>
+    <string name="TutorialClickGetTask">Нажмите Взять. После этого вам нужно будет позвонить пользователю. Вы получите 10 очков.</string>
+    <string name="callDemo">Отлично! Теперь позвоните человеку и предложите ему свою помощь.</string>
+    <string name="callDemoAgein">Вы дали мне разрешение позвонить из приложения, верно? Если да, то замечательно! Теперь позвони еще раз. :)</string>
+    <string name="TutorialIconDemo">Это демо задача!</string>
+    <string name="coolTutorial">Круто, держи десять очков! Они тебе пригодятся :)</string>
+    <string name="TutorialEvents">Обучение: мероприятия</string>
+    <string name="TutorialEventsText">В мероприятиях вы можете помочь сразу большому количество людей! Просто нажмите на это событие, в котором вы хотите помочь :)</string>
+    <string name="TutorialRegMapText">Переместите маркер на Карте, чтобы указать свое местоположение</string>
+    <string name="TutorialRegMap">Обучение: Регистрация карты</string>
+    <string name="confirm">Подтвердить</string>
+    <string name="changeAgeDescription">Вы действительно хотите поменять возраст?</string>
+    <string name="changeCityDescription">Вы действительно хотите поменять город?</string>
+    <string name="changeNameDescription">Вы действительно хотите поменять имя?</string>
+    <string name="changePhoneDescription">Вы действительно хотите поменять телефон?</string>
+    <string name="chooseIcon">Выберите иконку</string>
+    <string name="random">Рандомная задача</string>
+    <string name="dataF">Вы не заполнили данные.</string>
+    <string name="passDoNotMatch">Пароли не совпадают.</string>
+    <string name="emailNotValid">Адрес электронной почты недействителен.</string>
+    <string name="PasswordNotValid">Короткий пароль</string>
+    <string name="enterPass">Введите пароль.</string>
+    <string name="messageSend">Сообщение отправить на ваш email.</string>
+    <string name="needLoc">Нужно ваше местоположение!</string>
+
 
 
 </resources>
+

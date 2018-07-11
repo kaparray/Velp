@@ -46,7 +46,7 @@ public class RegistrationFragment2 extends android.support.v4.app.Fragment {
             ((RegistrationActivity) getActivity()).setAge(mAge.getText().toString());
 
         }else{
-            Toast.makeText(getActivity(), "You have not filled in the data", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getResources().getString(R.string.dataF), Toast.LENGTH_SHORT).show();
         }
 
     }
