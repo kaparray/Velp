@@ -3,6 +3,7 @@ package net.kaparray.velp.fragments.Task;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
@@ -38,6 +39,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import net.kaparray.velp.Auth.AuthActivity;
 import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
 import net.kaparray.velp.classes_for_data.TaskLoader;
@@ -57,6 +59,8 @@ public class SearchTaskFragment extends Fragment{
     // Firebase
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     public FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private FirebaseAuth mAuth;
+
 
     @BindView(R.id.tv_NoInternetSearch) TextView mTextNoInternetSearch;
     @BindView(R.id.pb_Search) ProgressBar progressBar;
@@ -309,6 +313,9 @@ public class SearchTaskFragment extends Fragment{
             mTextNoInternetSearch.setText(getResources().getString(R.string.noResults));
         }
 
+        InputMethodManager im = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        im.hideSoftInputFromWindow(rootView.getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
 

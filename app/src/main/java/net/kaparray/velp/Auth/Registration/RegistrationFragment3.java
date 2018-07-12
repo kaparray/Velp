@@ -28,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import net.kaparray.velp.Auth.AuthActivity;
 import net.kaparray.velp.Auth.RegistrationActivity;
+import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
 
 import java.io.IOException;
@@ -324,7 +325,7 @@ public class RegistrationFragment3 extends android.support.v4.app.Fragment {
 
 
     public void toSignIn(){
-        Intent intent = new Intent(getActivity(), AuthActivity.class);
+        Intent intent = new Intent(getActivity(), MainActivity.class);
         startActivity(intent);
         getActivity().finish();
     }

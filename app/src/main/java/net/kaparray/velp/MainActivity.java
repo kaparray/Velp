@@ -27,9 +27,11 @@ import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import net.kaparray.velp.Auth.AuthActivity;
 import net.kaparray.velp.fragments.AboutFragment;
 import net.kaparray.velp.fragments.BonusFragment;
 import net.kaparray.velp.fragments.ChatFragment;
@@ -80,6 +82,17 @@ public class MainActivity extends FirebaseIntegration implements NavigationView.
 
 
     Animation anim;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser == null){
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
 
     @Override
     protected void onDestroy() {

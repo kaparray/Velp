@@ -62,7 +62,6 @@ public class RegistrationFragment4 extends android.support.v4.app.Fragment {
     Animation animVisibleCard;
     Animation animGoneCard;
 
-
     @OnClick(R.id.btn_okTutorialRegMap)
     void tutorialRegMap(){
         mCardTutorialRegMap.startAnimation(animGoneCard);
@@ -140,9 +139,9 @@ public class RegistrationFragment4 extends android.support.v4.app.Fragment {
 
 
 
+
                 markerLocation = googleMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(latitude, longitude))
-                        .title("set marker for task" + latitude + "  " + longitude));
+                        .position(new LatLng(latitude, longitude)));
 
                 markerLocation.setDraggable(true);
 
@@ -171,7 +170,7 @@ public class RegistrationFragment4 extends android.support.v4.app.Fragment {
                         myLocation = new LatLng(location.getLatitude(), location.getLongitude());
 
                         // For zooming automatically to the location of the marker
-                        CameraPosition cameraPosition = new CameraPosition.Builder().target(myLocation).zoom(12).build();
+                        CameraPosition cameraPosition = new CameraPosition.Builder().target(myLocation).zoom(6).build();
                         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
                     }
                 });

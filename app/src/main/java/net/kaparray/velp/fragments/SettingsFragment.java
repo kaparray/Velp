@@ -117,12 +117,10 @@ public class SettingsFragment extends Fragment{
         mDell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showProgressDialog();
+                getActivity().finish();
                 user.delete();
                 Intent intent = new Intent(getActivity(), AuthActivity.class);
                 startActivity(intent);
-                getActivity().finish();
-                hideProgressDialog();
             }
         });
 

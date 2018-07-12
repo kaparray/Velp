@@ -237,6 +237,15 @@
     <string name="changeCityDescription">Do you really want to change age?</string>
     <string name="changeNameDescription">Do you really want to change your name?</string>
     <string name="changePhoneDescription">Do you really want to change your phone?</string>
+    <string name="chooseIcon">Choose icon</string>
+    <string name="random">Random task</string>
+    <string name="dataF">You have not filled in the data.</string>
+    <string name="passDoNotMatch">Passwords do not match.</string>
+    <string name="emailNotValid">Email is not valid</string>
+    <string name="PasswordNotValid">Password is not valid.</string>
+    <string name="enterPass">Enter email</string>
+    <string name="messageSend">Message send to your email.</string>
+    <string name="needLoc">Need your location!</string>
 
 
 </resources>
