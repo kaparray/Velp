@@ -95,6 +95,10 @@ public class RegistrationFragment4 extends android.support.v4.app.Fragment {
 
     }
 
+
+    double latitude;
+    double longitude;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -133,8 +137,19 @@ public class RegistrationFragment4 extends android.support.v4.app.Fragment {
 
                 Location location = locationManager.getLastKnownLocation(locationManager
                         .getBestProvider(criteria, false));
-                double latitude = location.getLatitude();
-                double longitude = location.getLongitude();
+                try {
+                    latitude = location.getLatitude();
+                    longitude = location.getLongitude();
+                }catch (Exception e){
+                    try {
+                        latitude = googleMap.getMyLocation().getLatitude();
+                        longitude = googleMap.getMyLocation().getLongitude();
+                    }catch (Exception ex){
+                        latitude = 55.753392;
+                        longitude = 37.626553;
+                    }
+
+                }
 
 
 

@@ -164,8 +164,13 @@ public class SearchTaskFragment extends Fragment{
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
                     // Custom Tutorial
-                    SharedPreferences preferencesUserDemo = Objects.requireNonNull(getActivity()).getSharedPreferences("DemoUser", MODE_PRIVATE);
-                    String userDemo = preferencesUserDemo.getString("DemoUser", "false");
+                    try {
+                        SharedPreferences preferencesUserDemo = Objects.requireNonNull(getActivity()).getSharedPreferences("DemoUser", MODE_PRIVATE);
+                        String userDemo = preferencesUserDemo.getString("DemoUser", "false");
+                    }catch (Exception e){
+
+                    }
+
 
 
 

@@ -53,6 +53,7 @@ import net.kaparray.velp.MainActivity;
 import net.kaparray.velp.R;
 
 import java.io.IOException;
+import java.security.cert.Extension;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -98,6 +99,9 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
 
     LatLng myLocation = new LatLng(0,0);
     Marker markerLocation;
+
+    double latitude;
+    double longitude;
 
 
     @Override
@@ -174,6 +178,7 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
         }
 
         mMapView.getMapAsync(new OnMapReadyCallback() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onMapReady(GoogleMap mMap) {
                 googleMap = mMap;
@@ -193,17 +198,40 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
 
                 Location location = locationManager.getLastKnownLocation(locationManager
                         .getBestProvider(criteria, false));
-                double latitude = location.getLatitude();
-                double longitude = location.getLongitude();
 
 
 
+                googleMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
+                    @Override
+                    public void onMyLocationChange(Location location) {
+                        // For dropping a marker at a point on the Map
+                        myLocation = new LatLng(location.getLatitude(), location.getLongitude());
+
+                        // For zooming automatically to the location of the marker
+                        CameraPosition cameraPosition = new CameraPosition.Builder().target(myLocation).zoom(8).build();
+                        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                    }
+                });
+
+                try {
+                    latitude = location.getLatitude();
+                    longitude = location.getLongitude();
+                }catch (Exception e){
+                    try {
+                        latitude = googleMap.getMyLocation().getLatitude();
+                        longitude = googleMap.getMyLocation().getLongitude();
+                    }catch (Exception ex){
+                        latitude = 55.753392;
+                        longitude = 37.626553;
+                    }
+
+                }
 
                 markerLocation = googleMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(latitude, longitude))
-                        .title("set marker for task" + latitude + "  " + longitude));
+                        .position(new LatLng(latitude, longitude)));
 
                 markerLocation.setDraggable(true);
+
 
 
                 googleMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
@@ -223,17 +251,7 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
                     }
                 });
 
-                googleMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
-                    @Override
-                    public void onMyLocationChange(Location location) {
-                        // For dropping a marker at a point on the Map
-                        myLocation = new LatLng(location.getLatitude(), location.getLongitude());
 
-                        // For zooming automatically to the location of the marker
-                        CameraPosition cameraPosition = new CameraPosition.Builder().target(myLocation).zoom(12).build();
-                        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-                    }
-                });
             }
         });
 
@@ -247,7 +265,7 @@ public class AddTaskFragment extends android.support.v4.app.Fragment{
 
                try{
                    if (pointUser > 0 && pointUser > Integer.parseInt(mPointsTask.getText().toString()) &&
-                           Integer.parseInt(mPointsTask.getText().toString()) >= 0 && Integer.parseInt(mPointsTask.getText().toString()) <= 50000) {
+                           Integer.parseInt(mPointsTask.getText().toString()) > 0 && Integer.parseInt(mPointsTask.getText().toString()) <= 50000) {
 
                        if (!mPointsTask.getText().toString().equals("") && !mTask.getText().toString().equals("") &&
                                !mValueTask.getText().toString().equals("")) {
