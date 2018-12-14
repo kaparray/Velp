@@ -49,7 +49,6 @@ import net.kaparray.velp.utils.FirebaseIntegration;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
 public class MainActivity extends FirebaseIntegration implements NavigationView.OnNavigationItemSelectedListener {
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();

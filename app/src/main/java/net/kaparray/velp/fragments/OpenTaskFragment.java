@@ -524,8 +524,6 @@ public class OpenTaskFragment extends Fragment{
                             mCardGetTask.setVisibility(View.VISIBLE);
                             mCardGetTask.startAnimation(animVisibleCard);
                         }
-                    }else{
-                        Toast.makeText(getContext(),getResources().getString(R.string.youCompleteDemo), Toast.LENGTH_SHORT).show();
                     }
 
 
